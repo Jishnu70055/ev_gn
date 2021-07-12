@@ -173,3 +173,4 @@ user_data_fields = [
 # 	"ev_gn.auth.validate"
 # ]
 
+fixtures = ["Custom Field","Property Setter"] 
