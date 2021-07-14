@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "creation": "2021-07-14 17:02:44.365366",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "supplier",
+  "supplier_site",
+  "supplier_amount",
+  "driver",
+  "customer",
+  "customer_site",
+  "amount",
+  "item",
+  "quantity",
+  "trip",
+  "frc"
+ ],
+ "fields": [
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "supplier_site",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Supplier Site",
+   "options": "Site"
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Driver",
+   "options": "Driver"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "customer_site",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer Site",
+   "options": "Site"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "trip",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Trip"
+  },
+  {
+   "fieldname": "frc",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "FRC",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Customer Amount",
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier_amount",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Supplier Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-07-14 18:20:32.716087",
+ "modified_by": "Administrator",
+ "module": "Ev Gn",
+ "name": "Trip Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
