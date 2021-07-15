@@ -6,7 +6,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "site_name"
+  "site_name",
+  "site_address"
  ],
  "fields": [
   {
@@ -14,11 +15,16 @@
    "fieldtype": "Data",
    "label": "Site Name",
    "unique": 1
+  },
+  {
+   "fieldname": "site_address",
+   "fieldtype": "Small Text",
+   "label": "Site Address "
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-09 19:01:20.108810",
+ "modified": "2021-07-15 18:57:42.148656",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Site",
