@@ -54,31 +54,66 @@ class TripSheet(Document):
 
 
 
-			purchase_invoice = frappe.new_doc("Purchase Invoice")
-			purchase_invoice.update({
-				"doctype":"Purchase Invoice",
-				"supplier":data.supplier,
-				"supplier_site":data.supplier_site,
-				"date":self.date,
-				"total":data.supplier_amount,
-				})
-			purchase_invoice.append("items",{
-				#"doctype":"Sales Invoice Item",
-				"item_code":data.item,
-				"qty":data.supplier_quantity,
-				"rate":data.supplier_rate,
-				"amount":data.supplier_amount,
-				})
-			purchase_invoice.set_missing_values()
-			purchase_invoice.save()
-			purchase_invoice.submit()
-    		# sales_invoice.flags.ignore_permissions = 1
 			
+			if data.multiple_supplier == 0:
+				purchase_invoice = frappe.new_doc("Purchase Invoice")
+				purchase_invoice.update({
+					"doctype":"Purchase Invoice",
+					"supplier":data.supplier,
+					"supplier_site":data.supplier_site,
+					"date":self.date,
+					"total":data.supplier_amount,
+					})
+				purchase_invoice.append("items",{
+					#"doctype":"Sales Invoice Item",
+					"item_code":data.item,
+					"qty":data.supplier_quantity,
+					"rate":data.supplier_rate,
+					"amount":data.supplier_amount,
+					})
+				purchase_invoice.set_missing_values()
+				purchase_invoice.save()
+				purchase_invoice.submit()
+    			# sales_invoice.flags.ignore_permissions = 1
 			
+			else :
+				purchase_invoice = frappe.new_doc("Purchase Invoice")
+				purchase_invoice.update({
+					"doctype":"Purchase Invoice",
+					"supplier":data.supplier,
+					"supplier_site":data.supplier_site,
+					"date":self.date,
+					"total":data.supplier_amount,
+					})
+				purchase_invoice.append("items",{
+					#"doctype":"Sales Invoice Item",
+					"item_code":data.item,
+					"qty":data.supplier_quantity,
+					"rate":data.supplier_rate,
+					"amount":data.supplier_amount,
+					})
+				purchase_invoice.set_missing_values()
+				purchase_invoice.save()
+				purchase_invoice.submit()
 			
-			
-			
-			
+				purchase_invoice = frappe.new_doc("Purchase Invoice")
+				purchase_invoice.update({
+					"doctype":"Purchase Invoice",
+					"supplier":data.supplier_partner,
+					"supplier_site":data.supplier_site,
+					"date":self.date,
+					"total":data.supplier_partner_amount,
+					})
+				purchase_invoice.append("items",{
+					#"doctype":"Sales Invoice Item",
+					"item_code":data.item,
+					"qty":data.supplier_partner_quantity,
+					"rate":data.supplier_partner_rate,
+					"amount":data.supplier_partner_amount,
+					})
+				purchase_invoice.set_missing_values()
+				purchase_invoice.save()
+				purchase_invoice.submit()
 			
 			
 			
@@ -98,7 +133,4 @@ class TripSheet(Document):
 			# purchase_invoice.append('Items',{'item_code':data.item ,'accepted_qty':float(data.supplier_quantity),'rate':float(data.supplier_rate),'amount':float(data.supplier_amount)})
 			# purchase_invoice.set_missing_values()
 			# purchase_invoice.save()
-			
-			
-			
-		
+				    
