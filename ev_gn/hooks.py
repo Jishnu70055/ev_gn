@@ -183,5 +183,6 @@ fixtures = ["Custom Field","Property Setter",
             "filters": {
                         "role": ["in","tripsheet"]
                         }
-            }
+            },
+			{"doctype":"Report"}
             ] 
