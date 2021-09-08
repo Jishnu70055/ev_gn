@@ -175,10 +175,6 @@ user_data_fields = [
 
 fixtures = ["Custom Field","Property Setter",
             {
-            # "doctype": "Role",
-            # "filters": {
-            #                 "name": ["in", "tripsheet"]
-            #                 },
             "doctype": "Custom DocPerm",
             "filters": {
                         "role": ["in","tripsheet"]
