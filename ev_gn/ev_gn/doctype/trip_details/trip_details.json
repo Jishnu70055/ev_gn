@@ -47,7 +47,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Supplier",
-   "options": "Supplier"
+   "options": "Supplier",
+   "reqd": 1
   },
   {
    "fieldname": "supplier_site",
@@ -61,7 +62,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Driver",
-   "options": "Driver"
+   "options": "Driver",
+   "reqd": 1
   },
   {
    "fieldname": "customer",
@@ -82,7 +84,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item",
-   "options": "Item"
+   "options": "Item",
+   "reqd": 1
   },
   {
    "default": "1",
@@ -93,7 +96,7 @@
   },
   {
    "fieldname": "frc",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "FRC"
   },
@@ -114,7 +117,7 @@
   },
   {
    "fieldname": "customer_rate",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Customer Rate"
   },
   {
@@ -141,19 +144,19 @@
   {
    "depends_on": "eval:doc.multiple_supplier",
    "fieldname": "supplier_partner_quantity",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "label": "Supplier Partner Quantity"
   },
   {
    "depends_on": "eval:doc.multiple_supplier",
    "fieldname": "supplier_partner_rate",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Supplier Partner Rate"
   },
   {
    "depends_on": "eval:doc.multiple_supplier",
    "fieldname": "supplier_partner_amount",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Supplier Partner Amount"
   },
   {
@@ -174,13 +177,13 @@
   },
   {
    "fieldname": "customer_quantity",
-   "fieldtype": "Data",
+   "fieldtype": "Int",
    "in_list_view": 1,
    "label": "Customer Quantity"
   },
   {
    "fieldname": "customer_amount",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Customer Amount"
   },
@@ -197,13 +200,14 @@
   },
   {
    "fieldname": "supplier_amount",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Supplier Amount"
   },
   {
    "fieldname": "customer_rate_type",
-   "fieldtype": "Data",
-   "label": "Customer Rate Type"
+   "fieldtype": "Select",
+   "label": "Customer Rate Type",
+   "options": "\nRent\nPercentage"
   },
   {
    "fieldname": "paid_amount",
@@ -212,8 +216,8 @@
   },
   {
    "fieldname": "distance",
-   "fieldtype": "Data",
-   "label": "Distance"
+   "fieldtype": "Int",
+   "label": "Distance (in kms)"
   },
   {
    "fieldname": "column_break_32",
@@ -226,8 +230,8 @@
   },
   {
    "fieldname": "bata_precentage",
-   "fieldtype": "Data",
-   "label": "Bata Precentage"
+   "fieldtype": "Int",
+   "label": "Bata Precentage(%)"
   },
   {
    "default": "0",
@@ -239,7 +243,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-09-14 15:30:28.565612",
+ "modified": "2021-09-14 17:27:27.000103",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Details",
