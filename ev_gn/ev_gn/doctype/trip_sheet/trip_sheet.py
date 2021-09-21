@@ -61,10 +61,10 @@ def create_purchase_invoice_partner(self, data):
 	purchase_invoice.submit()
 	return purchase_invoice
 
-def create_payment_entry(self, data, sales_invoice, amount):
+def create_payment_entry(self, data, sales_invoice, amount, mode):
 	payment_entry = frappe.get_doc({
 		"doctype": "Payment Entry",
-		"mode_of_payment": "Cash",
+		"mode_of_payment": mode,
 		"party_type": "Customer",
 		"party": data.customer,
 		"paid_to": "Cash - EJ",
@@ -91,7 +91,8 @@ class TripSheet(Document):
 				purchase_invoice_partner = create_purchase_invoice_partner(self, data)
 			if data.paid_amount:
 				amount_paid = data.paid_amount
-				payment_entry = create_payment_entry(self, data, sales_invoice.name, amount_paid)
+				payment_mode = data.payment_method
+				payment_entry = create_payment_entry(self, data, sales_invoice.name, amount_paid, payment_mode)
 			# if data.gst == 1:
 			# 	company = "gst_company"
 			# else:

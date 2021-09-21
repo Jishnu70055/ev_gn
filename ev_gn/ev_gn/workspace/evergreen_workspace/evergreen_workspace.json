@@ -1,0 +1,31 @@
+{
+ "category": "Modules",
+ "charts": [],
+ "creation": "2021-09-17 14:16:59.442402",
+ "developer_mode_only": 1,
+ "disable_user_customization": 0,
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "extends_another_page": 0,
+ "hide_custom": 0,
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "Evergreen Workspace",
+ "links": [],
+ "modified": "2021-09-17 14:18:25.191415",
+ "modified_by": "Administrator",
+ "module": "Ev Gn",
+ "name": "Evergreen Workspace",
+ "owner": "Administrator",
+ "pin_to_bottom": 0,
+ "pin_to_top": 1,
+ "shortcuts": [
+  {
+   "doc_view": "List",
+   "label": "Trip Details",
+   "link_to": "Trip Sheet",
+   "type": "DocType"
+  }
+ ]
+}

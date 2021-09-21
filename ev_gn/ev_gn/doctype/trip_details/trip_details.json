@@ -27,11 +27,12 @@
   "customer",
   "customer_rate_type",
   "customer_quantity",
+  "paid_amount",
   "column_break_14",
   "customer_site",
   "customer_rate",
   "customer_amount",
-  "paid_amount",
+  "payment_method",
   "section_break_15",
   "trip",
   "frc",
@@ -238,12 +239,18 @@
    "fieldname": "gst",
    "fieldtype": "Check",
    "label": "GST"
+  },
+  {
+   "fieldname": "payment_method",
+   "fieldtype": "Select",
+   "label": "Payment Method",
+   "options": "\nBank\nCash"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-09-14 17:27:27.000103",
+ "modified": "2021-09-20 14:21:25.565676",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Details",
