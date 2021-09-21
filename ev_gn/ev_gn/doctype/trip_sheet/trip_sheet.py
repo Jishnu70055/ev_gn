@@ -87,12 +87,12 @@ class TripSheet(Document):
 			for i in range(data.trip):
 				sales_invoice = create_sales_invoice(self, data)
 				purchase_invoice = create_purchase_invoice(self, data)
-			if data.multiple_supplier == 1:
-				purchase_invoice_partner = create_purchase_invoice_partner(self, data)
-			if data.paid_amount:
-				amount_paid = data.paid_amount
-				payment_mode = data.payment_method
-				payment_entry = create_payment_entry(self, data, sales_invoice.name, amount_paid, payment_mode)
+				if data.multiple_supplier == 1:
+					purchase_invoice_partner = create_purchase_invoice_partner(self, data)
+				if data.paid_amount:
+					amount_paid = data.paid_amount
+					payment_mode = data.payment_method
+					payment_entry = create_payment_entry(self, data, sales_invoice.name, amount_paid, payment_mode)
 			# if data.gst == 1:
 			# 	company = "gst_company"
 			# else:

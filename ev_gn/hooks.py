@@ -173,7 +173,7 @@ user_data_fields = [
 # 	"ev_gn.auth.validate"
 # ]
 
-fixtures = ["Custom Field","Property Setter",
+fixtures = ["Custom Field","Client Script","Property Setter",
             {
             "doctype": "Custom DocPerm",
             "filters": {

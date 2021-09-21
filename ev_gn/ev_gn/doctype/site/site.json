@@ -7,7 +7,10 @@
  "engine": "InnoDB",
  "field_order": [
   "site_name",
-  "site_address"
+  "site_address",
+  "owner_type",
+  "supplier_owner",
+  "customer_owner"
  ],
  "fields": [
   {
@@ -20,11 +23,31 @@
    "fieldname": "site_address",
    "fieldtype": "Small Text",
    "label": "Site Address "
+  },
+  {
+   "fieldname": "owner_type",
+   "fieldtype": "Select",
+   "label": "Owner Type",
+   "options": "Supplier\nCustomer"
+  },
+  {
+   "depends_on": "eval: doc.owner_type == \"Supplier\";",
+   "fieldname": "supplier_owner",
+   "fieldtype": "Link",
+   "label": "Owner",
+   "options": "Supplier"
+  },
+  {
+   "depends_on": "eval: doc.owner_type == \"Customer\";",
+   "fieldname": "customer_owner",
+   "fieldtype": "Link",
+   "label": "Owner",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-07-15 18:57:42.148656",
+ "modified": "2021-09-21 14:07:44.170653",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Site",

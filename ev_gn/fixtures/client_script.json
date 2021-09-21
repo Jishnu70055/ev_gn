@@ -1,0 +1,15 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Trip Sheet",
+  "enabled": 1,
+  "modified": "2021-09-16 17:44:50.177054",
+  "name": "Trip Sheet-Form",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on(\"Trip Details\", \"supplier_rate\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_amount\", row.supplier_quantity * row.supplier_rate);\n});\n\nfrappe.ui.form.on(\"Trip Details\", \"supplier_quantity\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_amount\", row.supplier_quantity * row.supplier_rate);\n});\n\nfrappe.ui.form.on(\"Trip Details\", \"supplier_partner_rate\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_partner_amount\", row.supplier_partner_quantity * row.supplier_partner_rate);\n});\n\nfrappe.ui.form.on(\"Trip Details\", \"supplier_partner_quantity\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_partner_amount\", row.supplier_partner_quantity * row.supplier_partner_rate);\n});",
+  "view": "Form"
+ }
+]
