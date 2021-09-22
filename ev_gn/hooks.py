@@ -97,6 +97,12 @@ app_license = "MIT"
 #	}
 # }
 
+doc_events = {
+	"Driver": {
+		"validate": "ev_gn.ev_gn.hook_codes.create_employee.create"
+	}
+}
+
 # Scheduled Tasks
 # ---------------
 

@@ -18,7 +18,7 @@ def create_sales_invoice(self, data):
 	sales_invoice.append("items",{
 		"item_code":data.item,
 		"qty":data.customer_quantity,
-		"stock_uom":'Nos',
+		"uom": data.supplier_unit,
 		"rate":data.customer_rate,
 		"amount":data.customer_amount,
 		})
@@ -81,18 +81,45 @@ def create_payment_entry(self, data, sales_invoice, amount, mode):
 	payment_entry.submit()
 	return payment_entry
 
+def expense_claim(bata_amount, emp):
+	expense_claim = frappe.get_doc({
+		'doctype': 'Expense Claim',
+		'employee': emp,
+		'expense_approver': 'raheeb@tridz.com',   #change this hardcoded value
+		'payable_account': 'Creditors - EJ',
+		# 'expenses': {
+		# 	'amount': bata_amount,
+		# 	'sanctioned_amount': bata_amount
+		# }
+	})
+
+	expense_claim.append("expenses", {
+		"amount": bata_amount
+	})
+
+	expense_claim.insert()
+	expense_claim.submit()
+
 class TripSheet(Document):
 	def before_submit(self):
-		for data in self.trip_details:
-			for i in range(data.trip):
-				sales_invoice = create_sales_invoice(self, data)
-				purchase_invoice = create_purchase_invoice(self, data)
-				if data.multiple_supplier == 1:
+		for data in self.trip_details:																		#looping through childtable rows
+			driver = data.driver
+			emp = frappe.db.get_value("Driver", {"name": driver}, ['employee'])
+			for i in range(data.trip):																		#code executes to the number of trips taken
+				sales_invoice = create_sales_invoice(self, data)											
+				purchase_invoice = create_purchase_invoice(self, data)										
+				if data.multiple_supplier == 1:																#creating a second supplier for special case
 					purchase_invoice_partner = create_purchase_invoice_partner(self, data)
-				if data.paid_amount:
+				if data.paid_amount:																		#create payment entry if partial or full payment is made
 					amount_paid = data.paid_amount
 					payment_mode = data.payment_method
 					payment_entry = create_payment_entry(self, data, sales_invoice.name, amount_paid, payment_mode)
+				if data.bata_rate:
+					bata_amount = data.bata_rate
+					expense = expense_claim(bata_amount, emp)
+					
+					
+					
 			# if data.gst == 1:
 			# 	company = "gst_company"
 			# else:

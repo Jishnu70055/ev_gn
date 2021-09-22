@@ -14,7 +14,7 @@
  "is_standard": 1,
  "label": "Evergreen App",
  "links": [],
- "modified": "2021-09-21 16:24:21.088130",
+ "modified": "2021-09-22 10:13:16.270877",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Evergreen App",
@@ -44,6 +44,18 @@
    "doc_view": "List",
    "label": "Vehicle",
    "link_to": "Vehicle",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Supplier",
+   "link_to": "Supplier",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Customer",
+   "link_to": "Customer",
    "type": "DocType"
   }
  ]
