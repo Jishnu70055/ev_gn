@@ -18,7 +18,7 @@ def create_sales_invoice(self, data):
 	sales_invoice.append("items",{
 		"item_code":data.item,
 		"qty":data.customer_quantity,
-		"uom": data.supplier_unit,
+		"uom": data.uom,
 		"rate":data.customer_rate,
 		"amount":data.customer_amount,
 		})
@@ -38,7 +38,7 @@ def create_purchase_invoice(self, data):
 		"qty":data.supplier_quantity,
 		"rate":data.supplier_rate,
 		"amount":data.supplier_amount,
-		"uom": data.supplier_unit
+		"uom": data.uom
 		})
 	purchase_invoice.submit()
 	return purchase_invoice
@@ -56,7 +56,7 @@ def create_purchase_invoice_partner(self, data):
 		"qty":data.supplier_partner_quantity,
 		"rate":data.supplier_partner_rate,
 		"amount":data.supplier_partner_amount,
-		"uom": data.supplier_unit
+		"uom": data.uom
 		})
 	purchase_invoice.submit()
 	return purchase_invoice

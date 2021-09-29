@@ -8,10 +8,10 @@
   "driver",
   "column_break_2",
   "item",
+  "uom",
   "section_break_3",
   "supplier",
   "supplier_rate",
-  "supplier_unit",
   "column_break_8",
   "supplier_site",
   "supplier_quantity",
@@ -34,6 +34,7 @@
   "customer_amount",
   "payment_method",
   "section_break_15",
+  "total",
   "trip",
   "frc",
   "gst",
@@ -42,7 +43,8 @@
   "column_break_32",
   "bata_rate",
   "bata_precentage",
-  "distance"
+  "distance",
+  "net_total"
  ],
  "fields": [
   {
@@ -119,6 +121,7 @@
    "label": "Customer Details"
   },
   {
+   "depends_on": "eval: doc.customer_rate_type == \"Rate\";",
    "fieldname": "customer_rate",
    "fieldtype": "Float",
    "label": "Customer Rate"
@@ -149,7 +152,7 @@
    "fieldname": "supplier_partner_quantity",
    "fieldtype": "Int",
    "label": "Supplier Partner Quantity",
-   "reqd": 1
+   "mandatory_depends_on": "eval: doc.multiple_supplier == 1;"
   },
   {
    "depends_on": "eval:doc.multiple_supplier",
@@ -193,12 +196,6 @@
    "label": "Customer Amount"
   },
   {
-   "fieldname": "supplier_unit",
-   "fieldtype": "Link",
-   "label": "Supplier Unit",
-   "options": "UOM"
-  },
-  {
    "fieldname": "supplier_quantity",
    "fieldtype": "Int",
    "label": "Supplier Quantity",
@@ -213,7 +210,7 @@
    "fieldname": "customer_rate_type",
    "fieldtype": "Select",
    "label": "Customer Rate Type",
-   "options": "\nRent\nPercentage"
+   "options": "\nRent\nRate"
   },
   {
    "fieldname": "paid_amount",
@@ -261,12 +258,28 @@
    "fieldname": "net_frc",
    "fieldtype": "Currency",
    "label": "Net FRC"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "Unit of Measurement",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total"
+  },
+  {
+   "fieldname": "net_total",
+   "fieldtype": "Currency",
+   "label": "Net Total"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-09-21 16:35:52.274382",
+ "modified": "2021-09-27 15:45:04.925292",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Details",

@@ -34,20 +34,20 @@
    "depends_on": "eval: doc.owner_type == \"Supplier\";",
    "fieldname": "supplier_owner",
    "fieldtype": "Link",
-   "label": "Owner",
+   "label": "Supplier Name",
    "options": "Supplier"
   },
   {
    "depends_on": "eval: doc.owner_type == \"Customer\";",
    "fieldname": "customer_owner",
    "fieldtype": "Link",
-   "label": "Owner",
+   "label": "Customer Name",
    "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-21 14:07:44.170653",
+ "modified": "2021-09-23 18:42:12.346973",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Site",

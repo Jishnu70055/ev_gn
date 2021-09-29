@@ -11,7 +11,8 @@
   "date",
   "section_break_4",
   "trip_details",
-  "amended_from"
+  "amended_from",
+  "total"
  ],
  "fields": [
   {
@@ -52,12 +53,18 @@
    "options": "Trip Sheet",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-07-16 10:29:03.043556",
+ "modified": "2021-09-24 12:00:12.986128",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Sheet",
