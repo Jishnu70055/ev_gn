@@ -1,208 +1,187 @@
 frappe.pages['daily-trip'].on_page_load = function(wrapper) {
-	var page = frappe.ui.make_app_page({
-		parent: wrapper,
-		title: 'None',
-		single_column: true
-	});
-	// $(frappe.render_template("daily_trip", {}).appendTo(page.main))
-	$(frappe.render_template("daily_trip")).appendTo(page.main);
+        
+    var page = frappe.ui.make_app_page({
+        parent: wrapper,
+        title: 'Trip Page',
+        single_column: true
+    });
 
-	$(document).ready(function()
-    {
-        const createdCell = function(cell) 
-        {
-            let original
-            cell.setAttribute('contenteditable', true)
+    // Append required html template for the table initialisation
+    $(frappe.render_template("daily_trip")).appendTo(page.main);
+
+    // An object of libararies to be loaded to this page
+    let js_libs = {
+        "jquery_ui": "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js",
+        "jquery_datatable": "https://cdn.datatables.net/v/dt/dt-1.11.0/datatables.min.js",
+        "jquery_auto" : "https://unpkg.com/contenteditable-autocomplete@1.0.2/dist/contenteditable-autocomplete.js",
+        "css_auto" : "https://unpkg.com/contenteditable-autocomplete@1.0.2/dist/contenteditable-autocomplete.css",
+        "css_datatable": "https://cdn.datatables.net/v/dt/dt-1.11.0/datatables.min.css"
+    };
+
+
+
+    // Decalre required variables
+    let table //used for creating datatable 
+    let rows //used for storing rows empty array
+    let col_count = 22  //The count of empty arrays to be created
+
+    // Load Jquery UI using Jquery getScript function.
+    $.getScript(js_libs.jquery_ui)
+        // Done is a chained with multiple function called
+        // one after the other.
+        .done(function(script, textStatus) {
+
+            console.log("ui loaded")
+                //On success load the datatable jquery plugin using getScript function
+                //This is only executed if previous call was a success
+            $.getScript(js_libs.jquery_datatable)
+                .done(
+                    //First function in done
+                    function(script, textStatus) {
+                    console.log("table loaded")
+
+                    //On success load the CSS for datatable.
+                    //CODE TO BE ADDED
+
+                    //Binding for Add Row event
+                    $('#addRow').on('click', function() {
+                        rows = [];
+                        
+                        //Array for adding row
+                        for (i = 1; i <= col_count; i++) {
+                            rows.push("");
             
-            cell.setAttribute('spellcheck', false)
-            cell.setAttribute('class', "cell")
-
-
-            cell.addEventListener('focus', function(e) 
-            {
-                original = e.target.textContent
-            })
+                        }
             
-        }
+                        table.row.add(rows).draw(true);
+                    });
+
+                    //Cell for table creation     
+                    const createdCell = function(cell) {
+                        let original
+                        cell.setAttribute('contenteditable', true)
+
+                        cell.setAttribute('spellcheck', false)
+                        cell.setAttribute('class', "cell")
+
+
+                        cell.addEventListener('focus', function(e) {
+                            original = e.target.textContent
+                        })
+                    }
+                    
+                    //Init DataTable
+                    table = $('#myTable').DataTable({
+                        searching: false, 
+                        paging: false, 
+                        info: false,
+                        stateSave: true,
+                        columnDefs: [{
+                            targets: '_all',
+                            createdCell: createdCell
+                        }],
+                        "order": [
+                            [1, "desc"]
+                        ]
+                    })
+                    
+           
 
 
 
-        let table = $('#myTable').DataTable(
-        {
-            stateSave: true,
-            columnDefs: [
-            { 
-                targets: '_all',
-                createdCell: createdCell
-            }],
-            "order": [[ 1, "desc" ]]
-        }) 
+                },
+                // Second function in done
+                function(e) {
+                    rows = []
+                    
+                    //Array for adding row
+                    for (i = 1; i <= col_count; i++) {
+                        rows.push("");
+        
+                    }
+                                            
+                    $('#myTable').DataTable().row.add(rows).draw(true)
+
+                    $("#body").find("tbody").on('click', 'td', function (e) 
+                    {
+                        // console.log(this.rowIndex);
+                        //console.log(this.innerText);
+                        
+                        //Get value of TD                                 
+                        // console.log(e.target.innerHTML);
+                        console.log(this.innerHTML)
+
+                        console.log("clicked TD")
+                    });
+
+                    //         //keyup
+                    $("#body").find("tbody").on('blur', 'td', function (e) 
+                    {
 
 
- 
-        $('#addRow').on( 'click', function () 
-        {
-            let rows = [];
+                        var cell = $('#myTable').DataTable().cell(this)
+                        cell.data(this.innerText).draw()
+                        // this.focus();
+                        //console.log("ok")
+                        // // console.log("blur",this.innerText);
+                        console.log($("#myTable").dataTable().api().row().data())
+                        // console.log("blurred");
 
-            for (i=1;i<=22; i++ ){
-                 rows.push("");
+                    })
+                    
+                },
+                // Third function in done (not used)
+                function(e) {
+                    console.log("3");
+                    
+                    //Add Css for DataTable
+                    $.ajax({
+                        dataType: "text",
+                        url: js_libs.css_datatable,
+                    }).done( function(text){
+                        $("<style>").html(text).appendTo("head");
+                    } );
 
-            }
+                    //Add Css for Auto Suggest
+                    $.ajax({
+                        dataType: "text",
+                        url: js_libs.css_auto,
+                    }).done( function(text){
+                        $("<style>").html(text).appendTo("head");
+                    } );
+                    
+                })
+                .fail(function(jqxhr, settings, exception) {
+                    $("div.log").text("Triggered ajaxError handler.")
+                });
 
-            table.row.add(rows).draw( true );
+        })
+        .fail(function(jqxhr, settings, exception) {
+            $("div.log").text("Triggered ajaxError handler.")
         });
-        $('#addRow').click();
 
-
+        // Get data from DataTable
         $('#getData').on( 'click', function () 
         {
             // $table_data = table.rows().data();
-            $table_data = $('#myTable').DataTable().rows().data().toArray();
-            
+            $table_data = $('#myTable').DataTable().rows().data().toArray()             
             console.log($table_data)
-            
+            // json_data = JSON.stringify($table_data);
+            // console.log(json_data)
+            frappe.call({
+                method: "ev_gn.post_trip_data.post_data",
+                args: {row_array: $table_data}
+                // callback: function(r)
+                // {
+                //     frappe.throw(r.message)
+                // }
+            })
+
         });
 
+        
+        
 
-        $("#myTable").dataTable().find("tbody").on('click', 'td', function () 
-        {
-            // console.log(this.rowIndex);
-            //console.log(this.innerText)
-        });
-
-
-        // var before;
-        // $('#myTable .cell').on('focus', function() 
-        $("#myTable").dataTable().find("tbody").on('focus', 'td', function () 
-        {
-
-            //console.log("focused");
-            // console.log("data", this);
-            console.log("focused",this.innerText);
-            // console.log(before);
-        });
-
-        //keyup
-        $("#myTable").dataTable().find("tbody").on('blur', 'td', function () 
-        {
-            
-
-            var cell = table.cell(this);
-            cell.data(this.innerText).draw();
-            // this.focus();
-            //console.log("ok")
-            // // console.log("blur",this.innerText);
-            console.log($("#myTable").dataTable().api().row().data());
-            // console.log("blurred");
-
-        })
-
-    $('#editor').on('change', function() {alert('changed')});
-
-
-    var tags = [
-        'Alaska',
-        'Asia / Far East',
-        'Baltic Capitals / Northern Europe',
-        'Canary Islands',
-        'Caribbean',
-        'Cruise from Ireland',
-        'Dubai &amp; The Emirates',
-        'Grand Voyages / Repositioning Cruises',
-        'Mediterranean',
-        'Northern Lights',
-        'Norwegian Fjords',
-        'South America',
-        'Transatlantic',
-        'UK &amp; Ireland',
-    ];
-
-    var startTyping = "Start typing...";
-
-        function placeCaretAtEnd(el) {
-        el.focus();
-        if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
-            var range = document.createRange();
-            range.selectNodeContents(el);
-            range.collapse(false);
-            var sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
-        } else if (typeof document.body.createTextRange != "undefined") {
-            var textRange = document.body.createTextRange();
-            textRange.moveToElementText(el);
-            textRange.collapse(false);
-            textRange.select();
-        }
-    }
-
-    
-    //User starts typing
-    // $("td").bind("keydown", function(event) {
-
-    $("#myTable").on("keydown", "td", function (event) {
-        console.log("edutho?")
-
-    if (event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active) {
-
-
-    event.preventDefault();
-    }
-
-    this.addClass('autocomplete');
-    console.log("this?",this)
-
-
-    }).autocomplete({        
-    minLength: 0,
-    source: function(request, response) {
-                console.log("started")
-
-    //The API CALL FOR ACTUAL DATA GOES HERE.
-    //THIS SHOULD RETURN A ARRAY.
-    //If empty should return empty array
-
-    results = ["item1","item2"]; 
-    response(results);
-    },
-
-
-
-
-    focus: function() {
-    return false;
-    },
-    select: function(event, ui) {
-    if (ui.item.value !== startTyping) {
-      var value = $(this).html();
-      // var terms = [value];
-      // terms.pop();
-      // terms.push(ui.item.value);
-      // $(this).html(terms);
-      // placeCaretAtEnd(this);
-      console.log([value]);
-    }
-    return false;
-    }
-    }).data("ui-autocomplete")._renderItem = function(ul, item) {
-    if (item.label != startTyping) {
-    return $("<li></li>")
-      .data("item.autocomplete", item)
-      .append("<a><div>" + item.label + "</div></div></a>")
-      .appendTo(ul);
-    } else {
-    return $("<li></li>")
-      .data("item.autocomplete", item)
-      .append("<a>" + item.label + "</a>")
-      .appendTo(ul);
-    }
-    };
-
-    });
 
 
 }
-
-// ev_gn/ev_gn/ev_gn/page/daily_trip/daily_trip.html
-
-// frappe-bench/apps/ev_gn/ev_gn/ev_gn/page/daily_trip/daily_trip.html
