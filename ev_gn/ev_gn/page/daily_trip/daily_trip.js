@@ -23,7 +23,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
     // Decalre required variables
     let table //used for creating datatable 
     let rows //used for storing rows empty array
-    let col_count = 22  //The count of empty arrays to be created
+    let col_count = 29  //The count of empty arrays to be created
 
     // Load Jquery UI using Jquery getScript function.
     $.getScript(js_libs.jquery_ui)
