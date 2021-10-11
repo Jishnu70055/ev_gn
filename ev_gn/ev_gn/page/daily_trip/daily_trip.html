@@ -20,8 +20,16 @@
 </head>
 <body>
 
-<button id="addRow">Add new row</button>
-<button id="getData">Get Data</button>
+<!-- <button id="addRow" class="btn btn-outline-primary">Add Row</button> -->
+<button id="getData" class="btn btn-primary float-right">Save</button>
+<br><br><br>
+<div id="form">
+<form>
+    Vehicle: <select name="vehicle" id="vehicle"></select>
+    Date: <input type="date" name="date" id="date">
+</form> 
+</div>
+
 <table id="myTable" class="display" style="width:100%">
     <thead>
         <tr>
@@ -56,7 +64,7 @@
             <th>Net Total</th>
         </tr>
     </thead>
-    <tfoot>
+    <!-- <tfoot>
         <tr>
             <th>Driver</th>
             <th>Item</th>
@@ -88,8 +96,10 @@
             <th>Net FRC</th>
             <th>Net Total</th>
         </tr>
-    </tfoot>
+    </tfoot> -->
 </table>
+<br>
+<button id="addRow" class="btn btn-outline-primary">Add Row</button>
 
 </body>
 </html>

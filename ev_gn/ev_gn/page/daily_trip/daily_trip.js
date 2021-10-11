@@ -32,6 +32,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         .done(function(script, textStatus) {
 
             console.log("ui loaded")
+            
                 //On success load the datatable jquery plugin using getScript function
                 //This is only executed if previous call was a success
             $.getScript(js_libs.jquery_datatable)
@@ -44,7 +45,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                     //CODE TO BE ADDED
 
                     //Binding for Add Row event
-                    $('#addRow').on('click', function() {
+                    function row_add() {
                         rows = [];
                         
                         //Array for adding row
@@ -54,6 +55,26 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                         }
             
                         table.row.add(rows).draw(true);
+                    };
+                    $('#addRow').on('click', function add_row() {
+                        rows = [];
+                        
+                        //Array for adding row
+                        for (i = 1; i <= col_count; i++) {
+                            rows.push("");
+            
+                        }
+            
+                        table.row.add(rows).draw(true);
+                    });
+
+                    //creating new row on entering press inside the table
+                    $("#myTable").keypress(function(event) {
+                        if (event.keyCode === 13) 
+                        {
+                            row_add()
+
+                        }
                     });
 
                     //Cell for table creation     
@@ -80,14 +101,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                             targets: '_all',
                             createdCell: createdCell
                         }],
-                        "order": [
-                            [1, "desc"]
-                        ]
+                        "ordering": false   //sorting removed
                     })
-                    
-           
-
-
 
                 },
                 // Second function in done
@@ -116,9 +131,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                     //         //keyup
                     $("#body").find("tbody").on('blur', 'td', function (e) 
-                    {
-
-
+                    {   
                         var cell = $('#myTable').DataTable().cell(this)
                         cell.data(this.innerText).draw()
                         // this.focus();
@@ -160,6 +173,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
             $("div.log").text("Triggered ajaxError handler.")
         });
 
+        
+
         // Get data from DataTable
         $('#getData').on( 'click', function () 
         {
@@ -179,9 +194,31 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
         });
 
+        // Autoselect Data
+
+        // customer_list = frappe.db.get_list('Customer');
+        // driver_list = frappe.db.get_list('Driver');
+        // item_list = frappe.db.get_list('Item');
+        // supplier_list = frappe.db.get_list('Site');
+        // supplier_partner_list = frappe.db.get_list('Supplier');
+        // customer = frappe.db.get_list('Customer');
+        // customer_site = frappe.db.get_list('Site');
+        // console.log(customer_list)    
         
-        
+        var elmts = ["Etios", "Innova", "Cressida", "Corolla", "Camry"];
+        var select = document.getElementById("vehicle");
 
-
-
+        function create_vehicle_list() {
+            for (var i = 0; i < elmts.length; i++) {
+                var optn = elmts[i];
+                var el = document.createElement("option");
+                el.textContent = optn;
+                el.value = optn;
+                select.appendChild(el);
+                console.log(el)
+            }
+            // down.innerHTML = "Elements Added";
+            console.log("clicked");
+        }
+        create_vehicle_list()
 }

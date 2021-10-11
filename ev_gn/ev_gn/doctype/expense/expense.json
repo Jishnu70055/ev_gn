@@ -1,6 +1,6 @@
 {
  "actions": [],
- "creation": "2021-10-06 13:10:29.088461",
+ "creation": "2021-10-07 14:54:33.190612",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -8,6 +8,7 @@
   "expense_type",
   "vehicle",
   "amount",
+  "amended_from",
   "amended_from"
  ],
  "fields": [
@@ -36,15 +37,24 @@
    "options": "Expenses",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Expense",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-10-06 13:10:29.088461",
+ "modified": "2021-10-07 14:54:33.190612",
  "modified_by": "Administrator",
  "module": "Ev Gn",
- "name": "Expenses",
+ "name": "Expense",
  "owner": "Administrator",
  "permissions": [
   {
