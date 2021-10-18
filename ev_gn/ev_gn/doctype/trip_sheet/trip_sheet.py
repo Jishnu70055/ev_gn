@@ -14,6 +14,7 @@ def create_sales_invoice(self, data):
 		"delivery_date":self.date,
 		"customer_group":'All Customer Groups',
 		"outstanding_amount":data.customer_amount,
+		"vehicle": self.vehicle
 		})
 	sales_invoice.append("items",{
 		"item_code":data.item,
@@ -81,33 +82,62 @@ def create_payment_entry(self, data, sales_invoice, amount, mode):
 	payment_entry.submit()
 	return payment_entry
 
-def expense_claim(bata_amount, emp):
-	expense_claim = frappe.get_doc({
-		'doctype': 'Expense Claim',
-		'employee': emp,
-		'expense_approver': 'raheeb@tridz.com',   #change this hardcoded value
-		'payable_account': 'Creditors - EJ',
-		# 'expenses': {
-		# 	'amount': bata_amount,
-		# 	'sanctioned_amount': bata_amount
-		# }
+def create_expense(bata_amount, data, self):
+	expense = frappe.get_doc({
+		"doctype": "Expense",
+		"expense_type": "Driver Bata",
+		"driver": data.driver,
+		"vehicle": data.vehicle,
+		"data": self.date,
+		"amount": data.amount
+	})
+	expense.insert()
+	expense.submit()
+
+def create_frc(self, data):
+	frc = frappe.get_doc({
+		"doctype": "FRC",
+		"vehicle": self.vehicle,
+		"amount": data.net_frc,
+		"date": self.date
 	})
 
-	expense_claim.append("expenses", {
-		"amount": bata_amount
-	})
+# def expense_claim(bata_amount, emp):
+# 	expense_claim = frappe.get_doc({
+# 		'doctype': 'Expense Claim',
+# 		'employee': emp,
+# 		'expense_approver': 'raheeb@tridz.com',   #change this hardcoded value
+# 		'payable_account': 'Creditors - EJ',
+# 		# 'expenses': {
+# 		# 	'amount': bata_amount,
+# 		# 	'sanctioned_amount': bata_amount
+# 		# }
+# 	})
 
-	expense_claim.insert()
-	expense_claim.submit()
+	# expense_claim.append("expenses", {
+	# 	"amount": bata_amount
+	# })
+
+	# expense_claim.insert()
+	# expense_claim.submit()
 
 class TripSheet(Document):
+	# calculating total balance of vehicle
+	def validate(self):
+		self.total = 0
+		for row in self.trip_details:
+			self.total = self.total + row.net_total
+		
+		
+
 	def before_submit(self):
 		for data in self.trip_details:																		#looping through childtable rows
 			driver = data.driver
 			emp = frappe.db.get_value("Driver", {"name": driver}, ['employee'])
 			for i in range(data.trip):																		#code executes to the number of trips taken
 				sales_invoice = create_sales_invoice(self, data)											
-				purchase_invoice = create_purchase_invoice(self, data)										
+				purchase_invoice = create_purchase_invoice(self, data)	
+				create_frc(self, data)									
 				if data.multiple_supplier == 1:																#creating a second supplier for special case
 					purchase_invoice_partner = create_purchase_invoice_partner(self, data)
 				if data.paid_amount:																		#create payment entry if partial or full payment is made
@@ -116,7 +146,8 @@ class TripSheet(Document):
 					payment_entry = create_payment_entry(self, data, sales_invoice.name, amount_paid, payment_mode)
 				if data.bata_rate:
 					bata_amount = data.bata_rate
-					expense = expense_claim(bata_amount, emp)
+					# expense = expense_claim(bata_amount, emp)
+					expense = create_expense(bata_amount, data, self)
 					
 					
 					

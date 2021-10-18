@@ -99,8 +99,14 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                         stateSave: true,
                         columnDefs: [{
                             targets: '_all',
-                            createdCell: createdCell
+                            createdCell: createdCell,
+                            className: 'select-checkbox',
+                            // targets: 0  
                         }],
+                        select: {
+                            style: 'os',
+                            selector: 'td:first-child',
+                        },
                         "ordering": false   //sorting removed
                     })
 
@@ -175,7 +181,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
         
 
-        // Get data from DataTable
+        // Post data from DataTable to backend
         $('#getData').on( 'click', function () 
         {
             // $table_data = table.rows().data();
@@ -205,6 +211,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         // customer_site = frappe.db.get_list('Site');
         // console.log(customer_list)    
         
+        // Creating drop down list funtion
         var elmts = ["Etios", "Innova", "Cressida", "Corolla", "Camry"];
         var select = document.getElementById("vehicle");
 
@@ -221,4 +228,14 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
             console.log("clicked");
         }
         create_vehicle_list()
+
+        // Select row on clicking it
+        $('#myTable').on( 'click', 'tr', function () {
+            $(this).toggleClass('selected');
+        } );
+
+        $('#deleteRow').click( function () {
+            console.log("Delete Clicked")
+            table.row( $(this).parents('tr') ).remove()
+        } );
 }

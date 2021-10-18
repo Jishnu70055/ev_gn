@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestSitesList(unittest.TestCase):
+class TestFRC(unittest.TestCase):
 	pass

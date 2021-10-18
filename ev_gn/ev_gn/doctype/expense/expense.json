@@ -1,40 +1,61 @@
 {
  "actions": [],
+ "autoname": "format: EXP-{vehicle}-{######}",
  "creation": "2021-10-07 14:54:33.190612",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "expense_type",
+  "driver",
   "vehicle",
-  "amount",
   "amended_from",
-  "amended_from"
+  "column_break_5",
+  "date",
+  "amount"
  ],
  "fields": [
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "expense_type",
    "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Expense Type",
-   "options": "Expense Type"
+   "options": "Expense Type",
+   "reqd": 1
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "vehicle",
    "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Vehicle",
-   "options": "Vehicle"
+   "options": "Vehicle",
+   "search_index": 1
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "amount",
    "fieldtype": "Currency",
-   "label": "Amount"
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Amount",
+   "non_negative": 1,
+   "reqd": 1,
+   "search_index": 1
   },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Expenses",
+   "options": "Expense",
    "print_hide": 1,
    "read_only": 1
   },
@@ -46,12 +67,28 @@
    "options": "Expense",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "depends_on": "eval: doc.expense_type == \"Driver Bata\";",
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Driver",
+   "options": "Driver"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-10-07 14:54:33.190612",
+ "modified": "2021-10-14 12:30:16.789164",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Expense",
@@ -70,7 +107,9 @@
    "write": 1
   }
  ],
+ "search_fields": "vehicle, expense_type",
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "vehicle",
  "track_changes": 1
 }

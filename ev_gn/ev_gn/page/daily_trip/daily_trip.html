@@ -20,17 +20,17 @@
 </head>
 <body>
 
-<!-- <button id="addRow" class="btn btn-outline-primary">Add Row</button> -->
+<a href="http://localhost:8000/app/evergreen-app" target="_blank"><button id="homePage" class="btn btn-primary fa fa-home">Home Page</button></a>
 <button id="getData" class="btn btn-primary float-right">Save</button>
 <br><br><br>
 <div id="form">
-<form>
+<form class="form-group">
     Vehicle: <select name="vehicle" id="vehicle"></select>
     Date: <input type="date" name="date" id="date">
 </form> 
 </div>
 
-<table id="myTable" class="display" style="width:100%">
+<table id="myTable" class="display table-bordered table-hover" style="width:100%">
     <thead>
         <tr>
             <th>Driver</th>
@@ -100,6 +100,7 @@
 </table>
 <br>
 <button id="addRow" class="btn btn-outline-primary">Add Row</button>
+<button id="deleteRow" class="btn btn-danger">Delete</button>
 
 </body>
 </html>

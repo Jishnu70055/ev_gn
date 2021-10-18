@@ -17,6 +17,14 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Evergreen Reports",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
    "label": "Trip Overview",
    "link_to": "Trip Overview",
    "link_type": "Report",
@@ -33,7 +41,7 @@
    "type": "Link"
   }
  ],
- "modified": "2021-09-27 17:41:06.340891",
+ "modified": "2021-10-11 18:22:18.679806",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Evergreen App",
@@ -43,7 +51,13 @@
  "shortcuts": [
   {
    "doc_view": "New",
-   "label": "Add Trip",
+   "label": "Trip Sheet Page",
+   "link_to": "daily-trip",
+   "type": "Page"
+  },
+  {
+   "doc_view": "List",
+   "label": "Trip Document",
    "link_to": "Trip Sheet",
    "type": "DocType"
   },
@@ -88,6 +102,12 @@
    "label": "Record Payment",
    "link_to": "Payment Entry",
    "type": "DocType"
+  },
+  {
+   "doc_view": "Report Builder",
+   "label": "Trip Overview",
+   "link_to": "Trip Overview",
+   "type": "Report"
   }
  ]
 }
