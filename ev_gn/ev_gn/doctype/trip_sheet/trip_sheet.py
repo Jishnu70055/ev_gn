@@ -5,7 +5,7 @@ import frappe
 from frappe.model.document import Document
 
 				
-def create_sales_invoice(self, data):
+def create_sales_invoice(self, data, number_of_trips):
 	sales_invoice = frappe.get_doc({
 		"doctype":"Sales Invoice",
 		"customer":data.customer,
@@ -18,45 +18,45 @@ def create_sales_invoice(self, data):
 		})
 	sales_invoice.append("items",{
 		"item_code":data.item,
-		"qty":data.customer_quantity,
+		"qty": number_of_trips * data.customer_quantity,
 		"uom": data.uom,
-		"rate":data.customer_rate,
-		"amount":data.customer_amount,
+		"rate": number_of_trips * data.customer_rate,
+		"amount":number_of_trips * data.customer_amount,
 		})
 	sales_invoice.submit()
 	return sales_invoice
 
-def create_purchase_invoice(self, data):
+def create_purchase_invoice(self, data, number_of_trips):
 	purchase_invoice = frappe.get_doc({
 		"doctype":"Purchase Invoice",
 		"supplier":data.supplier,
 		"supplier_site":data.supplier_site,
 		"date":self.date,
-		"total":data.supplier_amount
+		"total":number_of_trips * data.supplier_amount
 		})
 	purchase_invoice.append("items",{
 		"item_code":data.item,
-		"qty":data.supplier_quantity,
-		"rate":data.supplier_rate,
-		"amount":data.supplier_amount,
+		"qty":number_of_trips * data.supplier_quantity,
+		"rate":number_of_trips * data.supplier_rate,
+		"amount":number_of_trips * data.supplier_amount,
 		"uom": data.uom
 		})
 	purchase_invoice.submit()
 	return purchase_invoice
 
-def create_purchase_invoice_partner(self, data):
+def create_purchase_invoice_partner(self, data, number_of_trips):
 	purchase_invoice = frappe.get_doc({
 		"doctype":"Purchase Invoice",
 		"supplier":data.supplier_partner,
 		"supplier_site":data.supplier_site,
 		"date":self.date,
-		"total":data.supplier_partner_amount,
+		"total":number_of_trips * data.supplier_partner_amount,
 		})
 	purchase_invoice.append("items",{
 		"item_code":data.item,
-		"qty":data.supplier_partner_quantity,
-		"rate":data.supplier_partner_rate,
-		"amount":data.supplier_partner_amount,
+		"qty":number_of_trips * data.supplier_partner_quantity,
+		"rate":number_of_trips * data.supplier_partner_rate,
+		"amount":number_of_trips * data.supplier_partner_amount,
 		"uom": data.uom
 		})
 	purchase_invoice.submit()
@@ -134,20 +134,20 @@ class TripSheet(Document):
 		for data in self.trip_details:																		#looping through childtable rows
 			driver = data.driver
 			emp = frappe.db.get_value("Driver", {"name": driver}, ['employee'])
-			for i in range(data.trip):																		#code executes to the number of trips taken
-				sales_invoice = create_sales_invoice(self, data)											
-				purchase_invoice = create_purchase_invoice(self, data)	
-				create_frc(self, data)									
-				if data.multiple_supplier == 1:																#creating a second supplier for special case
-					purchase_invoice_partner = create_purchase_invoice_partner(self, data)
-				if data.paid_amount:																		#create payment entry if partial or full payment is made
-					amount_paid = data.paid_amount
-					payment_mode = data.payment_method
-					payment_entry = create_payment_entry(self, data, sales_invoice.name, amount_paid, payment_mode)
-				if data.bata_rate:
-					bata_amount = data.bata_rate
-					# expense = expense_claim(bata_amount, emp)
-					expense = create_expense(bata_amount, data, self)
+			number_of_trips = data.trip																#code executes to the number of trips taken
+			sales_invoice = create_sales_invoice(self, data, number_of_trips)											
+			purchase_invoice = create_purchase_invoice(self, data, number_of_trips)	
+			create_frc(self, data)									
+			if data.multiple_supplier == 1:																#creating a second supplier for special case
+				purchase_invoice_partner = create_purchase_invoice_partner(self, data)
+			if data.paid_amount:																		#create payment entry if partial or full payment is made
+				amount_paid = data.paid_amount
+				payment_mode = data.payment_method
+				payment_entry = create_payment_entry(self, data, sales_invoice.name, amount_paid, payment_mode)
+			if data.bata_rate:
+				bata_amount = data.bata_rate
+				# expense = expense_claim(bata_amount, emp)
+				expense = create_expense(bata_amount, data, self)
 					
 					
 					
