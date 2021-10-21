@@ -69,9 +69,9 @@ def create_expense(bata_amount, data, self):
 		"doctype": "Expense",
 		"expense_type": "Driver Bata",
 		"driver": data.driver,
-		"vehicle": data.vehicle,
+		"vehicle": self.vehicle,
 		"data": self.date,
-		"amount": data.amount
+		"amount": bata_amount
 	})
 	expense.insert()
 	expense.submit()
@@ -83,6 +83,7 @@ def create_frc(self, data):
 		"amount": data.net_frc,
 		"date": self.date
 	})
+	frc.submit()
 
 
 class TripSheet(Document):
@@ -113,7 +114,7 @@ class TripSheet(Document):
 				bata_amount = data.bata_rate
 			elif data.bata_percentage:
 				bata_amount = data.bata_rate
-				expense = create_expense(bata_amount, data, self)
+			expense = create_expense(bata_amount, data, self)
 					
 					
 					
