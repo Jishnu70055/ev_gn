@@ -1,20 +1,19 @@
-# Copyright (c) 2021, sda and contributors
-# For license information, please see license.txt
+# # Copyright (c) 2021, sda and contributors
+# # For license information, please see license.txt
 
 import frappe
 from frappe.model.document import Document
 
 				
-def create_sales_invoice(self, data, number_of_trips):
+def create_sales_invoice(vehicle, date, data, number_of_trips):
 	sales_invoice = frappe.get_doc({
 		"doctype":"Sales Invoice",
 		"customer":data.customer,
-		"customer_site":data.customer_site,
-		"posting_date":self.date,
-		"delivery_date":self.date,
+		"site":data.customer_site,
+		"posting_date": date,
 		"customer_group":'All Customer Groups',
-		"outstanding_amount":data.customer_amount,
-		"vehicle": self.vehicle
+		"no_of_trips": number_of_trips,
+		"vehicle_number": vehicle
 		})
 	sales_invoice.append("items",{
 		"item_code":data.item,
@@ -26,38 +25,21 @@ def create_sales_invoice(self, data, number_of_trips):
 	sales_invoice.submit()
 	return sales_invoice
 
-def create_purchase_invoice(self, data, number_of_trips):
+def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, item, uom):
 	purchase_invoice = frappe.get_doc({
 		"doctype":"Purchase Invoice",
-		"supplier":data.supplier,
-		"supplier_site":data.supplier_site,
-		"date":self.date,
-		"total":number_of_trips * data.supplier_amount
+		"supplier": supplier,
+		"supplier_site": site,
+		"date": date,
+		"total": trip * amount,
+		"no_of_trips": trip
 		})
 	purchase_invoice.append("items",{
-		"item_code":data.item,
-		"qty":number_of_trips * data.supplier_quantity,
-		"rate":number_of_trips * data.supplier_rate,
-		"amount":number_of_trips * data.supplier_amount,
-		"uom": data.uom
-		})
-	purchase_invoice.submit()
-	return purchase_invoice
-
-def create_purchase_invoice_partner(self, data, number_of_trips):
-	purchase_invoice = frappe.get_doc({
-		"doctype":"Purchase Invoice",
-		"supplier":data.supplier_partner,
-		"supplier_site":data.supplier_site,
-		"date":self.date,
-		"total":number_of_trips * data.supplier_partner_amount,
-		})
-	purchase_invoice.append("items",{
-		"item_code":data.item,
-		"qty":number_of_trips * data.supplier_partner_quantity,
-		"rate":number_of_trips * data.supplier_partner_rate,
-		"amount":number_of_trips * data.supplier_partner_amount,
-		"uom": data.uom
+		"item_code": item,
+		"qty":trip * quantity,
+		"rate":trip * rate,
+		"amount":trip * amount,
+		"uom": uom
 		})
 	purchase_invoice.submit()
 	return purchase_invoice
@@ -102,26 +84,9 @@ def create_frc(self, data):
 		"date": self.date
 	})
 
-# def expense_claim(bata_amount, emp):
-# 	expense_claim = frappe.get_doc({
-# 		'doctype': 'Expense Claim',
-# 		'employee': emp,
-# 		'expense_approver': 'raheeb@tridz.com',   #change this hardcoded value
-# 		'payable_account': 'Creditors - EJ',
-# 		# 'expenses': {
-# 		# 	'amount': bata_amount,
-# 		# 	'sanctioned_amount': bata_amount
-# 		# }
-# 	})
-
-	# expense_claim.append("expenses", {
-	# 	"amount": bata_amount
-	# })
-
-	# expense_claim.insert()
-	# expense_claim.submit()
 
 class TripSheet(Document):
+
 	# calculating total balance of vehicle
 	def validate(self):
 		self.total = 0
@@ -131,27 +96,28 @@ class TripSheet(Document):
 		
 
 	def before_submit(self):
-		for data in self.trip_details:																		#looping through childtable rows
+		for data in self.trip_details:																		
 			driver = data.driver
 			emp = frappe.db.get_value("Driver", {"name": driver}, ['employee'])
-			number_of_trips = data.trip																#code executes to the number of trips taken
-			sales_invoice = create_sales_invoice(self, data, number_of_trips)											
-			purchase_invoice = create_purchase_invoice(self, data, number_of_trips)	
-			create_frc(self, data)									
-			if data.multiple_supplier == 1:																#creating a second supplier for special case
-				purchase_invoice_partner = create_purchase_invoice_partner(self, data)
-			if data.paid_amount:																		#create payment entry if partial or full payment is made
+			number_of_trips = data.trip																
+			sales_invoice = create_sales_invoice(self.vehicle, self.date, data, number_of_trips)											
+			purchase_invoice = create_purchase_invoice(data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom)	
+			frc = create_frc(self, data)									
+			if data.multiple_supplier == 1:																
+				purchase_invoice_partner = create_purchase_invoice(data.supplier_partner, data.supplier_site, data.supplier_partner_rate, data.supplier_partner_quantity, data.supplier_partner_amount, data.trip, self.date, data.item, data.uom)
+			if data.paid_amount:															
 				amount_paid = data.paid_amount
 				payment_mode = data.payment_method
 				payment_entry = create_payment_entry(self, data, sales_invoice.name, amount_paid, payment_mode)
 			if data.bata_rate:
 				bata_amount = data.bata_rate
-				# expense = expense_claim(bata_amount, emp)
+			elif data.bata_percentage:
+				bata_amount = data.bata_rate
 				expense = create_expense(bata_amount, data, self)
 					
 					
 					
-			# if data.gst == 1:
-			# 	company = "gst_company"
-			# else:
-			# 	comppany = "company"
+# 			# if data.gst == 1:
+# 			# 	company = "gst_company"
+# 			# else:
+# 			# 	comppany = "company"

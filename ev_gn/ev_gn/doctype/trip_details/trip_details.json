@@ -229,12 +229,14 @@
   {
    "fieldname": "bata_rate",
    "fieldtype": "Currency",
-   "label": "Bata Rate"
+   "label": "Bata Rate",
+   "mandatory_depends_on": "eval: doc.bata_percentage == null;"
   },
   {
    "fieldname": "bata_precentage",
    "fieldtype": "Int",
-   "label": "Bata Precentage(%)"
+   "label": "Bata Precentage(%)",
+   "mandatory_depends_on": "eval: doc.bata_rate == null;"
   },
   {
    "default": "0",
@@ -279,7 +281,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-09-27 15:45:04.925292",
+ "modified": "2021-10-20 13:08:00.790088",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Details",
