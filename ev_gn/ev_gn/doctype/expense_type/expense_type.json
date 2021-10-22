@@ -6,7 +6,9 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "expense_name"
+  "expense_name",
+  "column_break_2",
+  "expense_account"
  ],
  "fields": [
   {
@@ -16,11 +18,21 @@
    "label": "Expense Name",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "expense_account",
+   "fieldtype": "Link",
+   "label": "Expense Account",
+   "options": "Account"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-10-11 14:55:27.834413",
+ "modified": "2021-10-22 11:44:41.515730",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Expense Type",
