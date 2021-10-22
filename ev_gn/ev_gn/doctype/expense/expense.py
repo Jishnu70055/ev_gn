@@ -7,27 +7,29 @@ from datetime import datetime
 
 def create_journal_entry(self):
 
-	accounts = {
-		"EMI": "EMI - EJ",
-		"Service": "Service - EJ",
-		"Others": "Other - EJ",
-		"Salary": "Salary - EJ"
-	}
+	expense_doc = frappe.get_doc('Expense Type', self.expense_type)
+	debit_account = expense_doc.expense_account
 
-	account = accounts.get(self.expense_type, "Other - EJ")
-	account2 = "Cash - EJ"
+	if self.paid_by == "Cash":
+		credit_account = "Cash - EJ"
+	elif self.paid_by == "Bank":
+		credit_account = "Bank - EJ"
+	elif self.paid_by == "Credit":
+		credit_account = "Accounts Payable - EJ"
 
 	journal_entry = frappe.get_doc({
 			'doctype': 'Journal Entry',
-			'posting_date': datetime.today(),
+			'posting_date': self.date,
 			"accounts":[
 			{
-				"account": account,
-				"credit_in_account_currency": self.amount
+				"account": credit_account,
+				"credit_in_account_currency": self.amount,
+				"vehicle": self.vehicle
 			},
 			{
-				"account": account2,
-				"debit_in_account_currency": self.amount
+				"account": debit_account,
+				"debit_in_account_currency": self.amount,
+				"vehicle": self.vehicle
 			}
 		]
 		})
