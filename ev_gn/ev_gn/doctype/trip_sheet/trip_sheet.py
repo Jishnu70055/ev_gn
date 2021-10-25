@@ -1,11 +1,12 @@
 # # Copyright (c) 2021, sda and contributors
 # # For license information, please see license.txt
 
+from os import name
 import frappe
 from frappe.model.document import Document
 
 				
-def create_sales_invoice(vehicle, date, data, number_of_trips):
+def create_sales_invoice(vehicle, date, data, number_of_trips, name):
 	sales_invoice = frappe.get_doc({
 		"doctype":"Sales Invoice",
 		"customer":data.customer,
@@ -13,7 +14,9 @@ def create_sales_invoice(vehicle, date, data, number_of_trips):
 		"posting_date": date,
 		"customer_group":'All Customer Groups',
 		"no_of_trips": number_of_trips,
-		"vehicle_number": vehicle
+		"vehicle_number": vehicle,
+		"vehicle": vehicle,
+		"trip_id": name
 		})
 	sales_invoice.append("items",{
 		"item_code":data.item,
@@ -22,17 +25,23 @@ def create_sales_invoice(vehicle, date, data, number_of_trips):
 		"rate": number_of_trips * data.customer_rate,
 		"amount":number_of_trips * data.customer_amount,
 		})
-	sales_invoice.submit()
+	sales_invoice.submit()	
 	return sales_invoice
 
-def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, item, uom):
+def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, item, uom, vehicle, name):
 	purchase_invoice = frappe.get_doc({
 		"doctype":"Purchase Invoice",
 		"supplier": supplier,
 		"supplier_site": site,
 		"date": date,
 		"total": trip * amount,
-		"no_of_trips": trip
+		"no_of_trips": trip,
+		"vehicle": vehicle,
+		"is_paid" : 1,
+		"mode_of_payment": "Cash",
+		"cash_bank_account": "Cash - EJ",
+		"paid_amount": amount,
+		"trip_id": name
 		})
 	purchase_invoice.append("items",{
 		"item_code": item,
@@ -69,9 +78,10 @@ def create_expense(bata_amount, data, self):
 		"doctype": "Expense",
 		"expense_type": "Driver Bata",
 		"driver": data.driver,
-		"vehicle": self.vehicle,
+		"vehicle": self.vehicle,	
 		"data": self.date,
-		"amount": bata_amount
+		"amount": bata_amount,
+		"date": self.date
 	})
 	expense.insert()
 	expense.submit()
@@ -100,12 +110,15 @@ class TripSheet(Document):
 		for data in self.trip_details:																		
 			driver = data.driver
 			emp = frappe.db.get_value("Driver", {"name": driver}, ['employee'])
-			number_of_trips = data.trip																
-			sales_invoice = create_sales_invoice(self.vehicle, self.date, data, number_of_trips)											
-			purchase_invoice = create_purchase_invoice(data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom)	
-			frc = create_frc(self, data)									
+			number_of_trips = data.trip	
+			if data.customer_rate_type == "Rent":
+				data.customer_rate = data.customer_amount / data.customer_quantity													
+			sales_invoice = create_sales_invoice(self.vehicle, self.date, data, number_of_trips, self.name)											
+			purchase_invoice = create_purchase_invoice(data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)	
+			frc = create_frc(self, data)							
 			if data.multiple_supplier == 1:																
-				purchase_invoice_partner = create_purchase_invoice(data.supplier_partner, data.supplier_site, data.supplier_partner_rate, data.supplier_partner_quantity, data.supplier_partner_amount, data.trip, self.date, data.item, data.uom)
+				purchase_invoice_partner = create_purchase_invoice(data.supplier_partner, data.supplier_site, data.supplier_partner_rate, data.supplier_partner_quantity, data.supplier_partner_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)
+				data.partner_purchase_invoice_id = purchase_invoice_partner.name
 			if data.paid_amount:															
 				amount_paid = data.paid_amount
 				payment_mode = data.payment_method
@@ -115,8 +128,8 @@ class TripSheet(Document):
 			elif data.bata_percentage:
 				bata_amount = data.bata_rate
 			expense = create_expense(bata_amount, data, self)
-					
-					
+			data.purchase_invoice_id = purchase_invoice.name
+			data.sales_invoice_id = sales_invoice.name
 					
 # 			# if data.gst == 1:
 # 			# 	company = "gst_company"
