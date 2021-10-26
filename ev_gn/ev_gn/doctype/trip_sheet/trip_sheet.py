@@ -103,6 +103,8 @@ class TripSheet(Document):
 		self.total = 0
 		for row in self.trip_details:
 			self.total = self.total + row.net_total
+			if row.supplier_partner_amount:
+				row.total_supplier_amount = row.supplier_partner_amount + row.supplier_amount
 		
 		
 
