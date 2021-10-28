@@ -93,6 +93,13 @@ def create_frc(self, data):
 		"amount": data.net_frc,
 		"date": self.date
 	})
+	vehicle = frappe.get_doc('Vehicle', self.vehicle)
+	for row in vehicle.vehicle_owner:
+		frc.append("share_holder_value",{
+			'share_holder': row.share_holder,
+			'share_percentage': row.share_percentage,
+			'share_amount': data.net_frc * row.share_percentage / 100
+		})
 	frc.submit()
 
 
