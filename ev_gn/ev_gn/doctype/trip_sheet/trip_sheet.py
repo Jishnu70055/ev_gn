@@ -95,6 +95,28 @@ def create_frc(self, data):
 	})
 	frc.submit()
 
+	debit_account = "Cash - EJ"
+	credit_account = "FRC - EJ"
+	journal_entry = frappe.get_doc({
+			'doctype': 'Journal Entry',
+			'posting_date': self.date,
+			"accounts":[
+			{
+				"account": credit_account,
+				"credit_in_account_currency": self.amount,
+				"vehicle": self.vehicle
+			},
+			{
+				"account": debit_account,
+				"debit_in_account_currency": self.amount,
+				"vehicle": self.vehicle
+			}
+		]
+		})
+
+	journal_entry.insert()
+	journal_entry.submit()
+
 
 class TripSheet(Document):
 
