@@ -201,7 +201,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
                                         })
-                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover pe-auto nav-link list-group-item-action select list-group-item list-group-item-primary">Close</li>`); //close btn value selected
+                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover pe-auto nav-link list-group-item-action select list-group-item ">Close</li>`); //close btn value selected
                                     }
                                 })
                             }
@@ -473,7 +473,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 || $('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 10
                                 || $('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16
                                 || $('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26
-                                || $('#myTable').DataTable().cell(this).index().column == 27) {
+                                || $('#myTable').DataTable().cell(this).index().column == 27 || $('#myTable').DataTable().cell(this).index().column == 17) {
                                 // console.log("finding the value in coloums 3 or 5", $(this).html())
                                 for (var ro = 1; ro < totalrow + 2; ro++) {
                                     var row = $("#myTable").find("tr");
