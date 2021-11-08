@@ -21,6 +21,8 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
     // Decalre required variables
+    let current_date //set date 
+    let selected_vehicle //selected option for vehicle 
     let table //used for creating datatable 
     let rows //used for storing rows empty array
     let totalrow = 2 //used for storing totalrow value assign 2 array
@@ -456,24 +458,15 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 }
                                 //    $("tr[0]td[5]").html(e.target.innerText) 
                             }
-                            //NET TOTAL = TOTAL - BATA RATE
-                            if ($('#myTable').DataTable().cell(this).index().column == 20 || $('#myTable').DataTable().cell(this).index().column == 22) {
-                                // console.log("finding the value in coloums 3 or 5", $(this).html())
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let total = parseInt($(columns[20]).html() ? $(columns[20]).html() : 0)
-                                    let bata_rate = parseInt($(columns[22]).html() ? $(columns[22]).html() : 0)
-                                    $(columns[28]).html(total - bata_rate)//netfrc
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
+
                             //TOTAL = CUSTOMER_AMOUNT - PARTNER_AMOUNT-SUPPLIER_AMOUNT-NETFRC
-                            if ($('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6
+                            if (
+                                $('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6
                                 || $('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 10
                                 || $('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16
                                 || $('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26
-                                || $('#myTable').DataTable().cell(this).index().column == 27 || $('#myTable').DataTable().cell(this).index().column == 17) {
+                                || $('#myTable').DataTable().cell(this).index().column == 27 || $('#myTable').DataTable().cell(this).index().column == 17
+                            ) {
                                 // console.log("finding the value in coloums 3 or 5", $(this).html())
                                 for (var ro = 1; ro < totalrow + 2; ro++) {
                                     var row = $("#myTable").find("tr");
@@ -485,9 +478,33 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                     // partner_amount==1?$(columns[6]).html(partner_amount):""
                                     // $(columns[6]).html( partner_amount)
                                     $(columns[20]).html(customer_amount - partner_amount - supplier_amount - net_frc)//total value
+                                    var cell = $('#myTable').DataTable().columns[20]
+                                    cell.data("11").html().draw()
+                                    console.log('the total value is ', customer_amount - partner_amount - supplier_amount - net_frc)
                                 }
                                 //    $("tr[0]td[5]").html(e.target.innerText) 
                             }
+
+                            //NET TOTAL = TOTAL - BATA RATE
+                            if (
+                                $('#myTable').DataTable().cell(this).index().column == 20 || $('#myTable').DataTable().cell(this).index().column == 22
+                                || $('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6
+                                || $('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 20
+                                || $('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16
+                                || $('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26
+                                || $('#myTable').DataTable().cell(this).index().column == 27 || $('#myTable').DataTable().cell(this).index().column == 17
+                            ) {
+                                // console.log("finding the value in coloums 3 or 5", $(this).html())
+                                for (var ro = 1; ro < totalrow + 2; ro++) {
+                                    var row = $("#myTable").find("tr");
+                                    var columns = $(row[ro]).find("td");
+                                    let total = parseInt($(columns[20]).html() ? $(columns[20]).html() : 0)
+                                    let bata_rate = parseInt($(columns[22]).html() ? $(columns[22]).html() : 0)
+                                    $(columns[28]).html(total - bata_rate)//netfrc
+                                }
+                                //    $("tr[0]td[5]").html(e.target.innerText) 
+                            }
+
                             console.log($('#myTable').DataTable().cell(this).index().column);
 
 
@@ -527,16 +544,16 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                             // }
 
                             var li = $('.suggestions > li');
-                            var liSelected=$('suggestion li');
+                            var liSelected = $('suggestion li');
                             $(window).on('keydown', function (e) {
                                 var selected;
                                 if (e.which === 40) {
                                     console.log("key press down")
                                     if (liSelected) {
-                                        
+
                                         liSelected.removeClass('bg-primary');
                                         next = liSelected.next();
-                                        console.log('sugggestion li if condtion true',next.length)
+                                        console.log('sugggestion li if condtion true', next.length)
                                         if (next.length > 0) {
                                             liSelected = next.addClass('bg-primary');
                                             selected = next.text();
@@ -592,7 +609,15 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                             //Ensure only click on li triggers adding data to td
                             else if ($(e.target).is('li')) {
                                 $(".suggestions").addClass("d-none")
-                                $("td.active").html(e.target.innerText)
+                                // $("td.active").html(e.target.innerText)
+
+
+                                var cell = $('#myTable').DataTable().cell("td.active")
+                                cell.data(e.target.innerText).draw()
+
+
+                                console.log("this is cell", cell)
+                                // cell.data(this.innerText).draw()
                                 // $('td.active').removeClass('active');
                                 // var row = table.row($('td.active').parents('tr'));
                                 // console.log("suggestion add btn row value is", row)
@@ -624,6 +649,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                         $('body').on('focus', '[contenteditable]', function () {
                             $("td").removeClass("active")
+                            $(".suggestions").addClass("d-none");// onload to remove suggestion box
                             const $this = $(this);
                             $this.data('before', $this.html());
 
@@ -684,12 +710,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     $('#getData').on('click', function () {
         // $table_data = table.rows().data();
         $table_data = $('#myTable').DataTable().rows().data().toArray()
-        console.log($table_data)
+        console.log("data in table",$table_data,"current date",current_date,"selected data",selected_vehicle)
         // json_data = JSON.stringify($table_data);
         // console.log(json_data)
         frappe.call({
             method: "ev_gn.post_trip_data.post_data",
-            args: { row_array: $table_data }
+            args: { row_array: $table_data, date: current_date, selected_vehicle: selected_vehicle }
             // callback: function(r)
             // {
             //     frappe.throw(r.message)
@@ -714,18 +740,52 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     var select = document.getElementById("vehicle");
 
     function create_vehicle_list() {
-        for (var i = 0; i < elmts.length; i++) {
-            var optn = elmts[i];
-            var el = document.createElement("option");
-            el.textContent = optn;
-            el.value = optn;
-            select.appendChild(el);
-            // console.log(el)
-        }
+        // for (var i = 0; i < elmts.length; i++) {
+        //     var optn = elmts[i];
+        //     var el = document.createElement("option");
+        //     el.textContent = optn;
+        //     el.value = optn;
+        //     select.appendChild(el);
+        //     // console.log(el)
+        // }
+        frappe.db.get_list('Vehicle', { fields: ['license_plate'] })
+            .then(
+                r => {
+                    // console.log("value are ", r)
+                    r.map((x) => {
+                        console.log("vehicle no plate mapping", x.license_plate)
+                        // var optn = elmts[x.license_plate];
+                        var el = document.createElement("option");
+                        el.textContent = x.license_plate;
+                        el.value = x.license_plate;
+                        select.appendChild(el);
+                    })
+                }
+            )
+            .catch(err => console.log("erorr is", err))
+
         // down.innerHTML = "Elements Added";
         console.log("clicked");
     }
     create_vehicle_list()
+
+    $('select').on('change', function () {
+        // alert( this.value );
+        selected_vehicle = ''
+        selected_vehicle = this.value
+        console.log('selected vehicle', selected_vehicle)
+    });
+    // });
+    $('#date').on('change', function () {
+        var date = new Date($('#date').val());
+        day = date.getDate();
+        month = date.getMonth() + 1;
+        year = date.getFullYear();
+        current_date = ''
+        current_date = [day, month, year].join('/');
+        //   alert([day, month, year].join('/'));
+
+    });
 
     // Select row on clicking it
     $('#myTable').on('click', 'tr', function () {
@@ -742,12 +802,14 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         if (confirm('Are you sure to delete the row')) {
             // Save it!
             row.remove();
-    
+
             table
                 .draw();
-          } else {
+        } else {
             // Do nothing!
             console.log('row deletion canceled');
-          }
+        }
     });
+
+
 }
