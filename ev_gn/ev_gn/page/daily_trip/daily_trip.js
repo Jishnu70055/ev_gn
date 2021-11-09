@@ -27,7 +27,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let rows //used for storing rows empty array
     let totalrow = 2 //used for storing totalrow value assign 2 array
     let col_count = 29  //The count of empty arrays to be created
-    // let drivers = ['safwan','raheeb','siraj'];
+    let partner_amount_array
     let Options = ['Rent', 'Rate'];
 
 
@@ -134,7 +134,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                             e.target.classList.add('active');
                         })
 
-                        $("#body").find("tbody").on(' keypress paste input', '[contenteditable]', 'td', function (e) {
+                        $("#body").find("tbody").on(' keypress paste input ', '[contenteditable]', 'td', function (e) {
                             totalrow = $('#myTable').DataTable().cell(this).index().row //find totalrow in table
                             //Get value of TD  
 
@@ -408,102 +408,140 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                             }
                             //api fetch for suggestion part end
-                            //SUPPLIER AMOUNT = SUPPLIER RATE * SUPPLIER QUANTITY
-                            if ($('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6) {
-                                // console.log("finding the value in coloums 3 or 5", $(this).html())
-                                // $("td.active").html(e.target.innerText)
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let supplier_rate = parseInt($(columns[5]).html() ? $(columns[5]).html() : 0)
-                                    let supplier_qty = parseInt($(columns[6]).html() ? $(columns[6]).html() : 1)
-                                    $(columns[7]).html(supplier_rate * supplier_qty)//supplier amt
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
+                            // //SUPPLIER AMOUNT = SUPPLIER RATE * SUPPLIER QUANTITY
+                            // if ($('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6) {
+                            //     // console.log("finding the value in coloums 3 or 5", $(this).html())
+                            //     // $("td.active").html(e.target.innerText)
+                            //     for (var ro = 1; ro < totalrow + 2; ro++) {
+                            //         var row = $("#myTable").find("tr");
+                            //         var columns = $(row[ro]).find("td");
+                            //         let supplier_rate = parseInt($(columns[5]).html() ? $(columns[5]).html() : 0)
+                            //         let supplier_qty = parseInt($(columns[6]).html() ? $(columns[6]).html() : 1)
+                            //         $(columns[7]).html(supplier_rate * supplier_qty)//supplier amt
+
+                            //     }
+                            //     //    $("tr[0]td[5]").html(e.target.innerText) 
+                            // }
                             //PARTNER AMOUNT = PARTNER RATE * PARTNER QUANTITY
-                            if ($('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 10) {
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let partner_rate = parseInt($(columns[9]).html() ? $(columns[9]).html() : 0)
-                                    let partner_qty = parseInt($(columns[10]).html() ? $(columns[10]).html() : 1)
-                                    $(columns[11]).html(partner_rate * partner_qty)//partner amount
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
-                            // CUSTOMER AMOUNT = CUSTOMER RATE * CUSTOMER QUANTITY
-                            if ($('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16) {
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let customer_rate = parseInt($(columns[15]).html() ? $(columns[15]).html() : 0)
-                                    let customer_qty = parseInt($(columns[16]).html() ? $(columns[16]).html() : 1)
-                                    $(columns[17]).html(customer_rate * customer_qty)
-                                    console.log("CUSTOMER RATE TYPE", $(columns[14]).html().toLowerCase())
-                                    // $(columns[14]).html() == 'Rate' ? $(columns[17]).html(customer_rate * customer_qty) : ""//check rate ,if its true customer_amount calculate
-                                    // $(columns[17]).html(value_a * value_b)
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
+                            // if ($('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 10) {
+                            //     console.log("ran")
+                            //     // let table = $('#myTable').DataTable()
+                            //     // let current_row = table.cell(this).index().row
+                            //     // console.log(current_row)
+                            //     // let col_9  = table.row(`:eq(${current_row})`).cell(':eq(11)').data('safwan').draw()
+                            //     // console.log(col_9)
+
+                            //     // // let col_11 = 
+
+                            //     // table.row(`:eq(${current_row})`).cell(':eq(11)').data( "safwan" ).draw()                                
+
+
+
+
+
+
+                            //     // for (var ro = 1; ro < totalrow + 2; ro++) {
+                            //     //     var row = $("#myTable").find("tr");
+                            //     //     var columns = $(row[ro]).find("td");
+                            //     //     let partner_rate = parseInt($(columns[9]).html() ? $(columns[9]).html() : 0)
+                            //     //     let partner_qty = parseInt($(columns[10]).html() ? $(columns[10]).html() : 1)
+                            //     //     $(columns[11]).html(partner_rate * partner_qty)//partner amount
+
+
+
+
+
+                            //     //     partner_amount_array=[{position:$(columns[11]),partner_amt:partner_rate * partner_qty}]
+                            //     //     // partner_amount_array=[...partner_amount_array,{pos:columns[11],partner_amt:partner_rate * partner_qty}]
+                            //     //     // console.log("partner_amount_array",partner_amount_array)
+                            //     //     //var value = partner_rate * partner_qty
+                            //     //     // var partner_amount_td = $(columns[11])
+                            //     //     // var partner_cell = $('#myTable').DataTable().cell(partner_amount_td)                                    
+                            //     //     // partner_cell.data(value).draw()
+
+                            //     //     console.log("happening")
+
+
+
+                            //     // }
+
+
+
+                            //     //    $("tr[0]td[5]").html(e.target.innerText) 
+                            // }
+                            // // CUSTOMER AMOUNT = CUSTOMER RATE * CUSTOMER QUANTITY
+                            // if ($('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16) {
+                            //     for (var ro = 1; ro < totalrow + 2; ro++) {
+                            //         var row = $("#myTable").find("tr");
+                            //         var columns = $(row[ro]).find("td");
+                            //         let customer_rate = parseInt($(columns[15]).html() ? $(columns[15]).html() : 0)
+                            //         let customer_qty = parseInt($(columns[16]).html() ? $(columns[16]).html() : 1)
+                            //         $(columns[17]).html(customer_rate * customer_qty)
+                            //         console.log("CUSTOMER RATE TYPE", $(columns[14]).html().toLowerCase())
+                            //         // $(columns[14]).html() == 'Rate' ? $(columns[17]).html(customer_rate * customer_qty) : ""//check rate ,if its true customer_amount calculate
+                            //         // $(columns[17]).html(value_a * value_b)
+                            //     }
+                            //     //    $("tr[0]td[5]").html(e.target.innerText) 
+                            // }
                             //NET FRC = FRC+GST AMOUNT
-                            if ($('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26) {
-                                // console.log("finding the value in coloums 3 or 5", $(this).html())
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let frc = parseInt($(columns[24]).html() ? $(columns[24]).html() : 0)
-                                    let gst_amt = parseInt($(columns[26]).html() ? $(columns[26]).html() : 0)
-                                    $(columns[27]).html(frc + gst_amt)//netFrc
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
+                            // if ($('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26) {
+                            //     // console.log("finding the value in coloums 3 or 5", $(this).html())
+                            //     for (var ro = 1; ro < totalrow + 2; ro++) {
+                            //         var row = $("#myTable").find("tr");
+                            //         var columns = $(row[ro]).find("td");
+                            //         let frc = parseInt($(columns[24]).html() ? $(columns[24]).html() : 0)
+                            //         let gst_amt = parseInt($(columns[26]).html() ? $(columns[26]).html() : 0)
+                            //         $(columns[27]).html(frc + gst_amt)//netFrc
+                            //     }
+                            //     //    $("tr[0]td[5]").html(e.target.innerText) 
+                            // }
 
                             //TOTAL = CUSTOMER_AMOUNT - PARTNER_AMOUNT-SUPPLIER_AMOUNT-NETFRC
-                            if (
-                                $('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6
-                                || $('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 10
-                                || $('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16
-                                || $('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26
-                                || $('#myTable').DataTable().cell(this).index().column == 27 || $('#myTable').DataTable().cell(this).index().column == 17
-                            ) {
-                                // console.log("finding the value in coloums 3 or 5", $(this).html())
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let partner_amount = parseInt($(columns[11]).html() ? $(columns[11]).html() : 0)
-                                    let customer_amount = parseInt($(columns[17]).html() ? $(columns[17]).html() : 0)
-                                    let supplier_amount = parseInt($(columns[7]).html() ? $(columns[7]).html() : 0)
-                                    let net_frc = parseInt($(columns[27]).html() ? $(columns[27]).html() : 0)
-                                    // partner_amount==1?$(columns[6]).html(partner_amount):""
-                                    // $(columns[6]).html( partner_amount)
-                                    $(columns[20]).html(customer_amount - partner_amount - supplier_amount - net_frc)//total value
-                                    var cell = $('#myTable').DataTable().columns[20]
-                                    cell.data("11").html().draw()
-                                    console.log('the total value is ', customer_amount - partner_amount - supplier_amount - net_frc)
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
+                            // if (
+                            //     $('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6
+                            //     || $('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 10
+                            //     || $('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16
+                            //     || $('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26
+                            //     || $('#myTable').DataTable().cell(this).index().column == 27 || $('#myTable').DataTable().cell(this).index().column == 17
+                            // ) {
+                            //     // console.log("finding the value in coloums 3 or 5", $(this).html())
+                            //     for (var ro = 1; ro < totalrow + 2; ro++) {
+                            //         var row = $("#myTable").find("tr");
+                            //         var columns = $(row[ro]).find("td");
+                            //         let partner_amount = parseInt($(columns[11]).html() ? $(columns[11]).html() : 0)
+                            //         let customer_amount = parseInt($(columns[17]).html() ? $(columns[17]).html() : 0)
+                            //         let supplier_amount = parseInt($(columns[7]).html() ? $(columns[7]).html() : 0)
+                            //         let net_frc = parseInt($(columns[27]).html() ? $(columns[27]).html() : 0)
+                            //         // partner_amount==1?$(columns[6]).html(partner_amount):""
+                            //         // $(columns[6]).html( partner_amount)
+                            //         $(columns[20]).html(customer_amount - partner_amount - supplier_amount - net_frc)//total value
+                            //         // var cell = $('#myTable').DataTable().cell($(columns[20]))
+                            //         // console.log("this is cell no ",cell)
+                            //         // cell.data(e.target.innerText).draw()
+                            //         // console.log('the total value is ', customer_amount - partner_amount - supplier_amount - net_frc)
+                            //     }
+                            //     //    $("tr[0]td[5]").html(e.target.innerText) 
+                            // }
 
-                            //NET TOTAL = TOTAL - BATA RATE
-                            if (
-                                $('#myTable').DataTable().cell(this).index().column == 20 || $('#myTable').DataTable().cell(this).index().column == 22
-                                || $('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6
-                                || $('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 20
-                                || $('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16
-                                || $('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26
-                                || $('#myTable').DataTable().cell(this).index().column == 27 || $('#myTable').DataTable().cell(this).index().column == 17
-                            ) {
-                                // console.log("finding the value in coloums 3 or 5", $(this).html())
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let total = parseInt($(columns[20]).html() ? $(columns[20]).html() : 0)
-                                    let bata_rate = parseInt($(columns[22]).html() ? $(columns[22]).html() : 0)
-                                    $(columns[28]).html(total - bata_rate)//netfrc
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
+                            // //NET TOTAL = TOTAL - BATA RATE
+                            // if (
+                            //     $('#myTable').DataTable().cell(this).index().column == 20 || $('#myTable').DataTable().cell(this).index().column == 22
+                            //     || $('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6
+                            //     || $('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 20
+                            //     || $('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16
+                            //     || $('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26
+                            //     || $('#myTable').DataTable().cell(this).index().column == 27 || $('#myTable').DataTable().cell(this).index().column == 17
+                            // ) {
+                            //     // console.log("finding the value in coloums 3 or 5", $(this).html())
+                            //     for (var ro = 1; ro < totalrow + 2; ro++) {
+                            //         var row = $("#myTable").find("tr");
+                            //         var columns = $(row[ro]).find("td");
+                            //         let total = parseInt($(columns[20]).html() ? $(columns[20]).html() : 0)
+                            //         let bata_rate = parseInt($(columns[22]).html() ? $(columns[22]).html() : 0)
+                            //         $(columns[28]).html(total - bata_rate)//netfrc
+                            //     }
+                            //     //    $("tr[0]td[5]").html(e.target.innerText) 
+                            // }
 
                             console.log($('#myTable').DataTable().cell(this).index().column);
 
@@ -613,6 +651,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
                                 var cell = $('#myTable').DataTable().cell("td.active")
+                                console.log('selected cell', cell)
                                 cell.data(e.target.innerText).draw()
 
 
@@ -635,8 +674,116 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                         //         //keyup
                         $("#body").find("tbody").on('blur', 'td', function (e) {
-                            var cell = $('#myTable').DataTable().cell(this)
+
+
+                            let table = $('#myTable').DataTable()
+                            let cell = table.cell(this)
+                            let row = cell.index().row
+                            let column = cell.index().column
                             cell.data(this.innerText).draw()
+
+                            // muliple_calutlation(r,9,10,11)
+                            // value_a = table.cell({ row: r, column: column_a }).data() ? parseInt(table.cell({ row: r, column: column_a }).data()) : 0;
+                            // value_b = table.cell({ row: r, column: 10 }).data() ? parseInt(table.cell({ row: r, column: column_a }).data()) : 1;
+                            // console.log("value_a ", value_a)
+                            // table.cell({ row: r, column: 11 }).data(value_a + value_b);
+
+                            // console.log("Row:", table.row(`:eq(${r})`).remove())     
+
+                            // supplier total == supplier rate*supplier_qty
+                            if (cell.index().column == 5 || cell.index().column == 6) {
+                                let r = cell.index().row
+                                muliple_calutlation(r, 5, 6, 7)
+                            }
+                            // partner total == partner rate*partner_qty
+                            if (cell.index().column == 9 || cell.index().column == 10) {
+                                let r = cell.index().row
+                                muliple_calutlation(r, 9, 10, 11)
+                            }
+                            //check customer type ==rate ,then,customer total == customer rate*customer_qty
+                            if (cell.index().column == 15 || cell.index().column == 16) {
+                                let r = cell.index().row
+                                table.cell({ row: r, column: 14 }).data() == "Rate" ? muliple_calutlation(r, 15, 16, 17) : ""
+
+                            }
+
+                            //NET FRC = FRC+GST AMOUNT
+                            if (cell.index().column == 24 || cell.index().column == 26) {
+                                let r = cell.index().row
+                                let frc = table.cell({ row: r, column: 24 }).data() ? parseInt(table.cell({ row: r, column: 24 }).data()) : 0;
+                                let gst_amt = table.cell({ row: r, column: 26 }).data() ? parseInt(table.cell({ row: r, column: 26 }).data()) : 0;
+                                table.cell({ row: r, column: 27 }).data(frc + gst_amt);
+                            }
+
+                            //TOTAL = CUSTOMER_AMOUNT - PARTNER_AMOUNT-SUPPLIER_AMOUNT-NETFRC
+                            if (
+                                cell.index().column == 5 || cell.index().column == 6
+                                || cell.index().column == 9 || cell.index().column == 10
+                                || cell.index().column == 15 || cell.index().column == 16
+                                || cell.index().column == 24 || cell.index().column == 26
+                                || cell.index().column == 27 || cell.index().column == 17
+                            ) {
+                                let r = cell.index().row
+                                let partner_amount = table.cell({ row: r, column: 11 }).data() ? parseInt(table.cell({ row: r, column: 11 }).data()) : 0;
+                                let customer_amount = table.cell({ row: r, column: 17 }).data() ? parseInt(table.cell({ row: r, column: 17 }).data()) : 0;
+                                let supplier_amount = table.cell({ row: r, column: 7 }).data() ? parseInt(table.cell({ row: r, column: 7 }).data()) : 0;
+                                let net_frc = table.cell({ row: r, column: 27 }).data() ? parseInt(table.cell({ row: r, column: 27 }).data()) : 0;
+                                // console.log("customer amt",customer_amount,"partner amt",partner_amount,"supplier_amount",supplier_amount,"net_frc",net_frc)
+                                let total=customer_amount - partner_amount - supplier_amount - net_frc
+                                // console.log("total value is ",total)
+                                table.cell({ row: r, column: 20 }).data(total)//total value
+                            }
+
+                            //NET TOTAL = TOTAL - BATA RATE
+                            if (
+                                   cell.index().column == 5 || cell.index().column == 6
+                                || cell.index().column == 9 || cell.index().column == 10
+                                || cell.index().column == 15 || cell.index().column == 16
+                                || cell.index().column == 24 || cell.index().column == 26
+                                || cell.index().column == 27 || cell.index().column == 17
+                                || cell.index().column == 20 || cell.index().column == 22
+                                
+                            ) {
+                                let r = cell.index().row
+                                let total = table.cell({ row: r, column: 20 }).data() ? parseInt(table.cell({ row: r, column: 20 }).data()) : 0;
+                                let bata_rate = table.cell({ row: r, column: 22 }).data() ? parseInt(table.cell({ row: r, column: 22 }).data()) : 0;
+                                // console.log("total",total,"bata_rate",bata_rate)
+                                let net_total=total-bata_rate
+                                // console.log("net_total",net_total)
+                                table.cell({ row: r, column: 28 }).data(net_total)//net_total
+                            }
+
+
+                            // console.log('row: ',row)
+                            // // table.row(`:eq(${row})`).cell(':eq(11)').data('safwan').draw()
+                            // console.log('column: ',column)
+                            // console.log('cell: ',cell)
+                            // if (column == 9 || column == 10){
+                            //     let row = cell.index().row
+                            //     let col_9 = table.row(`:eq(${row})`).cell(':eq(9)').data()
+                            //     let col_10 = table.row(`:eq(${row})`).cell(':eq(10)').data()
+                            //     // console.log('col9 & 10: ',col_9, col_10)
+                            //     let partner_rate = parseInt(col_9 ? col_9 : 0)
+                            //     let partner_qty = parseInt(col_10 ? col_10 : 1)
+                            //     let col_11 = partner_rate * partner_qty
+                            //     // console.log('col11: ',col_11)
+                            //     table.row(`:eq(${row})`).cell(':eq(11)').data(col_11).draw()//partner amount
+
+                            // } 
+
+
+
+
+
+
+
+
+                            // let current_row = table.cell(this).index().row
+                            // console.log(current_row)
+                            // let col_9  = table.row(`:eq(${current_row})`).cell(':eq(11)').data('safwan').draw()
+                            // console.log(col_9)
+
+                            // let col_11 = 
                             // this.focus();
                             //console.log("ok")
                             // // console.log("blur",this.innerText);
@@ -708,9 +855,28 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
     // Post data from DataTable to backend
     $('#getData').on('click', function () {
+
+        let table = $('#myTable').DataTable()
+
         // $table_data = table.rows().data();
+        // console.log("table row is",table.row(':eq(0)').cell(':eq(11)').data( "safwan" ).draw()) 
+        console.log(table.rows().count())
+        console.log("partner_amt_array", partner_amount_array)
+
+        let total_rows = table.rows().count()
+
+        // for (let i = 0; i < total_rows; i++) {
+
+        //     table.row(`:eq(${i})`).cell(':eq(11)').data( "safwan" ).draw()
+        //     table.row(`:eq(${i})`).cell(':eq(12)').data( "safwan" ).draw()
+        //     console.log(i);
+
+        // }
+
+        //var cell = $('#myTable').DataTable().cell(table.row(':eq(0)').cell(':eq(11)'))
+        //cell.data("333").draw()
         $table_data = $('#myTable').DataTable().rows().data().toArray()
-        console.log("data in table",$table_data,"current date",current_date,"selected data",selected_vehicle)
+        console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle)
         // json_data = JSON.stringify($table_data);
         // console.log(json_data)
         frappe.call({
@@ -782,7 +948,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         month = date.getMonth() + 1;
         year = date.getFullYear();
         current_date = ''
-        current_date = [day, month, year].join('/');
+        current_date = [day, month, year].join('-');
         //   alert([day, month, year].join('/'));
 
     });
@@ -810,6 +976,38 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
             console.log('row deletion canceled');
         }
     });
+
+    function muliple_calutlation(row, column_a, column_b, calc) {
+        console.log("muliple calutlation", "=>", "row", row, "columna:", column_a, "columnb:", column_b, calc)
+        // console.log(this.innerText);
+        // console.log(cell.index().row)
+        // let r = cell.index().row
+        value_a = table.cell({ row: row, column: column_a }).data() ? parseInt(table.cell({ row: row, column: column_a }).data()) : 0;
+        value_b = table.cell({ row: row, column: column_b }).data() ? parseInt(table.cell({ row: row, column: column_b }).data()) : 1;
+        console.log("value_a ", value_a)
+        console.log("value_B ", value_b)
+        table.cell({ row: row, column: calc }).data(value_a * value_b);
+    }
+    // function net_total() {
+    //     let r = cell.index().row
+    //     let total = table.cell({ row: r, column: 20 }).data() ? parseInt(table.cell({ row: r, column: 20 }).data()) : 0;
+    //     let bata_rate = table.cell({ row: r, column: 22 }).data() ? parseInt(table.cell({ row: r, column: 22 }).data()) : 0;
+    //     table.cell({ row: r, column: 20 }).data(total - bata_rate)//net_total    
+    // }
+    // //NET TOTAL = TOTAL - BATA RATE
+    // if (
+    //     cell.index().column == 20 || cell.index().column == 22
+    //     || cell.index().column == 5 || cell.index().column == 6
+    //     || cell.index().column == 9 || cell.index().column == 10
+    //     || cell.index().column == 15 || cell.index().column == 16
+    //     || cell.index().column == 24 || cell.index().column == 26
+    //     || cell.index().column == 27 || cell.index().column == 17
+
+    // ) {
+    //     let total = table.cell({ row: r, column: 20 }).data() ? parseInt(table.cell({ row: r, column: 20 }).data()) : 0;
+    //     let bata_rate = table.cell({ row: r, column: 22 }).data() ? parseInt(table.cell({ row: r, column: 22 }).data()) : 0;
+    //     table.cell({ row: r, column: 20 }).data(total - bata_rate)//net_total
+    // }
 
 
 }
