@@ -4,13 +4,17 @@
  "docstatus": 0,
  "doctype": "Page",
  "idx": 0,
- "modified": "2021-09-23 16:59:03.677711",
+ "modified": "2021-11-04 15:15:43.601359",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "daily-trip",
  "owner": "Administrator",
  "page_name": "Daily Trip",
- "roles": [],
+ "roles": [
+  {
+   "role": "Evergreen User"
+  }
+ ],
  "script": null,
  "standard": "Yes",
  "style": null,
