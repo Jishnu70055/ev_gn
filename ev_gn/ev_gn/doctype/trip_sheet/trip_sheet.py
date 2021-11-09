@@ -22,7 +22,7 @@ def create_sales_invoice(self, data):
 		"item_code":data.item,
 		"qty": data.trip * data.customer_quantity,
 		"uom": data.uom,
-		"rate": data.trip * data.customer_rate,
+		"rate": data.customer_rate,
 		"amount":data.trip * data.customer_amount,
 		})
 	sales_invoice.submit()	
@@ -46,7 +46,7 @@ def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, 
 	purchase_invoice.append("items",{
 		"item_code": item,
 		"qty":trip * quantity,
-		"rate":trip * rate,
+		"rate":rate,
 		"amount":trip * amount,
 		"uom": uom
 		})
