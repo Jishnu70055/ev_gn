@@ -6,6 +6,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "company",
   "shareholder_name",
   "vehicle",
   "column_break_3",
@@ -59,12 +60,18 @@
   {
    "fieldname": "section_break_6",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-10-27 15:52:51.569118",
+ "modified": "2021-11-10 12:27:12.489960",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "FRC",

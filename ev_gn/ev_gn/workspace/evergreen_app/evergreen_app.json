@@ -1,6 +1,10 @@
 {
  "category": "Modules",
- "charts": [],
+ "charts": [
+  {
+   "chart_name": "Profit and Loss"
+  }
+ ],
  "creation": "2021-09-17 23:05:42.044237",
  "developer_mode_only": 1,
  "disable_user_customization": 0,
@@ -41,7 +45,7 @@
    "type": "Link"
   }
  ],
- "modified": "2021-10-11 18:22:18.679806",
+ "modified": "2021-11-10 15:45:17.168591",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Evergreen App",
