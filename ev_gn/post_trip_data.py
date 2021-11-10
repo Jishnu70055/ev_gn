@@ -4,70 +4,18 @@ import json
 from frappe.exceptions import FileAlreadyAttachedException
 
 @frappe.whitelist()
-def post_data():#row_array
+def post_data_test(a):#row_array,,date,selected_vehicle
     # total_trips = json.loads(row_array) #converting string array into json
-    # array_length = len(data)     #number of rows passed
-    total_trips = [["ram",
-        "DEM001",
-        "Box",
-        "Demosuppllier",
-        "Demo Site",
-        "100",
-        "10",
-        "1000",
-        "Demosuppllier",
-        "10",
-        "10",
-        "100",
-        "Demo Customer",
-        "Demo Site",
-        "Rate",
-        "100",
-        "10",
-        "100",
-        "100",
-        "Cash",
-        "121",
-        "1",
-        "1",
-        "21",
-        "73",
-        "21",
-        "21",
-        "94",
-        "-101"
-    ],["nandhu",
-        "DEM001",
-        "Box",
-        "Demosuppllier",
-        "Demo Site",
-        "100",
-        "10",
-        "1000",
-        "Demosuppllier",
-        "10",
-        "10",
-        "100",
-        "Demo Customer",
-        "Demo Site",
-        "Rate",
-        "100",
-        "10",
-        "100",
-        "100",
-        "Cash",
-        "121",
-        "1",
-        "1",
-        "21",
-        "73",
-        "21",
-        "21",
-        "94",
-        "-101"
-    ]]
+    print (a)
+
+
+
+@frappe.whitelist()
+def post_data(row_array, date, selected_vehicle):#row_array,,date,selected_vehicle
+    total_trips = json.loads(row_array) #converting string array into json
     trip_sheet = frappe.new_doc("Trip Sheet")
-    trip_sheet.vehicle = "KL 11 Q 369"
+    trip_sheet.vehicle = selected_vehicle
+    trip_sheet.date = date
     for trip in total_trips:     #creating trip sheet for each row
         driver = trip[0]
         item = trip[1]
@@ -135,6 +83,7 @@ def post_data():#row_array
         
     
     trip_sheet.save()# trip_sheet.save()
+    # trip_sheet.submit()
     # trip_sheet.submit()# trip_sheet.submit()
         
 
