@@ -723,14 +723,37 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle)
         // json_data = JSON.stringify($table_data);
         // console.log(json_data)
+        // frappe.call({
+        //     method: "ev_gn.post_trip_data.post_data",
+        //     // args: { "row_array": $table_data, "date": current_date, "selected_vehicle": selected_vehicle }
+        //     args: { 
+        //         'selected_vehicle': "vehicle" 
+        //     }
+
+        //     callback: function(r)!dz
+
+        //     {
+        //         frappe.throw(r.message)
+        //     }
+        // })
+
         frappe.call({
-            method: "ev_gn.post_trip_data.post_data",
-            args: { row_array: $table_data, date: current_date, selected_vehicle: selected_vehicle }
-            // callback: function(r)
-            // {
-            //     frappe.throw(r.message)
+            method : 'ev_gn.post_trip_data.post_data',
+            args: { row_array: $table_data, date: current_date, selected_vehicle: selected_vehicle}
+            
+            // callback: function(r) {r.message}
+            // callback: function(r) {
+            //     if (!r.exc) {
+            //         // code snippet
+            //     }
             // }
-        })
+        });
+        // frappe.call('ev_gn.post_trip_data.post_data_test', {
+        //     "a":1
+        // }).then(r => {
+        //     console.log(r.message)
+        // })
+        
 
     });
 
