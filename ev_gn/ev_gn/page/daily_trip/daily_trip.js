@@ -21,11 +21,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
     // Decalre required variables
+    let current_date //set date 
+    let selected_vehicle //selected option for vehicle 
     let table //used for creating datatable 
     let rows //used for storing rows empty array
-    let totalrow = 2 //used for storing totalrow value assign 2 array
     let col_count = 29  //The count of empty arrays to be created
-    // let drivers = ['safwan','raheeb','siraj'];
+    let partner_amount_array
     let Options = ['Rent', 'Rate'];
 
 
@@ -60,6 +61,8 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                             table.row.add(rows).draw(true);
                         };
+                        today_date();//onload  set date
+                        auto_generate_vehicle();// on load set vehicle
                         $(".suggestions").addClass("d-none");// onload to remove suggestion box
                         $('#addRow').on('click', function add_row() {
                             rows = [];
@@ -132,7 +135,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                             e.target.classList.add('active');
                         })
 
-                        $("#body").find("tbody").on(' keypress paste input', '[contenteditable]', 'td', function (e) {
+                        $("#body").find("tbody").on(' keypress paste input ', '[contenteditable]', 'td', function (e) {
                             totalrow = $('#myTable').DataTable().cell(this).index().row //find totalrow in table
                             //Get value of TD  
 
@@ -406,90 +409,6 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                             }
                             //api fetch for suggestion part end
-                            //SUPPLIER AMOUNT = SUPPLIER RATE * SUPPLIER QUANTITY
-                            if ($('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6) {
-                                // console.log("finding the value in coloums 3 or 5", $(this).html())
-                                // $("td.active").html(e.target.innerText)
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let supplier_rate = parseInt($(columns[5]).html() ? $(columns[5]).html() : 0)
-                                    let supplier_qty = parseInt($(columns[6]).html() ? $(columns[6]).html() : 1)
-                                    $(columns[7]).html(supplier_rate * supplier_qty)//supplier amt
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
-                            //PARTNER AMOUNT = PARTNER RATE * PARTNER QUANTITY
-                            if ($('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 10) {
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let partner_rate = parseInt($(columns[9]).html() ? $(columns[9]).html() : 0)
-                                    let partner_qty = parseInt($(columns[10]).html() ? $(columns[10]).html() : 1)
-                                    $(columns[11]).html(partner_rate * partner_qty)//partner amount
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
-                            // CUSTOMER AMOUNT = CUSTOMER RATE * CUSTOMER QUANTITY
-                            if ($('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16) {
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let customer_rate = parseInt($(columns[15]).html() ? $(columns[15]).html() : 0)
-                                    let customer_qty = parseInt($(columns[16]).html() ? $(columns[16]).html() : 1)
-                                    $(columns[17]).html(customer_rate * customer_qty)
-                                    console.log("CUSTOMER RATE TYPE", $(columns[14]).html().toLowerCase())
-                                    // $(columns[14]).html() == 'Rate' ? $(columns[17]).html(customer_rate * customer_qty) : ""//check rate ,if its true customer_amount calculate
-                                    // $(columns[17]).html(value_a * value_b)
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
-                            //NET FRC = FRC+GST AMOUNT
-                            if ($('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26) {
-                                // console.log("finding the value in coloums 3 or 5", $(this).html())
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let frc = parseInt($(columns[24]).html() ? $(columns[24]).html() : 0)
-                                    let gst_amt = parseInt($(columns[26]).html() ? $(columns[26]).html() : 0)
-                                    $(columns[27]).html(frc + gst_amt)//netFrc
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
-                            //NET TOTAL = TOTAL - BATA RATE
-                            if ($('#myTable').DataTable().cell(this).index().column == 20 || $('#myTable').DataTable().cell(this).index().column == 22) {
-                                // console.log("finding the value in coloums 3 or 5", $(this).html())
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let total = parseInt($(columns[20]).html() ? $(columns[20]).html() : 0)
-                                    let bata_rate = parseInt($(columns[22]).html() ? $(columns[22]).html() : 0)
-                                    $(columns[28]).html(total - bata_rate)//netfrc
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
-                            //TOTAL = CUSTOMER_AMOUNT - PARTNER_AMOUNT-SUPPLIER_AMOUNT-NETFRC
-                            if ($('#myTable').DataTable().cell(this).index().column == 5 || $('#myTable').DataTable().cell(this).index().column == 6
-                                || $('#myTable').DataTable().cell(this).index().column == 9 || $('#myTable').DataTable().cell(this).index().column == 10
-                                || $('#myTable').DataTable().cell(this).index().column == 15 || $('#myTable').DataTable().cell(this).index().column == 16
-                                || $('#myTable').DataTable().cell(this).index().column == 24 || $('#myTable').DataTable().cell(this).index().column == 26
-                                || $('#myTable').DataTable().cell(this).index().column == 27 || $('#myTable').DataTable().cell(this).index().column == 17) {
-                                // console.log("finding the value in coloums 3 or 5", $(this).html())
-                                for (var ro = 1; ro < totalrow + 2; ro++) {
-                                    var row = $("#myTable").find("tr");
-                                    var columns = $(row[ro]).find("td");
-                                    let partner_amount = parseInt($(columns[11]).html() ? $(columns[11]).html() : 0)
-                                    let customer_amount = parseInt($(columns[17]).html() ? $(columns[17]).html() : 0)
-                                    let supplier_amount = parseInt($(columns[7]).html() ? $(columns[7]).html() : 0)
-                                    let net_frc = parseInt($(columns[27]).html() ? $(columns[27]).html() : 0)
-                                    // partner_amount==1?$(columns[6]).html(partner_amount):""
-                                    // $(columns[6]).html( partner_amount)
-                                    $(columns[20]).html(customer_amount - partner_amount - supplier_amount - net_frc)//total value
-                                }
-                                //    $("tr[0]td[5]").html(e.target.innerText) 
-                            }
-                            console.log($('#myTable').DataTable().cell(this).index().column);
-
 
                         });
                         //hide suggestion area 
@@ -500,79 +419,80 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                             // e.target.classList.add('active');
                         })
 
-                        //CODE ADDING STACKOVERFLOW
-                        //check suggestion dropdown arrow key function working --start
-                        $("#body").find("tbody").on(' keyup keydown', '[contenteditable]', '#myTable', function (e) {
-                            // var objCurrentLi, obj = $('.suggestions').find('.suggestions li'), objUl = $('.suggestions ul'), code = (e.keyCode ? e.keyCode : e.which);
-                            // console.log('length if suggestion', obj)
-                            // if (e.which == 40) {  //Up Arrow
-                            //     console.log("suggestion arrow up working properley")
-                            //     if ((obj.length === 0) || (objUl.find('.suggestions li:last').hasClass('bg-info') === true)) {
-                            //         objCurrentLi = objUl.find('.suggestions li:first').addClass('bg-info');
-                            //     }
-                            //     else {
-                            //         objCurrentLi = obj.next().addClass('bg-info');
-                            //     }
-                            //     obj.removeClass('bg-info');
-                            // }
-                            // else if (e.which == 38) {  //Down Arrow
-                            //     console.log("suggestion arrow down working properley")
-                            //     if ((obj.length === 0) || (objUl.find('.suggestions li:first').hasClass('bg-info') === true)) {
-                            //         objCurrentLi = objUl.find('.suggestions li:last').addClass('bg-info');
-                            //     }
-                            //     else {
-                            //         objCurrentLi = obj.prev().addClass('bg-info');
-                            //     }
-                            //     obj.removeClass('bg-info');
-                            // }
+                        // //CODE ADDING STACKOVERFLOW
+                        // //check suggestion dropdown arrow key function working --start
+                        // $("#body").find("tbody").on(' keyup keydown', '[contenteditable]', '#myTable', function (e) {
+                        //     // var objCurrentLi, obj = $('.suggestions').find('.suggestions li'), objUl = $('.suggestions ul'), code = (e.keyCode ? e.keyCode : e.which);
+                        //     // console.log('length if suggestion', obj)
+                        //     // if (e.which == 40) {  //Up Arrow
+                        //     //     console.log("suggestion arrow up working properley")
+                        //     //     if ((obj.length === 0) || (objUl.find('.suggestions li:last').hasClass('bg-info') === true)) {
+                        //     //         objCurrentLi = objUl.find('.suggestions li:first').addClass('bg-info');
+                        //     //     }
+                        //     //     else {
+                        //     //         objCurrentLi = obj.next().addClass('bg-info');
+                        //     //     }
+                        //     //     obj.removeClass('bg-info');
+                        //     // }
+                        //     // else if (e.which == 38) {  //Down Arrow
+                        //     //     console.log("suggestion arrow down working properley")
+                        //     //     if ((obj.length === 0) || (objUl.find('.suggestions li:first').hasClass('bg-info') === true)) {
+                        //     //         objCurrentLi = objUl.find('.suggestions li:last').addClass('bg-info');
+                        //     //     }
+                        //     //     else {
+                        //     //         objCurrentLi = obj.prev().addClass('bg-info');
+                        //     //     }
+                        //     //     obj.removeClass('bg-info');
+                        //     // }
 
-                            var li = $('.suggestions > li');
-                            var liSelected=$('suggestion li');
-                            $(window).on('keydown', function (e) {
-                                var selected;
-                                if (e.which === 40) {
-                                    console.log("key press down")
-                                    if (liSelected) {
-                                        
-                                        liSelected.removeClass('bg-primary');
-                                        next = liSelected.next();
-                                        console.log('sugggestion li if condtion true',next.length)
-                                        if (next.length > 0) {
-                                            liSelected = next.addClass('bg-primary');
-                                            selected = next.text();
+                        //     var li = $('.suggestions > li');
+                        //     var liSelected = $('.suggestions li');
+                        //     $(window).on('keydown', function (e) {
+                        //         var selected;
+                        //         if (e.which === 40) {
+                        //             console.log("key press down")
+                        //             console.log('sugggestion li if condtion true', liSelected[0].add("bg-danger"))
+                        //             if (liSelected) {
+                        //                 console.log("li selected value",liSelected)
+                        //                 liSelected.removeClass('bg-danger');
+                        //                 next = liSelected.next();
+                        //                 if (next.length > 0) {
+                        //                     liSelected = next.addClass('bg-light');
+                        //                     selected = next.text();
 
-                                        } else {
-                                            liSelected = li.eq(0).addClass('bg-primary');
-                                            selected = li.eq(0).text();
-                                        }
-                                    } else {
-                                        liSelected = li.eq(0).addClass('bg-primary');
-                                        selected = li.eq(0).text();
-                                    }
-                                } else if (e.which === 38) {
-                                    ("key press up")
-                                    if (liSelected) {
-                                        liSelected.removeClass('bg-primary');
-                                        next = liSelected.prev();
-                                        if (next.length > 0) {
-                                            liSelected = next.addClass('bg-primary');
-                                            selected = next.text();
+                        //                 } else {
+                                            
+                        //                     liSelected = li.eq(0).addClass('bg-warning');
+                        //                     selected = li.eq(0).text();
+                        //                 }
+                        //             } else {
+                        //                 liSelected = li.eq(0).addClass('bg-warning');
+                        //                 selected = li.eq(0).text();
+                        //             }
+                        //         } else if (e.which === 38) {
+                        //             ("key press up")
+                        //             if (liSelected) {
+                        //                 liSelected.removeClass('bg-light');
+                        //                 next = liSelected.prev();
+                        //                 if (next.length > 0) {
+                        //                     liSelected = next.addClass('bg-info');
+                        //                     selected = next.text();
 
-                                        } else {
+                        //                 } else {
 
-                                            liSelected = li.last().addClass('bg-primary');
-                                            selected = li.last().text()
-                                        }
-                                    } else {
+                        //                     liSelected = li.last().addClass('bg-secondary');
+                        //                     selected = li.last().text()
+                        //                 }
+                        //             } else {
 
-                                        liSelected = li.last().addClass('bg-primary');
-                                        selected = li.last().text()
-                                    }
-                                }
-                            })
-                            //check suggestion dropdown arrow key function working --end
-                            //CODE ADDING STACKOVERFLOW
-                        })
+                        //                 liSelected = li.last().addClass('bg-secondary');
+                        //                 selected = li.last().text()
+                        //             }
+                        //         }
+                        //     })
+                        //     //check suggestion dropdown arrow key function working --end
+                        //     //CODE ADDING STACKOVERFLOW
+                        // })
                         $("#body").find("tbody").on('click', '[contenteditable]', '#myTable', function (e) {
                             console.log("on clicked on td cell")
                             $('td.active').removeClass('active');
@@ -592,7 +512,16 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                             //Ensure only click on li triggers adding data to td
                             else if ($(e.target).is('li')) {
                                 $(".suggestions").addClass("d-none")
-                                $("td.active").html(e.target.innerText)
+                                // $("td.active").html(e.target.innerText)
+
+
+                                var cell = $('#myTable').DataTable().cell("td.active")
+                                console.log('selected cell', cell)
+                                cell.data(e.target.innerText).draw()
+
+
+                                console.log("this is cell", cell)
+                                // cell.data(this.innerText).draw()
                                 // $('td.active').removeClass('active');
                                 // var row = table.row($('td.active').parents('tr'));
                                 // console.log("suggestion add btn row value is", row)
@@ -610,13 +539,84 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                         //         //keyup
                         $("#body").find("tbody").on('blur', 'td', function (e) {
-                            var cell = $('#myTable').DataTable().cell(this)
+
+
+                            let table = $('#myTable').DataTable()
+                            let cell = table.cell(this)
+                            let row = cell.index().row
+                            let column = cell.index().column
                             cell.data(this.innerText).draw()
-                            // this.focus();
-                            //console.log("ok")
-                            // // console.log("blur",this.innerText);
-                            // console.log($("#myTable").dataTable().api().row().data())
-                            // console.log("blurred");
+
+                            // muliple_calutlation(r,9,10,11)
+                            // value_a = table.cell({ row: r, column: column_a }).data() ? parseInt(table.cell({ row: r, column: column_a }).data()) : 0;
+                            // value_b = table.cell({ row: r, column: 10 }).data() ? parseInt(table.cell({ row: r, column: column_a }).data()) : 1;
+                            // console.log("value_a ", value_a)
+                            // table.cell({ row: r, column: 11 }).data(value_a + value_b);
+
+                            // console.log("Row:", table.row(`:eq(${r})`).remove())     
+
+                            // supplier total == supplier rate*supplier_qty
+                            if (cell.index().column == 5 || cell.index().column == 6) {
+                                let r = cell.index().row
+                                muliple_calutlation(r, 5, 6, 7)
+                            }
+                            // partner total == partner rate*partner_qty
+                            if (cell.index().column == 9 || cell.index().column == 10) {
+                                let r = cell.index().row
+                                muliple_calutlation(r, 9, 10, 11)
+                            }
+                            //check customer type ==rate ,then,customer total == customer rate*customer_qty
+                            if (cell.index().column == 15 || cell.index().column == 16) {
+                                let r = cell.index().row
+                                table.cell({ row: r, column: 14 }).data() == "Rate" ? muliple_calutlation(r, 15, 16, 17) : ""
+
+                            }
+
+                            //NET FRC = FRC+GST AMOUNT
+                            if (cell.index().column == 24 || cell.index().column == 26) {
+                                let r = cell.index().row
+                                let frc = table.cell({ row: r, column: 24 }).data() ? parseInt(table.cell({ row: r, column: 24 }).data()) : 0;
+                                let gst_amt = table.cell({ row: r, column: 26 }).data() ? parseInt(table.cell({ row: r, column: 26 }).data()) : 0;
+                                table.cell({ row: r, column: 27 }).data(frc + gst_amt);
+                            }
+
+                            //TOTAL = CUSTOMER_AMOUNT - PARTNER_AMOUNT-SUPPLIER_AMOUNT-NETFRC
+                            if (
+                                cell.index().column == 5 || cell.index().column == 6
+                                || cell.index().column == 9 || cell.index().column == 10
+                                || cell.index().column == 15 || cell.index().column == 16
+                                || cell.index().column == 24 || cell.index().column == 26
+                                || cell.index().column == 27 || cell.index().column == 17
+                            ) {
+                                let r = cell.index().row
+                                let partner_amount = table.cell({ row: r, column: 11 }).data() ? parseInt(table.cell({ row: r, column: 11 }).data()) : 0;
+                                let customer_amount = table.cell({ row: r, column: 17 }).data() ? parseInt(table.cell({ row: r, column: 17 }).data()) : 0;
+                                let supplier_amount = table.cell({ row: r, column: 7 }).data() ? parseInt(table.cell({ row: r, column: 7 }).data()) : 0;
+                                let net_frc = table.cell({ row: r, column: 27 }).data() ? parseInt(table.cell({ row: r, column: 27 }).data()) : 0;
+                                // console.log("customer amt",customer_amount,"partner amt",partner_amount,"supplier_amount",supplier_amount,"net_frc",net_frc)
+                                let total = customer_amount - partner_amount - supplier_amount - net_frc
+                                // console.log("total value is ",total)
+                                table.cell({ row: r, column: 20 }).data(total)//total value
+                            }
+
+                            //NET TOTAL = TOTAL - BATA RATE
+                            if (
+                                cell.index().column == 5 || cell.index().column == 6
+                                || cell.index().column == 9 || cell.index().column == 10
+                                || cell.index().column == 15 || cell.index().column == 16
+                                || cell.index().column == 24 || cell.index().column == 26
+                                || cell.index().column == 27 || cell.index().column == 17
+                                || cell.index().column == 20 || cell.index().column == 22
+
+                            ) {
+                                let r = cell.index().row
+                                let total = table.cell({ row: r, column: 20 }).data() ? parseInt(table.cell({ row: r, column: 20 }).data()) : 0;
+                                let bata_rate = table.cell({ row: r, column: 22 }).data() ? parseInt(table.cell({ row: r, column: 22 }).data()) : 0;
+                                // console.log("total",total,"bata_rate",bata_rate)
+                                let net_total = total - bata_rate
+                                // console.log("net_total",net_total)
+                                table.cell({ row: r, column: 28 }).data(net_total)//net_total
+                            }
 
                         })
 
@@ -624,6 +624,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                         $('body').on('focus', '[contenteditable]', function () {
                             $("td").removeClass("active")
+                            $(".suggestions").addClass("d-none");// onload to remove suggestion box
                             const $this = $(this);
                             $this.data('before', $this.html());
 
@@ -682,14 +683,26 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
     // Post data from DataTable to backend
     $('#getData').on('click', function () {
+
+        let table = $('#myTable').DataTable()
+        // let selected_value = $("#vehicle option:first").attr('selected', 'selected');
+        
+        selected_vehicle = selected_vehicle ? selected_vehicle : auto_generate_vehicle();
+        current_date?current_date:today_date()
         // $table_data = table.rows().data();
+        // console.log("table row is",table.row(':eq(0)').cell(':eq(11)').data( "safwan" ).draw()) 
+        console.log(table.rows().count())
+        console.log("partner_amt_array", partner_amount_array)
+
+        let total_rows = table.rows().count()
+
         $table_data = $('#myTable').DataTable().rows().data().toArray()
-        console.log($table_data)
+        console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle)
         // json_data = JSON.stringify($table_data);
         // console.log(json_data)
         frappe.call({
             method: "ev_gn.post_trip_data.post_data",
-            args: { row_array: $table_data }
+            args: { row_array: $table_data, date: current_date, selected_vehicle: selected_vehicle }
             // callback: function(r)
             // {
             //     frappe.throw(r.message)
@@ -700,32 +713,58 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
     // Autoselect Data
 
-    // customer_list = frappe.db.get_list('Customer');
-    // driver_list = frappe.db.get_list('Driver');
-    // item_list = frappe.db.get_list('Item');
-    // supplier_list = frappe.db.get_list('Site');
-    // supplier_partner_list = frappe.db.get_list('Supplier');
-    // customer = frappe.db.get_list('Customer');
-    // customer_site = frappe.db.get_list('Site');
-    // console.log(customer_list)    
 
     // Creating drop down list funtion
     var elmts = ["Etios", "Innova", "Cressida", "Corolla", "Camry"];
     var select = document.getElementById("vehicle");
 
     function create_vehicle_list() {
-        for (var i = 0; i < elmts.length; i++) {
-            var optn = elmts[i];
-            var el = document.createElement("option");
-            el.textContent = optn;
-            el.value = optn;
-            select.appendChild(el);
-            // console.log(el)
-        }
+        // for (var i = 0; i < elmts.length; i++) {
+        //     var optn = elmts[i];
+        //     var el = document.createElement("option");
+        //     el.textContent = optn;
+        //     el.value = optn;
+        //     select.appendChild(el);
+        //     // console.log(el)
+        // }
+        frappe.db.get_list('Vehicle', { fields: ['license_plate'] })
+            .then(
+                r => {
+                    // console.log("value are ", r)
+                    r.map((x) => {
+                        console.log("vehicle no plate mapping", x.license_plate)
+                        // var optn = elmts[x.license_plate];
+                        var el = document.createElement("option");
+                        el.textContent = x.license_plate;
+                        el.value = x.license_plate;
+                        select.appendChild(el);
+                    })
+                }
+            )
+            .catch(err => console.log("erorr is", err))
+
         // down.innerHTML = "Elements Added";
         console.log("clicked");
     }
     create_vehicle_list()
+
+    $('select').on('change', function () {
+        // alert( this.value );
+        selected_vehicle = ''
+        selected_vehicle = this.value
+        console.log('selected vehicle', selected_vehicle)
+    });
+    // });
+    $('#date').on('change', function () {
+        var date = new Date($('#date').val());
+        day = date.getDate();
+        month = date.getMonth() + 1;
+        year = date.getFullYear();
+        current_date = ''
+        current_date = [day, month, year].join('-');
+        //   alert([day, month, year].join('/'));
+
+    });
 
     // Select row on clicking it
     $('#myTable').on('click', 'tr', function () {
@@ -742,12 +781,37 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         if (confirm('Are you sure to delete the row')) {
             // Save it!
             row.remove();
-    
+
             table
                 .draw();
-          } else {
+        } else {
             // Do nothing!
             console.log('row deletion canceled');
-          }
+        }
     });
+
+    function muliple_calutlation(row, column_a, column_b, calc) { // multiplication calucultation
+        // console.log("muliple calutlation", "=>", "row", row, "columna:", column_a, "columnb:", column_b, calc)
+        // console.log(this.innerText);
+        // console.log(cell.index().row)
+        // let r = cell.index().row
+        value_a = table.cell({ row: row, column: column_a }).data() ? parseInt(table.cell({ row: row, column: column_a }).data()) : 0; //column_A is rate  
+        value_b = table.cell({ row: row, column: column_b }).data() ? parseInt(table.cell({ row: row, column: column_b }).data()) : 1;  //coloumn_b is qty
+        console.log("value_a ", value_a)
+        console.log("value_B ", value_b)
+        table.cell({ row: row, column: calc }).data(value_a * value_b); //add calculation 
+    }
+
+    function today_date(){
+        let today = new Date()
+        today = today.toISOString().split('T')[0]
+        current_date=today.split("-").join("-");
+        document.getElementById("date").value = today;
+    }
+
+    function auto_generate_vehicle(){
+        let selected_value = $("#vehicle option:first").attr('selected', 'selected');
+        selected_vehicle = selected_value[0].innerHTML;
+    }
+
 }
