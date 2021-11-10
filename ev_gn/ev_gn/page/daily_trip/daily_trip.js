@@ -419,8 +419,8 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                             // e.target.classList.add('active');
                         })
 
-                        //CODE ADDING STACKOVERFLOW
-                        //check suggestion dropdown arrow key function working --start
+                        // //CODE ADDING STACKOVERFLOW
+                        // //check suggestion dropdown arrow key function working --start
                         // $("#body").find("tbody").on(' keyup keydown', '[contenteditable]', '#myTable', function (e) {
                         //     // var objCurrentLi, obj = $('.suggestions').find('.suggestions li'), objUl = $('.suggestions ul'), code = (e.keyCode ? e.keyCode : e.which);
                         //     // console.log('length if suggestion', obj)
@@ -451,16 +451,17 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                         //         var selected;
                         //         if (e.which === 40) {
                         //             console.log("key press down")
+                        //             console.log('sugggestion li if condtion true', liSelected[0].add("bg-danger"))
                         //             if (liSelected) {
                         //                 console.log("li selected value",liSelected)
                         //                 liSelected.removeClass('bg-danger');
                         //                 next = liSelected.next();
-                        //                 console.log('sugggestion li if condtion true', next.length)
                         //                 if (next.length > 0) {
                         //                     liSelected = next.addClass('bg-light');
                         //                     selected = next.text();
 
                         //                 } else {
+                                            
                         //                     liSelected = li.eq(0).addClass('bg-warning');
                         //                     selected = li.eq(0).text();
                         //                 }
@@ -474,17 +475,17 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                         //                 liSelected.removeClass('bg-light');
                         //                 next = liSelected.prev();
                         //                 if (next.length > 0) {
-                        //                     liSelected = next.addClass('bg-warning');
+                        //                     liSelected = next.addClass('bg-info');
                         //                     selected = next.text();
 
                         //                 } else {
 
-                        //                     liSelected = li.last().addClass('bg-warning');
+                        //                     liSelected = li.last().addClass('bg-secondary');
                         //                     selected = li.last().text()
                         //                 }
                         //             } else {
 
-                        //                 liSelected = li.last().addClass('bg-warning');
+                        //                 liSelected = li.last().addClass('bg-secondary');
                         //                 selected = li.last().text()
                         //             }
                         //         }
@@ -804,7 +805,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     function today_date(){
         let today = new Date()
         today = today.toISOString().split('T')[0]
-        current_date=today.split("-").reverse().join("-");
+        current_date=today.split("-").join("-");
         document.getElementById("date").value = today;
     }
 
