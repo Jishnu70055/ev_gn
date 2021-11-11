@@ -70,13 +70,13 @@ def create_payment_entry(self, data, sales_invoice, amount, mode):
 	payment_entry.submit()
 	return payment_entry
 
-def create_expense(bata_amount, data, self):
+def create_expense(data, self):
 	expense = frappe.get_doc({
 		"doctype": "Expense",
 		"expense_type": "Driver Bata",
 		"driver": data.driver,
 		"vehicle": self.vehicle,	
-		"amount": bata_amount * data.trip,
+		"amount": data.bata_rate * data.trip,
 		"date": self.date
 	})
 	expense.insert()
@@ -138,7 +138,7 @@ class TripSheet(Document):
 				payment_mode = data.payment_method
 				payment_entry = create_payment_entry(self, data, sales_invoice, amount_paid, payment_mode)
 			if data.bata_rate:
-				bata_amount = data.bata_rate
+				data.bata_rate = data.bata_rate
 			elif data.bata_percentage:
-				bata_amount = data.bata_rate
-			expense = create_expense(bata_amount, data, self)
+				data.bata_rate = data.total * data.bata_percentage / 100
+			expense = create_expense(data, self)
