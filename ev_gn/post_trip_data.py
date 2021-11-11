@@ -11,11 +11,12 @@ def post_data_test(a):#row_array,,date,selected_vehicle
 
 
 @frappe.whitelist()
-def post_data(row_array, date, selected_vehicle):#row_array,,date,selected_vehicle
-    total_trips = json.loads(row_array) #converting string array into json
+def post_data(arg1=None, arg2=None, arg3=None):
+    # frappe.throw(arg3)#row_array,,date,selected_vehicle
+    total_trips = json.loads(arg3) #converting string array into json
     trip_sheet = frappe.new_doc("Trip Sheet")
-    trip_sheet.vehicle = selected_vehicle
-    trip_sheet.date = date
+    trip_sheet.vehicle = arg1
+    trip_sheet.date = arg2
     for trip in total_trips:     #creating trip sheet for each row
         driver = trip[0]
         item = trip[1]
@@ -32,18 +33,39 @@ def post_data(row_array, date, selected_vehicle):#row_array,,date,selected_vehic
         customer = trip[12]
         customer_site = trip[13]
         customer_rate_type = trip[14]
-        customer_rate = int(trip[15])
-        customer_quantity = int(trip[16])
+        if (trip[15] == ''):
+            customer_rate = int(0)
+        else:
+            customer_rate = int(trip[15])
+        if (trip[16] == ''):
+            customer_quantity = int(0)
+        else:
+            customer_quantity = int(trip[16])
         customer_amount = int(trip[17])
-        paid_amount = int(trip[18])
+        if (trip[18] == ''):
+            paid_amount = int(0)
+        else:
+            paid_amount = int(trip[18])
         payment_method = trip[19]
         total = int(trip[20])
         no_of_trips = int(trip[21])
-        bata_rate = int(trip[22])
-        bata_percentage = int(trip[23])
+        if (trip[22] == ''):
+            bata_rate = int(0)
+        else:
+            bata_rate = int(trip[22])
+        if (trip[23] == ''):
+            bata_percentage = int(0)
+        else:
+            bata_percentage = int(trip[23])
         frc = int(trip[24])
-        distance = trip[25]
-        gst_amount = int(trip[26])
+        if (trip[25] == ''):
+            distance = int(0)
+        else:
+            distance = int(trip[25])
+        if (trip[26] == ''):
+            gst_amount = int(0)
+        else:
+            gst_amount = int(trip[26])
         net_frc = int(trip[27])
         net_total = int(trip[28])
         trip_sheet.append("trip_details",
@@ -83,7 +105,7 @@ def post_data(row_array, date, selected_vehicle):#row_array,,date,selected_vehic
         
     
     trip_sheet.save()# trip_sheet.save()
-    # trip_sheet.submit()
+    trip_sheet.submit()
     # trip_sheet.submit()# trip_sheet.submit()
         
 

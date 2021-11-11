@@ -739,7 +739,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
         frappe.call({
             method : 'ev_gn.post_trip_data.post_data',
-            args: { row_array: $table_data, date: current_date, selected_vehicle: selected_vehicle}
+            args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data }
             
             // callback: function(r) {r.message}
             // callback: function(r) {
