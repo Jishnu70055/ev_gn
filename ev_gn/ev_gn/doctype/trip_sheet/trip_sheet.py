@@ -139,6 +139,6 @@ class TripSheet(Document):
 				payment_entry = create_payment_entry(self, data, sales_invoice, amount_paid, payment_mode)
 			if data.bata_rate:
 				data.bata_rate = data.bata_rate
-			elif data.bata_precentage:
-				data.bata_rate = data.total * data.bata_precentage / 100
+			elif data.bata_percentage:
+				data.bata_rate = data.total * data.bata_percentage / 100
 			expense = create_expense(data, self)

@@ -98,7 +98,7 @@ def post_data(arg1=None, arg2=None, arg3=None):
                     "gst_amount": gst_amount,
                     "net_frc": net_frc,
                     "bata_rate": bata_rate,
-                    "bata_precentage": bata_percentage,
+                    "bata_percentage": bata_percentage,
                     "distance": distance,
                     "net_total": net_total
                 })
@@ -106,6 +106,7 @@ def post_data(arg1=None, arg2=None, arg3=None):
     
     trip_sheet.save()# trip_sheet.save()
     trip_sheet.submit()
+    return "Success"
     # trip_sheet.submit()# trip_sheet.submit()
         
 
