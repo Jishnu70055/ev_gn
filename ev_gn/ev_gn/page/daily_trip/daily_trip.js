@@ -42,8 +42,23 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
             $.getScript(js_libs.jquery_chosen)
                 .done(
                     function (e) {
-                        $("#vehicle").chosen({ no_results_text: "Oops, nothing found!" }),
-                        console.log("js libs call jquery chosen")
+                        frappe.db.get_list('Vehicle', { fields: ['license_plate'] })
+                            .then(
+                                r => {
+                                    // console.log("value are ", r)
+                                    r.map((x) => {
+                                        console.log("vehicle no plate mapping", x.license_plate)
+                                        // var optn = elmts[x.license_plate];
+                                        var el = document.createElement("option");
+                                        el.textContent = x.license_plate;
+                                        el.value = x.license_plate;
+                                        select.appendChild(el);
+                                    })
+                                    $("#vehicle").chosen({ no_results_text: "Oops, nothing found!" })
+                                }
+                            )
+                            .catch(err => console.log("erorr is", err))
+                        // console.log("js libs call jquery chosen")
                     },
                     function (e) {
                         //Add Css for chosen jquery
@@ -53,7 +68,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                         }).done(function (text) {
                             $("<style>").html(text).appendTo("head");
                         });
-                        
+
 
                     },
                     //On success load the datatable jquery plugin using getScript function
@@ -764,31 +779,31 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     var elmts = ["Etios", "Innova", "Cressida", "Corolla", "Camry"];
     var select = document.getElementById("vehicle");
 
-    function create_vehicle_list() {
+    // function create_vehicle_list() {
 
-        frappe.db.get_list('Vehicle', { fields: ['license_plate'] })
-            .then(
-                r => {
-                    // console.log("value are ", r)
-                    r.map((x) => {
-                        console.log("vehicle no plate mapping", x.license_plate)
-                        // var optn = elmts[x.license_plate];
-                        var el = document.createElement("option");
-                        el.textContent = x.license_plate;
-                        el.value = x.license_plate;
-                        select.appendChild(el);
-                    })
-                }
-            )
-            .catch(err => console.log("erorr is", err))
+    //     frappe.db.get_list('Vehicle', { fields: ['license_plate'] })
+    //         .then(
+    //             r => {
+    //                 // console.log("value are ", r)
+    //                 r.map((x) => {
+    //                     console.log("vehicle no plate mapping", x.license_plate)
+    //                     // var optn = elmts[x.license_plate];
+    //                     var el = document.createElement("option");
+    //                     el.textContent = x.license_plate;
+    //                     el.value = x.license_plate;
+    //                     select.appendChild(el);
+    //                 })
+    //             }
+    //         )
+    //         .catch(err => console.log("erorr is", err))
 
-        // down.innerHTML = "Elements Added";
-        console.log("clicked");
-    }
-    create_vehicle_list()
+    //     // down.innerHTML = "Elements Added";
+    //     console.log("clicked");
+    // }
+    // create_vehicle_list()
 
     $('#vehicle').on('click change', function (e) {
-        console.log("vehicle changed ",e.target.value)
+        console.log("vehicle changed ", e.target.value)
         // alert( this.value );
         selected_vehicle = ''
         selected_vehicle = this.value
