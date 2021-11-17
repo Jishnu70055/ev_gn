@@ -762,7 +762,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
             //         // code snippet
             //     }
             // }
-        });
+        })
+        .then(
+            (e) => {console.log("Success", e),
+            location.reload()}
+        )
+        .catch( (e) => console.log ("Error", e) )
         // frappe.call('ev_gn.post_trip_data.post_data_test', {
         //     "a":1
         // }).then(r => {
