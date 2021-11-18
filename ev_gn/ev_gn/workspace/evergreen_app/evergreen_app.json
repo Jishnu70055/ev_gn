@@ -1,10 +1,6 @@
 {
  "category": "Modules",
- "charts": [
-  {
-   "chart_name": "Profit and Loss"
-  }
- ],
+ "charts": [],
  "creation": "2021-09-17 23:05:42.044237",
  "developer_mode_only": 1,
  "disable_user_customization": 0,
@@ -45,7 +41,7 @@
    "type": "Link"
   }
  ],
- "modified": "2021-11-10 15:45:17.168591",
+ "modified": "2021-11-17 16:35:49.913686",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Evergreen App",
@@ -75,30 +71,6 @@
    "doc_view": "List",
    "label": "Purchase Invoice",
    "link_to": "Purchase Invoice",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Vehicle",
-   "link_to": "Vehicle",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Supplier",
-   "link_to": "Supplier",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Customer",
-   "link_to": "Customer",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Item",
-   "link_to": "Item",
    "type": "DocType"
   },
   {
