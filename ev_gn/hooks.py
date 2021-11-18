@@ -179,6 +179,5 @@ doc_events = {
 # 	"ev_gn.auth.validate"
 # ]
 
-fixtures = ["Custom Field","Client Script","Property Setter", "Role", "Custom DocPerm",
-			{"doctype":"Report"}
-            ]
+# fixtures = ["Custom Field","Client Script","Property Setter", "Role", "Custom DocPerm"]
+fixtures = ["Role", "Custom DocPerm"]
