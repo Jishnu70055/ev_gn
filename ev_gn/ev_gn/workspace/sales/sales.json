@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Sales",
  "links": [],
- "modified": "2021-11-17 18:26:12.363241",
+ "modified": "2021-11-19 18:00:38.805109",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Sales",
@@ -31,6 +31,12 @@
    "doc_view": "List",
    "label": "Payments",
    "link_to": "Payment Entry",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Quotation",
+   "link_to": "Quotation",
    "type": "DocType"
   }
  ],
