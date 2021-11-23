@@ -180,4 +180,4 @@ doc_events = {
 # ]
 
 # fixtures = ["Custom Field","Client Script","Property Setter", "Role", "Custom DocPerm"]
-fixtures = ["Role", "Custom DocPerm"]
+# fixtures = ["Role", "Custom DocPerm"]
