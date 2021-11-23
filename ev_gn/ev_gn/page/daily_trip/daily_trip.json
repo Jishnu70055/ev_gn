@@ -4,7 +4,7 @@
  "docstatus": 0,
  "doctype": "Page",
  "idx": 0,
- "modified": "2021-11-10 10:58:10.805886",
+ "modified": "2021-11-23 16:14:24.663830",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "daily-trip",
@@ -12,7 +12,7 @@
  "page_name": "Daily Trip",
  "roles": [
   {
-   "role": "testrole"
+   "role": "Evergreen User"
   }
  ],
  "script": null,
