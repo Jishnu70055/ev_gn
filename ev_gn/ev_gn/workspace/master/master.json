@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Master",
  "links": [],
- "modified": "2021-11-17 16:25:19.426372",
+ "modified": "2021-11-24 12:35:56.195337",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Master",
@@ -55,6 +55,12 @@
    "doc_view": "New",
    "label": "Employee",
    "link_to": "Employee",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Sales Person",
+   "link_to": "Sales Person",
    "type": "DocType"
   }
  ],
