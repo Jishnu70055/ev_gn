@@ -15,6 +15,7 @@
   "column_break_8",
   "supplier_site",
   "supplier_quantity",
+  "sales_person",
   "supplier_amount",
   "purchase_invoice_id",
   "data_11",
@@ -41,12 +42,14 @@
   "trip",
   "frc",
   "gst",
+  "gst_percentage",
   "gst_amount",
   "net_frc",
   "total",
   "column_break_32",
   "bata_rate",
   "bata_percentage",
+  "bata_amount",
   "distance",
   "net_total"
  ],
@@ -152,11 +155,9 @@
    "options": "Supplier"
   },
   {
-   "depends_on": "eval:doc.multiple_supplier",
    "fieldname": "supplier_partner_quantity",
    "fieldtype": "Int",
-   "label": "Supplier Partner Quantity",
-   "mandatory_depends_on": "eval: doc.multiple_supplier == 1;"
+   "label": "Supplier Partner Quantity"
   },
   {
    "depends_on": "eval:doc.multiple_supplier",
@@ -165,7 +166,6 @@
    "label": "Supplier Partner Rate"
   },
   {
-   "depends_on": "eval:doc.multiple_supplier",
    "fieldname": "supplier_partner_amount",
    "fieldtype": "Float",
    "label": "Supplier Partner Amount"
@@ -283,7 +283,6 @@
    "read_only": 1
   },
   {
-   "depends_on": "eval:doc.multiple_supplier",
    "fieldname": "supplier_purchase_invoice_id",
    "fieldtype": "Link",
    "label": "Supplier Purchase Invoice ID",
@@ -308,12 +307,28 @@
    "fieldtype": "Int",
    "label": "Bata Precentage(%)",
    "mandatory_depends_on": "eval: doc.bata_rate == null;"
+  },
+  {
+   "fieldname": "bata_amount",
+   "fieldtype": "Currency",
+   "label": "Bata Amount"
+  },
+  {
+   "fieldname": "gst_percentage",
+   "fieldtype": "Int",
+   "label": "GST percentage"
+  },
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Link",
+   "label": "Sales Person",
+   "options": "Sales Person"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-11-15 14:38:46.812068",
+ "modified": "2021-11-25 12:34:54.829705",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Details",
