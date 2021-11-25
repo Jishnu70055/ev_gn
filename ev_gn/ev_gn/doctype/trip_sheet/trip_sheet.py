@@ -132,7 +132,7 @@ class TripSheet(Document):
 			if data.multiple_supplier == 1:																
 				purchase_invoice_partner = create_purchase_invoice(data.supplier_partner, data.supplier_site, data.supplier_partner_rate, data.supplier_partner_quantity, data.supplier_partner_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)
 				data.partner_purchase_invoice_id = purchase_invoice_partner
-			frc = create_frc(self, data)
+			# frc = create_frc(self, data)
 			if data.paid_amount:															
 				amount_paid = data.paid_amount
 				payment_mode = data.payment_method
