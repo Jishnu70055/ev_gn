@@ -12,6 +12,7 @@
   "paid_by",
   "amended_from",
   "column_break_5",
+  "paid",
   "date",
   "amount"
  ],
@@ -86,16 +87,25 @@
    "options": "Driver"
   },
   {
+   "depends_on": "eval:doc.paid==1;",
    "fieldname": "paid_by",
    "fieldtype": "Select",
    "label": "Paid By",
-   "options": "Cash\nBank\nCredit"
+   "mandatory_depends_on": "eval:doc.paid==1;",
+   "options": "Cash\nBank"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "paid",
+   "fieldtype": "Check",
+   "label": "Paid"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-10-22 13:23:13.770093",
+ "modified": "2021-11-25 18:13:03.512701",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Expense",

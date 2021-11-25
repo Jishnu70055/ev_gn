@@ -10,12 +10,13 @@ def create_journal_entry(self):
 	expense_doc = frappe.get_doc('Expense Type', self.expense_type)
 	debit_account = expense_doc.expense_account
 
-	if self.paid_by == "Cash":
-		credit_account = "Cash - EJ"
-	elif self.paid_by == "Bank":
-		credit_account = "Bank - EJ"
-	elif self.paid_by == "Credit":
-		credit_account = "Accounts Payable - EJ"
+	if self.paid == 0:
+		credit_account = "Creditors - EJ"
+	else:
+		if self.paid_by == "Cash":
+			credit_account = "Cash - EJ"
+		elif self.paid_by == "Bank":
+			credit_account = "Bank - EJ"
 
 	journal_entry = frappe.get_doc({
 			'doctype': 'Journal Entry',
@@ -41,4 +42,3 @@ def create_journal_entry(self):
 class Expense(Document):
 	def before_submit(self):
 		create_journal_entry(self)
-		
