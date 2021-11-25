@@ -17,12 +17,12 @@
  "is_standard": 1,
  "label": "Dashboard",
  "links": [],
- "modified": "2021-11-17 16:37:22.601903",
+ "modified": "2021-11-25 16:05:51.351940",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Dashboard",
  "owner": "Administrator",
  "pin_to_bottom": 0,
- "pin_to_top": 0,
+ "pin_to_top": 1,
  "shortcuts": []
 }

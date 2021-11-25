@@ -99,16 +99,16 @@ def create_frc(self, data):
 		})
 	frc.submit()
 
-	frc_expense = frappe.get_doc({
-		"doctype": "Expense",
-		"expense_type": "FRC",
-		"driver": data.driver,
-		"vehicle": self.vehicle,	
-		"amount": data.net_frc * data.trip,
-		"date": self.date
-	})
-	frc_expense.insert()
-	frc_expense.submit()
+	# frc_expense = frappe.get_doc({
+	# 	"doctype": "Expense",
+	# 	"expense_type": "FRC",
+	# 	"driver": data.driver,
+	# 	"vehicle": self.vehicle,	
+	# 	"amount": data.net_frc * data.trip,
+	# 	"date": self.date
+	# })
+	# frc_expense.insert()
+	# frc_expense.submit()
 
 class TripSheet(Document):
 
