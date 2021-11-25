@@ -6,7 +6,7 @@ import frappe
 from frappe.model.document import Document
 
 				
-def create_sales_invoice(self, data):
+def create_sales_invoice(self, data, gst_template):
 	sales_invoice = frappe.get_doc({
 		"doctype":"Sales Invoice",
 		"customer":data.customer,
@@ -16,7 +16,8 @@ def create_sales_invoice(self, data):
 		"no_of_trips": data.trip,
 		"vehicle_number": self.vehicle,
 		"vehicle": self.vehicle,
-		"trip_id": self.name
+		"trip_id": self.name,
+		"taxes_and_charges": gst_template
 		})
 	sales_invoice.append("items",{
 		"item_code":data.item,
@@ -124,9 +125,11 @@ class TripSheet(Document):
 	def before_submit(self):
 		for data in self.trip_details:																		
 			if data.customer_rate_type == "Rent":
-				data.customer_rate = data.customer_amount / data.customer_quantity													
-			sales_invoice = create_sales_invoice(self, data)
-			data.sales_invoice_id = sales_invoice										
+				data.customer_rate = data.customer_amount / data.customer_quantity
+			if data.gst_percentage == 5:
+				gst_template = "GST 5% - EJ"												
+			sales_invoice = create_sales_invoice(self, data, gst_template)
+			data.sales_invoice_id = sales_invoice									
 			purchase_invoice = create_purchase_invoice(data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)	
 			data.purchase_invoice_id = purchase_invoice						
 			if data.multiple_supplier == 1:																
