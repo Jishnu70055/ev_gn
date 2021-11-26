@@ -2,14 +2,14 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
-  "dt": "Trip Sheet",
+  "dt": "Vehicle",
   "enabled": 1,
-  "modified": "2021-10-28 12:58:31.830311",
-  "name": "Trip Sheet-Form",
+  "modified": "2021-11-26 20:02:02.418745",
+  "name": "Vehicle-Form",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
-  "script": "frappe.ui.form.on(\"Trip Details\", \"supplier_rate\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_amount\", row.supplier_quantity * row.supplier_rate);\n});\n\nfrappe.ui.form.on(\"Trip Details\", \"supplier_quantity\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_amount\", row.supplier_quantity * row.supplier_rate);\n});\n\nfrappe.ui.form.on(\"Trip Details\", \"supplier_partner_rate\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_partner_amount\", row.supplier_partner_quantity * row.supplier_partner_rate);\n});\n\nfrappe.ui.form.on(\"Trip Details\", \"supplier_partner_quantity\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_partner_amount\", row.supplier_partner_quantity * row.supplier_partner_rate);\n});",
+  "script": "frappe.ui.form.on(\"Vehicle\",  \"onload\", function(frm)\n{\n    frm.set_query(\"share_holder\", \"vehicle_owner\", function(frm,cdt, cdn)\n    {\n        var row = locals[cdt][cdn];\n        return{\n            filters: [[\"Supplier\", \"supplier_group\", \"=\", \"Vehicle Owner\"]]\n        }\n    })\n});",
   "view": "Form"
  }
 ]

@@ -13,9 +13,10 @@
  "fields": [
   {
    "fieldname": "share_holder",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Shareholder Name",
+   "options": "Supplier",
    "reqd": 1
   },
   {
@@ -35,7 +36,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-10-27 15:55:32.650035",
+ "modified": "2021-11-26 19:40:32.486745",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Vehicle Owner",

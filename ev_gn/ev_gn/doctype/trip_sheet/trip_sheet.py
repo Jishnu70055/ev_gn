@@ -110,6 +110,26 @@ def create_frc(self, data):
 	# frc_expense.insert()
 	# frc_expense.submit()
 
+def calculate_net_balance(net_total, self):
+	vehicle = frappe.get_doc('Vehicle', self.vehicle)
+	for row in vehicle.vehicle_owner:
+		share_amount = net_total * row.share_percentage / 100
+		purchase_invoice = frappe.get_doc({
+		"doctype":"Purchase Invoice",
+		"supplier": row.share_holder,
+		"date": self.date,
+		"vehicle": vehicle,
+		"trip_id": self.name
+		})
+	purchase_invoice.append("items",{
+		"item_code": "Vehicle",
+		"qty": 1,
+		"rate": share_amount,
+		"uom": "No"
+		})
+	purchase_invoice.submit()
+	return purchase_invoice.name
+
 class TripSheet(Document):
 
 	# calculating total balance of vehicle
@@ -123,7 +143,7 @@ class TripSheet(Document):
 		
 
 	def before_submit(self):
-		for data in self.trip_details:																		
+		for data in self.trip_details:																	
 			if data.customer_rate_type == "Rent":
 				data.customer_rate = data.customer_amount / data.customer_quantity
 			if data.gst_percentage == 5:
@@ -135,7 +155,6 @@ class TripSheet(Document):
 			if data.multiple_supplier == 1:																
 				purchase_invoice_partner = create_purchase_invoice(data.supplier_partner, data.supplier_site, data.supplier_partner_rate, data.supplier_partner_quantity, data.supplier_partner_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)
 				data.partner_purchase_invoice_id = purchase_invoice_partner
-			# frc = create_frc(self, data)
 			if data.paid_amount:															
 				amount_paid = data.paid_amount
 				payment_mode = data.payment_method
@@ -145,3 +164,5 @@ class TripSheet(Document):
 			elif data.bata_percentage:
 				data.bata_rate = data.total * data.bata_percentage / 100
 			expense = create_expense(data, self)
+
+			balance = calculate_net_balance(self.total)
