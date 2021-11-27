@@ -78,26 +78,27 @@ def create_expense(data, self):
 		"driver": data.driver,
 		"vehicle": self.vehicle,	
 		"amount": data.bata_rate * data.trip,
-		"date": self.date
+		"date": self.date,
+		"paid": 1
 	})
 	expense.insert()
 	expense.submit()
 
-def create_frc(self, data):
-	frc = frappe.get_doc({
-		"doctype": "FRC",
-		"vehicle": self.vehicle,
-		"amount": data.net_frc * data.trip,
-		"date": self.date
-	})
-	vehicle = frappe.get_doc('Vehicle', self.vehicle)
-	for row in vehicle.vehicle_owner:
-		frc.append("share_holder_value",{
-			'share_holder': row.share_holder,
-			'share_percentage': row.share_percentage,
-			'share_amount': data.net_frc * row.share_percentage / 100
-		})
-	frc.submit()
+# def create_frc(self, data):
+# 	frc = frappe.get_doc({
+# 		"doctype": "FRC",
+# 		"vehicle": self.vehicle,
+# 		"amount": data.net_frc * data.trip,
+# 		"date": self.date
+# 	})
+# 	vehicle = frappe.get_doc('Vehicle', self.vehicle)
+# 	for row in vehicle.vehicle_owner:
+# 		frc.append("share_holder_value",{
+# 			'share_holder': row.share_holder,
+# 			'share_percentage': row.share_percentage,
+# 			'share_amount': data.net_frc * row.share_percentage / 100
+# 		})
+# 	frc.submit()
 
 	# frc_expense = frappe.get_doc({
 	# 	"doctype": "Expense",
@@ -110,25 +111,25 @@ def create_frc(self, data):
 	# frc_expense.insert()
 	# frc_expense.submit()
 
-def calculate_net_balance(net_total, self):
+def calculate_net_balance(self, data):
 	vehicle = frappe.get_doc('Vehicle', self.vehicle)
 	for row in vehicle.vehicle_owner:
-		share_amount = net_total * row.share_percentage / 100
-		purchase_invoice = frappe.get_doc({
+		share_amount = data.net_total * row.share_percentage / 100
+		purchase_invoice_share = frappe.get_doc({
 		"doctype":"Purchase Invoice",
 		"supplier": row.share_holder,
 		"date": self.date,
-		"vehicle": vehicle,
+		"vehicle": self.vehicle,
 		"trip_id": self.name
 		})
-	purchase_invoice.append("items",{
-		"item_code": "Vehicle",
-		"qty": 1,
-		"rate": share_amount,
-		"uom": "No"
+		purchase_invoice_share.append("items",{
+			"item_code": "Vehicle",
+			"qty": 1,
+			"rate": share_amount,
+			"uom": "Nos"
 		})
-	purchase_invoice.submit()
-	return purchase_invoice.name
+		purchase_invoice_share.submit()
+	# return purchase_invoice_share.name
 
 class TripSheet(Document):
 
@@ -147,7 +148,9 @@ class TripSheet(Document):
 			if data.customer_rate_type == "Rent":
 				data.customer_rate = data.customer_amount / data.customer_quantity
 			if data.gst_percentage == 5:
-				gst_template = "GST 5% - EJ"												
+				gst_template = "GST 5% - EJ"
+			else:
+				gst_template = None											
 			sales_invoice = create_sales_invoice(self, data, gst_template)
 			data.sales_invoice_id = sales_invoice									
 			purchase_invoice = create_purchase_invoice(data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)	
@@ -164,5 +167,5 @@ class TripSheet(Document):
 			elif data.bata_percentage:
 				data.bata_rate = data.total * data.bata_percentage / 100
 			expense = create_expense(data, self)
-
-			balance = calculate_net_balance(self.total)
+			
+			balance = calculate_net_balance(self, data)
