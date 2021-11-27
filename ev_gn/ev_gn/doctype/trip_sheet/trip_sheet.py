@@ -129,7 +129,6 @@ def calculate_net_balance(self, data):
 			"uom": "Nos"
 		})
 		purchase_invoice_share.submit()
-	# return purchase_invoice_share.name
 
 class TripSheet(Document):
 

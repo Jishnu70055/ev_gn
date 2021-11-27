@@ -185,3 +185,5 @@ doc_events = {
 # 	{"dt": "Client Script",
 # 	"filters": [["dt", "in", "Vehicle"]]}
 # ]
+
+after_migrate = "ev_gn.ev_gn.migrate.after_migrate"
