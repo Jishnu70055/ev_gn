@@ -26,6 +26,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let current_date //set date 
     let selected_vehicle //selected option for vehicle 
     let table //used for creating datatable 
+    let counts = 0
     let rows //used for storing rows empty array
     let col_count = 32  //The count of empty arrays to be created
     let partner_amount_array
@@ -122,6 +123,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 //Binding for Add Row event
                                 function row_add() {
                                     rows = [];
+                                    counts = 0
 
                                     //Array for adding row
                                     for (i = 1; i <= col_count; i++) {
@@ -135,13 +137,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 $(".suggestions").addClass("d-none");// onload to remove suggestion box
                                 $('#addRow').on('click', function add_row() {
                                     rows = [];
-
+                                    counts = 0
                                     //Array for adding row
                                     for (i = 1; i <= col_count; i++) {
                                         rows.push("");
 
                                     }
-
                                     table.row.add(rows).draw(true);
                                     $('.suggestions li').removeClass('active');
                                 });
@@ -156,12 +157,18 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 //Cell for table creation     
                                 const createdCell = function (cell) {
                                     let original
-                                    cell.setAttribute('contenteditable', true)
+                                    console.log("cell creation", counts)
+                                    //condition for contenteditable true or false --start
+                                    counts == supplier_amt ?
+                                        cell.setAttribute('contenteditable', false)
+                                        :
+                                        cell.setAttribute('contenteditable', true)
+                                    //condition for contenteditable true or false --end
 
                                     cell.setAttribute('spellcheck', false)
                                     cell.setAttribute('class', "cell")
 
-
+                                    counts=counts+1
                                     cell.addEventListener('focus', function (e) {
                                         original = e.target.textContent
                                     })
