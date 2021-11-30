@@ -59,7 +59,8 @@ def create_payment_entry(self, data, sales_invoice, amount, mode):
 		"party": data.customer,
 		"paid_to": "Cash - EJ",
 		"paid_amount": amount,
-		"received_amount": amount
+		"received_amount": amount,
+		"vehicle": self.vehicle
 	})
 
 	payment_entry.append("references",{
@@ -73,14 +74,21 @@ def create_payment_entry(self, data, sales_invoice, amount, mode):
 
 def create_expense(data, self):
 	expense = frappe.get_doc({
-		"doctype": "Expense",
-		"expense_type": "Driver Bata",
-		"driver": data.driver,
-		"vehicle": self.vehicle,	
-		"amount": data.bata_rate * data.trip,
-		"date": self.date,
-		"paid": 1
-	})
+			'doctype': 'Journal Entry',
+			'posting_date': self.date,
+			"accounts":[
+			{
+				"account": "Cash - EJ",
+				"credit_in_account_currency": data.bata_amount,
+				"vehicle": self.vehicle
+			},
+			{
+				"account": "Driver Bata - EJ",
+				"debit_in_account_currency": data.bata_amount,
+				"vehicle": self.vehicle
+			}
+		]
+		})
 	expense.insert()
 	expense.submit()
 
@@ -115,21 +123,28 @@ def calculate_net_balance(self, data):
 	vehicle = frappe.get_doc('Vehicle', self.vehicle)
 	for row in vehicle.vehicle_owner:
 		share_amount = data.net_total * row.share_percentage / 100
-		purchase_invoice_share = frappe.get_doc({
-		"doctype":"Purchase Invoice",
-		"supplier": row.share_holder,
-		"date": self.date,
-		"vehicle": self.vehicle,
-		"trip_id": self.name
+		journal_entry = frappe.get_doc({
+			'doctype': 'Journal Entry',
+			'posting_date': self.date,
+			"accounts":[
+			{
+				"account": "Cost of Vehicle Rent - EJ",
+				"debit_in_account_currency": share_amount,
+				"vehicle": self.vehicle
+			},
+			{
+				"account": "Creditors - EJ",
+				"party_type": "Supplier",
+				"party": row.share_holder,
+				"credit_in_account_currency": share_amount,
+				"vehicle": self.vehicle
+			}
+		]
 		})
-		purchase_invoice_share.append("items",{
-			"item_code": "Vehicle",
-			"qty": 1,
-			"rate": share_amount,
-			"uom": "Nos"
-		})
-		purchase_invoice_share.submit()
 
+		journal_entry.insert()
+		journal_entry.submit()
+		
 class TripSheet(Document):
 
 	# calculating total balance of vehicle
@@ -144,12 +159,12 @@ class TripSheet(Document):
 
 	def before_submit(self):
 		for data in self.trip_details:																	
-			if data.customer_rate_type == "Rent":
-				data.customer_rate = data.customer_amount / data.customer_quantity
+			# if data.customer_rate_type == "Rent":
+			# 	data.customer_rate = data.customer_amount / data.customer_quantity
 			if data.gst_percentage == 5:
 				gst_template = "GST 5% - EJ"
 			else:
-				gst_template = None											
+				gst_template = None
 			sales_invoice = create_sales_invoice(self, data, gst_template)
 			data.sales_invoice_id = sales_invoice									
 			purchase_invoice = create_purchase_invoice(data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)	
@@ -161,10 +176,10 @@ class TripSheet(Document):
 				amount_paid = data.paid_amount
 				payment_mode = data.payment_method
 				payment_entry = create_payment_entry(self, data, sales_invoice, amount_paid, payment_mode)
-			if data.bata_rate:
-				data.bata_rate = data.bata_rate
-			elif data.bata_percentage:
-				data.bata_rate = data.total * data.bata_percentage / 100
+			# if data.bata_rate:
+			# 	data.bata_rate = data.bata_rate
+			# elif data.bata_percentage:
+			# 	data.bata_rate = data.total * data.bata_percentage / 100
 			expense = create_expense(data, self)
 			
 			balance = calculate_net_balance(self, data)

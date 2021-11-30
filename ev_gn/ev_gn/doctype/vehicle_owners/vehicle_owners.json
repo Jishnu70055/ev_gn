@@ -1,40 +1,32 @@
 {
  "actions": [],
- "autoname": "field:vehicle",
- "creation": "2021-10-14 19:17:17.388094",
+ "allow_rename": 1,
+ "creation": "2021-11-29 18:50:36.797313",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "vehicle",
-  "balance_section",
-  "monthly_balance"
+  "truck_owner",
+  "phone"
  ],
  "fields": [
   {
-   "fieldname": "vehicle",
-   "fieldtype": "Link",
-   "label": "Vehicle",
-   "options": "Vehicle",
-   "unique": 1
+   "fieldname": "truck_owner",
+   "fieldtype": "Data",
+   "label": "Name"
   },
   {
-   "fieldname": "balance_section",
-   "fieldtype": "Section Break",
-   "label": "Balance"
-  },
-  {
-   "fieldname": "monthly_balance",
-   "fieldtype": "Table",
-   "options": "Monthly Balance"
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-10-14 19:19:56.715166",
+ "modified": "2021-11-29 18:50:36.797313",
  "modified_by": "Administrator",
  "module": "Ev Gn",
- "name": "Vehicle Balance",
+ "name": "Vehicle Owners",
  "owner": "Administrator",
  "permissions": [
   {

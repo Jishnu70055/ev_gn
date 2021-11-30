@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestVehicleBalance(unittest.TestCase):
+class TestTruckOwners(unittest.TestCase):
 	pass

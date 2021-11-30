@@ -10,6 +10,34 @@ def create_journal_entry(self):
 	expense_doc = frappe.get_doc('Expense Type', self.expense_type)
 	debit_account = expense_doc.expense_account
 
+
+	if self.vehicle:
+		vehicle = frappe.get_doc('Vehicle', self.vehicle)
+		for row in vehicle.vehicle_owner:
+			expense_amount = self.amount * row.share_percentage / 100
+			journal_entry_vehicle = frappe.get_doc({
+				'doctype': 'Journal Entry',
+				'posting_date': self.date,
+				"accounts":[
+				{
+					"account": "Creditors - EJ",
+					"party_type": "Supplier",
+					"party": row.share_holder,
+					"credit_in_account_currency": expense_amount,
+					"vehicle": self.vehicle
+				},
+				{
+					"account": "Cost of Vehicle Rent - EJ",
+					"debit_in_account_currency": expense_amount,
+					"vehicle": self.vehicle
+				}
+			]
+			})
+
+	journal_entry_vehicle.insert()
+	journal_entry_vehicle.submit()
+
+
 	if self.paid == 0:
 		credit_account = "Creditors - EJ"
 	else:
