@@ -26,10 +26,48 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let current_date //set date 
     let selected_vehicle //selected option for vehicle 
     let table //used for creating datatable 
+    let counts = 0
     let rows //used for storing rows empty array
-    let col_count = 29  //The count of empty arrays to be created
+    let col_count = 32  //The count of empty arrays to be created
     let partner_amount_array
     let Options = ['Rent', 'Rate'];
+    let gst_percentage = ['5%'];
+    // index of cell in table  
+    let driver_ = 0
+    let item_ = 1
+    let uom_ = 2
+    let supplier_ = 3
+    let supplier__site = 4
+    let supplier_rate = 5
+    let supplier_qty = 6
+    let sales__person = 7
+    let supplier_amt = 8
+    let supplier_partner = 9
+    let partner__rate = 10
+    let partner__qty = 11
+    let partner__amt = 12
+    let coustomer_ = 13
+    let coustomer__site = 14
+    let gst_p_ = 15
+    let coustomer__rate__type = 16
+    let coustomer__rate = 17
+    let coustomer__qty = 18
+    let coustomer__amt = 19
+    let gst_amount = 20
+    let no__of__tips = 21
+    let distance_ = 22
+    let recived__cash__amt = 23
+    let payment__method = 24
+    let total_vehicle_rent = 25
+    let frc_ = 26
+    let frc_gst = 27
+    let bata__rate = 28
+    let bata__percentage = 29
+    let bata__amount = 30
+    let net_vehicle_balance = 31
+
+
+
 
 
     // Load Jquery UI using Jquery getScript function.
@@ -85,6 +123,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 //Binding for Add Row event
                                 function row_add() {
                                     rows = [];
+                                    counts = 0
 
                                     //Array for adding row
                                     for (i = 1; i <= col_count; i++) {
@@ -98,13 +137,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 $(".suggestions").addClass("d-none");// onload to remove suggestion box
                                 $('#addRow').on('click', function add_row() {
                                     rows = [];
-
+                                    counts = 0
                                     //Array for adding row
                                     for (i = 1; i <= col_count; i++) {
                                         rows.push("");
 
                                     }
-
                                     table.row.add(rows).draw(true);
                                     $('.suggestions li').removeClass('active');
                                 });
@@ -119,12 +157,18 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 //Cell for table creation     
                                 const createdCell = function (cell) {
                                     let original
-                                    cell.setAttribute('contenteditable', true)
+                                    console.log("cell creation", counts)
+                                    //condition for contenteditable true or false --start
+                                    counts == supplier_amt ?
+                                        cell.setAttribute('contenteditable', false)
+                                        :
+                                        cell.setAttribute('contenteditable', true)
+                                    //condition for contenteditable true or false --end
 
                                     cell.setAttribute('spellcheck', false)
                                     cell.setAttribute('class', "cell")
 
-
+                                    counts=counts+1
                                     cell.addEventListener('focus', function (e) {
                                         original = e.target.textContent
                                     })
@@ -209,7 +253,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                     }
 
                                     //api fetch for suggestion part start
-                                    if ($('#myTable').DataTable().cell(this).index().column == 0) { //fetch data customer api 
+                                    if ($('#myTable').DataTable().cell(this).index().column == driver_) { //fetch data customer api 
                                         // console.log("td values are", query);
 
 
@@ -240,7 +284,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             }
                                         })
                                     }
-                                    if ($('#myTable').DataTable().cell(this).index().column == 1) {
+                                    if ($('#myTable').DataTable().cell(this).index().column == item_) {
                                         q = query + "%"
                                         frappe.call({
                                             method: 'frappe.client.get_list',
@@ -264,7 +308,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             }
                                         })
                                     }
-                                    if ($('#myTable').DataTable().cell(this).index().column == 2) {
+                                    if ($('#myTable').DataTable().cell(this).index().column == uom_) {
                                         q = query + "%"
                                         frappe.call({
                                             method: 'frappe.client.get_list',
@@ -288,7 +332,31 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             }
                                         })
                                     }
-                                    if ($('#myTable').DataTable().cell(this).index().column == 3) {
+                                    if ($('#myTable').DataTable().cell(this).index().column == sales__person) {
+                                        q = query + "%"
+                                        frappe.call({
+                                            method: 'frappe.client.get_list',
+                                            args: {
+                                                doctype: 'Sales Person',
+                                                fields: ['sales_person_name'],
+                                                filters: [
+                                                    ['sales_person_name', 'like', q],
+
+                                                ]
+                                            },
+                                            callback: (e) => {
+                                                r = e.message
+                                                $('.suggestions li').remove();
+                                                r.map((x) => {
+                                                    // console.log("current value are", x.uom_name)
+                                                    // console.log("length of box is ", $('.suggestions  li').length)
+                                                    $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x.sales_person_name}</li>`); //add value to suggestion part
+                                                })
+                                                $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
+                                            }
+                                        })
+                                    }
+                                    if ($('#myTable').DataTable().cell(this).index().column == supplier_) {
                                         q = query + "%"
                                         frappe.call({
                                             method: 'frappe.client.get_list',
@@ -311,7 +379,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             }
                                         })
                                     }
-                                    if ($('#myTable').DataTable().cell(this).index().column == 4) {
+                                    if ($('#myTable').DataTable().cell(this).index().column == supplier__site) {
                                         q = query + "%"
                                         frappe.call({
                                             method: 'frappe.client.get_list',
@@ -335,7 +403,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         })
 
                                     }
-                                    if ($('#myTable').DataTable().cell(this).index().column == 8) {
+                                    if ($('#myTable').DataTable().cell(this).index().column == supplier_partner) {
                                         // cars.map((x) => {
                                         //     $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`);
                                         // })
@@ -363,7 +431,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         })
 
                                     }
-                                    if ($('#myTable').DataTable().cell(this).index().column == 12) {
+                                    if ($('#myTable').DataTable().cell(this).index().column == coustomer_) {
                                         q = query + "%"
                                         frappe.call({
                                             method: 'frappe.client.get_list',
@@ -387,7 +455,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         })
 
                                     }
-                                    if ($('#myTable').DataTable().cell(this).index().column == 13) {
+                                    if ($('#myTable').DataTable().cell(this).index().column == coustomer__site) {
                                         q = query + "%"
                                         frappe.call({
                                             method: 'frappe.client.get_list',
@@ -410,14 +478,21 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             }
                                         })
                                     }
-                                    if ($('#myTable').DataTable().cell(this).index().column == 14) {
+                                    if ($('#myTable').DataTable().cell(this).index().column == coustomer__rate__type) {
                                         Options.map((x) => {
                                             $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`);
                                         })
                                         $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
                                     }
 
-                                    if ($('#myTable').DataTable().cell(this).index().column == 19) {
+                                    if ($('#myTable').DataTable().cell(this).index().column == gst_p_) {
+                                        gst_percentage.map((x) => {
+                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`);
+                                        })
+                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
+                                    }
+
+                                    if ($('#myTable').DataTable().cell(this).index().column == payment__method) {
                                         q = query + "%"
                                         frappe.call({
                                             method: 'frappe.client.get_list',
@@ -441,6 +516,8 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                     }
                                     //api fetch for suggestion part end
+
+
 
                                 });
                                 //hide suggestion area 
@@ -525,17 +602,23 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 //     //check suggestion dropdown arrow key function working --end
                                 //     //CODE ADDING STACKOVERFLOW
                                 // })
+
+
+
+                                // add data into a cell
                                 $("#body").find("tbody").on('click', '[contenteditable]', '#myTable', function (e) {
                                     console.log("on clicked on td cell")
                                     $('td.active').removeClass('active');
                                     $('td.active').add('active');
 
+
+
                                 })
                                 $('.suggestions').click('li', (e) => {
+                                    let table = $('#myTable').DataTable()
 
 
-                                    // console.log(e.target.innerText)
-                                    // console.log("suggestion value are ", e.target.innerHTML)
+
                                     //check close value is selected 
                                     if (e.target.innerHTML == "Close") {
                                         // console.log("close btn clicked")
@@ -552,17 +635,17 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         cell.data(e.target.innerText).draw()
 
 
-                                        console.log("this is cell", cell)
-                                        // cell.data(this.innerText).draw()
-                                        // $('td.active').removeClass('active');
-                                        // var row = table.row($('td.active').parents('tr'));
-                                        // console.log("suggestion add btn row value is", row)
-                                        // var rowNode = row.node();
-                                        // console.log("suggestion add btn rowbide value is", rowNode)
-                                        // row.remove();
+                                        // gst claculation done while select 5% --start
+                                        let r = cell.index().row
+                                        let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
+                                        let gst_calc = parseFloat(customer_amount * .05).toFixed(2)
+                                        console.log("gst claac", gst_calc)
+                                        e.target.innerText == "5%" ?
+                                            (table.cell({ row: r, column: gst_amount }).data(gst_calc))
+                                            :
+                                            (table.cell({ row: r, column: gst_amount }).data(0))
+                                        // gst claculation done while select 5% --end
 
-                                        // table
-                                        //     .draw();
                                     }
 
 
@@ -588,66 +671,104 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                     // console.log("Row:", table.row(`:eq(${r})`).remove())     
 
                                     // supplier total == supplier rate*supplier_qty
-                                    if (cell.index().column == 5 || cell.index().column == 6) {
+                                    if (cell.index().column == supplier_rate || cell.index().column == supplier_qty) {
                                         let r = cell.index().row
-                                        muliple_calutlation(r, 5, 6, 7)
+                                        muliple_calutlation(r, supplier_rate, supplier_qty, supplier_amt)
                                     }
                                     // partner total == partner rate*partner_qty
-                                    if (cell.index().column == 9 || cell.index().column == 10) {
+                                    if (cell.index().column == partner__rate || cell.index().column == partner__qty) {
                                         let r = cell.index().row
-                                        muliple_calutlation(r, 9, 10, 11)
+                                        muliple_calutlation(r, partner__rate, partner__qty, partner__amt)
+                                    }
+
+                                    //gst amount auto generate when gst % is 5%
+                                    if (
+                                        cell.index().column == coustomer__rate || cell.index().column == coustomer__qty
+                                        || cell.index().column == gst_p_ || cell.index().column == coustomer__amt || cell.index.column == coustomer__rate__type
+
+                                    ) {
+                                        let r = cell.index().row
+                                        let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
+                                        table.cell({ row: r, column: gst_p_ }).data() == "5%" ? table.cell({ row: row, column: gst_amount }).data((customer_amount * .05).toFixed(2)) : table.cell({ row: row, column: gst_amount }).data((0).toFixed(2))
+
                                     }
                                     //check customer type ==rate ,then,customer total == customer rate*customer_qty
-                                    if (cell.index().column == 15 || cell.index().column == 16) {
+                                    if (cell.index().column == coustomer__rate || cell.index().column == coustomer__qty || cell.index().column == coustomer__amt) {
                                         let r = cell.index().row
-                                        table.cell({ row: r, column: 14 }).data() == "Rate" ? muliple_calutlation(r, 15, 16, 17) : ""
+                                        table.cell({ row: r, column: coustomer__rate__type }).data() == "Rate" ? muliple_calutlation(r, coustomer__rate, coustomer__qty, coustomer__amt) : ""
+
+                                        // customer type='rent' => coustomer amt / coustomer qty
+                                        table.cell({ row: r, column: coustomer__rate__type }).data() == "Rent" ? (
+
+                                            value_a = table.cell({ row: row, column: coustomer__amt }).data() ? parseInt(table.cell({ row: row, column: coustomer__amt }).data()) : 0, //column_A is rate  
+                                            value_b = table.cell({ row: row, column: coustomer__qty }).data() ? parseInt(table.cell({ row: row, column: coustomer__qty }).data()) : 1,  //coloumn_b is qty
+                                            table.cell({ row: row, column: coustomer__rate }).data(value_a / value_b) //add calculation 
+
+                                        ) : ""
+                                        let coustomer_amt = table.cell({ row: row, column: coustomer__amt }).data() ? parseInt(table.cell({ row: row, column: coustomer__amt }).data()) : 1;
+                                        table.cell({ row: r, column: gst_p_ }).data() == "5%" ? table.cell({ row: row, column: gst_amount }).data((coustomer_amt * .05).toFixed(2)) : table.cell({ row: row, column: gst_amount }).data((0).toFixed(2))
 
                                     }
 
                                     //NET FRC = FRC+GST AMOUNT
-                                    if (cell.index().column == 24 || cell.index().column == 26) {
+                                    if (cell.index().column == frc_ || cell.index().column == gst_amount || cell.index().column == coustomer__rate || cell.index().column == coustomer__qty || cell.index().column == coustomer__amt) {
                                         let r = cell.index().row
-                                        let frc = table.cell({ row: r, column: 24 }).data() ? parseInt(table.cell({ row: r, column: 24 }).data()) : 0;
-                                        let gst_amt = table.cell({ row: r, column: 26 }).data() ? parseInt(table.cell({ row: r, column: 26 }).data()) : 0;
-                                        table.cell({ row: r, column: 27 }).data(frc + gst_amt);
+                                        let frc = table.cell({ row: r, column: frc_ }).data() ? parseFloat(table.cell({ row: r, column: frc_ }).data()) : 0;
+                                        let gst_amt = table.cell({ row: r, column: gst_amount }).data() ? parseFloat(table.cell({ row: r, column: gst_amount }).data()) : 0;
+                                        table.cell({ row: r, column: frc_gst }).data((frc + gst_amt).toFixed(2));
+                                    }
+                                    //BATA TOTAL = BATE RATE 
+                                    if (cell.index().column == bata__rate) {
+                                        let r = cell.index().row;
+                                        let bata_rate = table.cell({ row: r, column: bata__rate }).data() ? parseFloat(table.cell({ row: r, column: bata__rate }).data()) : 0;
+                                        table.cell({ row: r, column: bata__percentage }).data(0);
+                                        table.cell({ row: r, column: bata__amount }).data(bata_rate);
+                                    }
+                                    // BATA TOTAL = BATA PERCENTAGE * TOTAL VEHICLE RENT
+                                    if (cell.index().column == bata__percentage) {
+                                        let r = cell.index().row;
+                                        table.cell({ row: r, column: bata__rate }).data(0);
+                                        let bata_percentage = table.cell({ row: r, column: bata__percentage }).data() ? (parseInt(table.cell({ row: r, column: bata__percentage }).data()) / 100) * parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
+                                        table.cell({ row: r, column: bata__amount }).data(bata_percentage);
                                     }
 
                                     //TOTAL = CUSTOMER_AMOUNT - PARTNER_AMOUNT-SUPPLIER_AMOUNT-NETFRC
                                     if (
-                                        cell.index().column == 5 || cell.index().column == 6
-                                        || cell.index().column == 9 || cell.index().column == 10
-                                        || cell.index().column == 15 || cell.index().column == 16
-                                        || cell.index().column == 24 || cell.index().column == 26
-                                        || cell.index().column == 27 || cell.index().column == 17
+                                        cell.index().column == supplier_rate || cell.index().column == supplier_qty
+                                        || cell.index().column == partner__rate || cell.index().column == partner__qty
+                                        || cell.index().column == coustomer__rate || cell.index().column == coustomer__qty
+                                        || cell.index().column == frc_ || cell.index().column == gst_amount
+                                        || cell.index().column == frc_gst || cell.index().column == coustomer__amt
                                     ) {
                                         let r = cell.index().row
-                                        let partner_amount = table.cell({ row: r, column: 11 }).data() ? parseInt(table.cell({ row: r, column: 11 }).data()) : 0;
-                                        let customer_amount = table.cell({ row: r, column: 17 }).data() ? parseInt(table.cell({ row: r, column: 17 }).data()) : 0;
-                                        let supplier_amount = table.cell({ row: r, column: 7 }).data() ? parseInt(table.cell({ row: r, column: 7 }).data()) : 0;
-                                        let net_frc = table.cell({ row: r, column: 27 }).data() ? parseInt(table.cell({ row: r, column: 27 }).data()) : 0;
+                                        let partner_amount = table.cell({ row: r, column: partner__amt }).data() ? parseInt(table.cell({ row: r, column: partner__amt }).data()) : 0;
+                                        let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseInt(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
+                                        let supplier_amount = table.cell({ row: r, column: supplier_amt }).data() ? parseInt(table.cell({ row: r, column: supplier_amt }).data()) : 0;
+                                        let net_frc = table.cell({ row: r, column: frc_gst }).data() ? parseFloat(table.cell({ row: r, column: frc_gst }).data()) : 0;
                                         // console.log("customer amt",customer_amount,"partner amt",partner_amount,"supplier_amount",supplier_amount,"net_frc",net_frc)
                                         let total = customer_amount - partner_amount - supplier_amount - net_frc
                                         // console.log("total value is ",total)
-                                        table.cell({ row: r, column: 20 }).data(total)//total value
+                                        table.cell({ row: r, column: total_vehicle_rent }).data(total)//total value
                                     }
 
                                     //NET TOTAL = TOTAL - BATA RATE
                                     if (
-                                        cell.index().column == 5 || cell.index().column == 6
-                                        || cell.index().column == 9 || cell.index().column == 10
-                                        || cell.index().column == 15 || cell.index().column == 16
-                                        || cell.index().column == 24 || cell.index().column == 26
-                                        || cell.index().column == 27 || cell.index().column == 17
-                                        || cell.index().column == 20 || cell.index().column == 22
+                                        cell.index().column == supplier_rate || cell.index().column == supplier_qty
+                                        || cell.index().column == partner__rate || cell.index().column == partner__qty
+                                        || cell.index().column == coustomer__rate || cell.index().column == coustomer__qty
+                                        || cell.index().column == frc_ || cell.index().column == gst_amount
+                                        || cell.index().column == frc_gst || cell.index().column == coustomer__amt
+                                        || cell.index().column == total_vehicle_rent || cell.index().column == bata__rate
+                                        || cell.index().column == bata__percentage || cell.index().column == bata__amount
 
                                     ) {
                                         let r = cell.index().row
-                                        let total = table.cell({ row: r, column: 20 }).data() ? parseInt(table.cell({ row: r, column: 20 }).data()) : 0;
-                                        let bata_rate = table.cell({ row: r, column: 22 }).data() ? parseInt(table.cell({ row: r, column: 22 }).data()) : 0;
-                                        // console.log("total",total,"bata_rate",bata_rate)
-                                        let net_total = total - bata_rate
+                                        let total = table.cell({ row: r, column: total_vehicle_rent }).data() ? parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
+                                        let bata_amt = table.cell({ row: r, column: bata__amount }).data() ? parseInt(table.cell({ row: r, column: bata__amount }).data()) : 0;
+                                        // console.log("total",total,"bata_amt",bata_amt)
+                                        let net_total = total - bata_amt
                                         // console.log("net_total",net_total)
-                                        table.cell({ row: r, column: 28 }).data(net_total)//net_total
+                                        table.cell({ row: r, column: net_vehicle_balance }).data(net_total)//net_total
                                     }
 
                                 })
@@ -753,9 +874,9 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         // })
 
         frappe.call({
-            method : 'ev_gn.post_trip_data.post_data',
+            method: 'ev_gn.post_trip_data.post_data',
             args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data }
-            
+
             // callback: function(r) {r.message}
             // callback: function(r) {
             //     if (!r.exc) {
@@ -763,17 +884,77 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
             //     }
             // }
         })
-        .then(
-            (e) => {console.log("Success", e),
-            location.reload()}
-        )
-        .catch( (e) => console.log ("Error", e) )
+            .then(
+                (e) => {
+                    console.log("Success", e),
+                        location.reload()
+                }
+            )
+            .catch((e) => console.log("Error", e))
         // frappe.call('ev_gn.post_trip_data.post_data_test', {
         //     "a":1
         // }).then(r => {
         //     console.log(r.message)
         // })
-        
+
+
+    });
+    $('#SaveAndHoldData').on('click', function () {
+
+        let table = $('#myTable').DataTable()
+        // let selected_value = $("#vehicle option:first").attr('selected', 'selected');
+        console.log($('#vehicle option').filter(':selected').val())
+        selected_vehicle = $('#vehicle option').filter(':selected').val();
+        current_date ? current_date : today_date()
+        // $table_data = table.rows().data();
+        // console.log("table row is",table.row(':eq(0)').cell(':eq(11)').data( "safwan" ).draw()) 
+        console.log(table.rows().count())
+        console.log("partner_amt_array", partner_amount_array)
+
+        let total_rows = table.rows().count()
+
+        $table_data = $('#myTable').DataTable().rows().data().toArray()
+        console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle)
+        // json_data = JSON.stringify($table_data);
+        // console.log(json_data)
+        // frappe.call({
+        //     method: "ev_gn.post_trip_data.post_data",
+        //     // args: { "row_array": $table_data, "date": current_date, "selected_vehicle": selected_vehicle }
+        //     args: { 
+        //         'selected_vehicle': "vehicle" 
+        //     }
+
+        //     callback: function(r)!dz
+
+        //     {
+        //         frappe.throw(r.message)
+        //     }
+        // })
+
+        frappe.call({
+            method: 'ev_gn.post_trip_data.post_data',
+            args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data }
+
+            // callback: function(r) {r.message}
+            // callback: function(r) {
+            //     if (!r.exc) {
+            //         // code snippet
+            //     }
+            // }
+        })
+            .then(
+                (e) => {
+                    console.log("Success", e),
+                        location.reload()
+                }
+            )
+            .catch((e) => console.log("Error", e))
+        // frappe.call('ev_gn.post_trip_data.post_data_test', {
+        //     "a":1
+        // }).then(r => {
+        //     console.log(r.message)
+        // })
+
 
     });
 
@@ -860,8 +1041,20 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         console.log("value_a ", value_a)
         console.log("value_B ", value_b)
         table.cell({ row: row, column: calc }).data(value_a * value_b); //add calculation 
-    }
 
+        // table.cell({ row: row, column: gst_p_ }).data() == "5%" ? table.cell({ row: row, column: gst_amount }).data((value_a * value_b * .05).toFixed(2)) : ""
+        // table.cell({ row: r, column: gst_p_ }).data() == "5%" ? table.cell({ row: row, column: gst_amount }).data(value_a * value_b * .05) : ""
+        // console.log("value in gst percentage",table.cell({ row: r, column: gst_amount }).data())
+    }
+    // function gst_clacution(row) {
+    //     let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
+    //     let gst_calc = parseFloat(customer_amount * .05).toFixed(2)
+    //     console.log("gst claac", gst_calc)
+    //     e.target.innerText == "5%" ?
+    //         (table.cell({ row: 0, column: gst_amount }).data(gst_calc))
+    //         :
+    //         (table.cell({ row: 0, column: gst_amount }).data(0))
+    // }
     function today_date() {
         let today = new Date()
         today = today.toISOString().split('T')[0]
