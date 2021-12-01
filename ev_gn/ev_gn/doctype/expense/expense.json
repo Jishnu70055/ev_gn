@@ -10,6 +10,7 @@
   "driver",
   "vehicle",
   "paid_by",
+  "supplier",
   "column_break_5",
   "company",
   "paid",
@@ -76,6 +77,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
@@ -88,6 +90,7 @@
    "options": "Driver"
   },
   {
+   "default": "Cash",
    "depends_on": "eval:doc.paid==1;",
    "fieldname": "paid_by",
    "fieldtype": "Select",
@@ -108,12 +111,20 @@
    "fieldtype": "Link",
    "label": "Company",
    "options": "Company"
+  },
+  {
+   "depends_on": "eval: doc.paid == 0 & doc.vehicle == null;",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "mandatory_depends_on": "eval: doc.paid == 0 & doc.vehicle == null;",
+   "options": "Supplier"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-11-29 16:25:58.706128",
+ "modified": "2021-12-01 12:06:32.718974",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Expense",
