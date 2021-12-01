@@ -4,5 +4,5 @@
 # import frappe
 from frappe.model.document import Document
 
-class MonthlyBalance(Document):
+class TruckOwners(Document):
 	pass
