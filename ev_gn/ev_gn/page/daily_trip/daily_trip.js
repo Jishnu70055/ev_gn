@@ -31,7 +31,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let col_count = 32  //The count of empty arrays to be created
     let partner_amount_array
     let Options = ['Rent', 'Rate'];
-    let gst_percentage = ['5%'];
+    let gst_percentage = [5];
     // index of cell in table  
     let driver_ = 0
     let item_ = 1
@@ -640,7 +640,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
                                         let gst_calc = parseFloat(customer_amount * .05).toFixed(2)
                                         console.log("gst claac", gst_calc)
-                                        e.target.innerText == "5%" ?
+                                        e.target.innerText == 5 ?
                                             (table.cell({ row: r, column: gst_amount }).data(gst_calc))
                                             :
                                             (table.cell({ row: r, column: gst_amount }).data(0))
@@ -689,7 +689,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                     ) {
                                         let r = cell.index().row
                                         let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
-                                        table.cell({ row: r, column: gst_p_ }).data() == "5%" ? table.cell({ row: row, column: gst_amount }).data((customer_amount * .05).toFixed(2)) : table.cell({ row: row, column: gst_amount }).data((0).toFixed(2))
+                                        table.cell({ row: r, column: gst_p_ }).data() == 5 ? table.cell({ row: row, column: gst_amount }).data((customer_amount * .05).toFixed(2)) : table.cell({ row: row, column: gst_amount }).data((0).toFixed(2))
 
                                     }
                                     //check customer type ==rate ,then,customer total == customer rate*customer_qty
@@ -706,7 +706,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                         ) : ""
                                         let coustomer_amt = table.cell({ row: row, column: coustomer__amt }).data() ? parseInt(table.cell({ row: row, column: coustomer__amt }).data()) : 1;
-                                        table.cell({ row: r, column: gst_p_ }).data() == "5%" ? table.cell({ row: row, column: gst_amount }).data((coustomer_amt * .05).toFixed(2)) : table.cell({ row: row, column: gst_amount }).data((0).toFixed(2))
+                                        table.cell({ row: r, column: gst_p_ }).data() == 5 ? table.cell({ row: row, column: gst_amount }).data((coustomer_amt * .05).toFixed(2)) : table.cell({ row: row, column: gst_amount }).data((0).toFixed(2))
 
                                     }
 
@@ -875,7 +875,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
         frappe.call({
             method: 'ev_gn.post_trip_data.post_data',
-            args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data }
+            args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "submit" }
 
             // callback: function(r) {r.message}
             // callback: function(r) {
@@ -933,7 +933,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
         frappe.call({
             method: 'ev_gn.post_trip_data.post_data',
-            args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data }
+            args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "hold" }
 
             // callback: function(r) {r.message}
             // callback: function(r) {

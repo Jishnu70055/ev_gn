@@ -70,7 +70,7 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         net_frc = float(trip[27])
         net_total = int(trip[31])
         bata_amount = trip[30]
-        gst_percentage = trip[15]
+        gst_percentage = int(trip[15])
         trip_sheet.append("trip_details",
                 {
                     "sales_person":sales_partner,
