@@ -11,8 +11,7 @@ def post_data_test(a):#row_array,,date,selected_vehicle
 
 
 @frappe.whitelist()
-def post_data(arg1=None, arg2=None, arg3=None):
-    # frappe.throw(arg3)#row_array,,date,selected_vehicle
+def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
     total_trips = json.loads(arg3) #converting string array into json
     trip_sheet = frappe.new_doc("Trip Sheet")
     trip_sheet.vehicle = arg1
@@ -25,51 +24,56 @@ def post_data(arg1=None, arg2=None, arg3=None):
         supplier_site = trip[4]
         supplier_rate = trip[5]
         supplier_quantity = int(trip[6])
-        supplier_amount = int(trip[7])
-        supplier_partner = trip[8]
-        partner_rate = int(trip[9])
-        partner_quantity = int(trip[10])
-        partner_amount = int(trip[11])
-        customer = trip[12]
-        customer_site = trip[13]
-        customer_rate_type = trip[14]
-        if (trip[15] == ''):
+        supplier_amount = int(trip[8])
+        print("-------------------------")
+        supplier_partner = trip[9]
+        sales_partner = trip[7]
+        partner_rate = int(trip[10])
+        partner_quantity = int(trip[11])
+        partner_amount = int(trip[12])
+        customer = trip[13]
+        customer_site = trip[14]
+        customer_rate_type = trip[16]
+        if (trip[17] == ''):
             customer_rate = int(0)
         else:
-            customer_rate = int(trip[15])
-        if (trip[16] == ''):
+            customer_rate = int(trip[17])
+        if (trip[18] == ''):
             customer_quantity = int(0)
         else:
-            customer_quantity = int(trip[16])
-        customer_amount = int(trip[17])
-        if (trip[18] == ''):
+            customer_quantity = int(trip[18])
+        customer_amount = int(trip[19])
+        if (trip[23] == ''):
             paid_amount = int(0)
         else:
-            paid_amount = int(trip[18])
-        payment_method = trip[19]
-        total = int(trip[20])
+            paid_amount = int(trip[23])
+        payment_method = trip[24]
+        total = int(trip[25])
         no_of_trips = int(trip[21])
-        if (trip[22] == ''):
+        if (trip[28] == ''):
             bata_rate = int(0)
         else:
-            bata_rate = int(trip[22])
-        if (trip[23] == ''):
+            bata_rate = int(trip[28])
+        if (trip[29] == ''):
             bata_percentage = int(0)
         else:
-            bata_percentage = int(trip[23])
-        frc = int(trip[24])
-        if (trip[25] == ''):
+            bata_percentage = int(trip[29])
+        frc = int(trip[26])
+        if (trip[22] == ''):
             distance = int(0)
         else:
-            distance = int(trip[25])
-        if (trip[26] == ''):
+            distance = int(trip[22])
+        if (trip[20] == ''):
             gst_amount = int(0)
         else:
-            gst_amount = int(trip[26])
-        net_frc = int(trip[27])
-        net_total = int(trip[28])
+            gst_amount = float(trip[20])
+        net_frc = float(trip[27])
+        net_total = int(trip[31])
+        bata_amount = trip[30]
+        gst_percentage = trip[15]
         trip_sheet.append("trip_details",
                 {
+                    "sales_person":sales_partner,
                     "driver": driver,
                     "item": item,
                     "uom": uom,
@@ -94,21 +98,20 @@ def post_data(arg1=None, arg2=None, arg3=None):
                     "total": total,
                     "trip": no_of_trips, 
                     "frc": frc,
-                    "gst": 1,                                                   #change this value
+                    "gst": 1,                                                  
                     "gst_amount": gst_amount,
                     "net_frc": net_frc,
                     "bata_rate": bata_rate,
                     "bata_percentage": bata_percentage,
                     "distance": distance,
-                    "net_total": net_total
+                    "net_total": net_total,
+                    "bata_amount" : bata_amount,
+                    "gst_percentage" : gst_percentage
                 })
         
-    
-    trip_sheet.save()# trip_sheet.save()
-    trip_sheet.submit()
+    if arg4 == 'hold':
+        trip_sheet.save()# trip_sheet.save()
+    elif arg4 == 'submit':
+        trip_sheet.save()
+        trip_sheet.submit()
     return "Success"
-    # trip_sheet.submit()# trip_sheet.submit()
-        
-
-
-# print(data[1])
