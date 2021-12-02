@@ -13,7 +13,7 @@ def create_journal_entry(self, credit_account, debit_account):
 			{
 				"account": credit_account,
 				"credit_in_account_currency": self.amount
-				
+
 			},
 			{
 				"account": debit_account,

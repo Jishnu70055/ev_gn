@@ -103,6 +103,13 @@ doc_events = {
 	}
 }
 
+doc_events = {
+	"Purchase Invoice": {
+		"before_submit": "ev_gn.ev_gn.hook_codes.purchase_hook.update_vehicle_owner_ledgers"
+	}
+}
+
+
 # Scheduled Tasks
 # ---------------
 
@@ -180,10 +187,10 @@ doc_events = {
 # ]
 
 # fixtures = ["Custom Field","Client Script","Property Setter", "Role", "Custom DocPerm"]
-# fixtures = ["Role", "Custom DocPerm"]
+# fixtures = ["Custom Field"]
 # fixtures = [
 # 	{"dt": "Client Script",
 # 	"filters": [["dt", "in", "Vehicle"]]}
 # ]
 
-after_migrate = "ev_gn.ev_gn.migrate.after_migrate"
+# after_migrate = "ev_gn.ev_gn.migrate.after_migrate"

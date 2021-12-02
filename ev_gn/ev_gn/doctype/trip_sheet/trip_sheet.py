@@ -11,14 +11,25 @@ def create_sales_invoice(self, data, gst_template):
 		"doctype":"Sales Invoice",
 		"customer":data.customer,
 		"site":data.customer_site,
-		"posting_date": self.date,
 		"customer_group":'All Customer Groups',
 		"no_of_trips": data.trip,
 		"vehicle_number": self.vehicle,
 		"vehicle": self.vehicle,
 		"cost_center": "Vehicle - EJ",
 		"trip_id": self.name,
-		"taxes_and_charges": gst_template
+		"taxes_and_charges": gst_template,
+		"taxes": [{
+			"charge_type": "On Net Total",
+			"account_head": "CGST - EJ",
+			"description": "CGST",
+			"rate": 2.5
+    		},
+			{
+			"charge_type": "On Net Total",
+			"account_head": "SGST - EJ",
+			"description": "SGST",
+			"rate": 2.5
+			}]
 		})
 	sales_invoice.append("items",{
 		"item_code":data.item,
@@ -27,7 +38,8 @@ def create_sales_invoice(self, data, gst_template):
 		"rate": data.customer_rate,
 		"amount":data.trip * data.customer_amount,
 		})
-	sales_invoice.submit()	
+	sales_invoice.save()
+	sales_invoice.submit()
 	return sales_invoice.name
 
 def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, item, uom, vehicle, name):
@@ -147,7 +159,7 @@ class TripSheet(Document):
 			data.sales_invoice_id = sales_invoice									
 			purchase_invoice = create_purchase_invoice(data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)	
 			data.purchase_invoice_id = purchase_invoice						
-			if data.multiple_supplier == 1:																
+			if data.supplier_partner:																
 				purchase_invoice_partner = create_purchase_invoice(data.supplier_partner, data.supplier_site, data.supplier_partner_rate, data.supplier_partner_quantity, data.supplier_partner_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)
 				data.partner_purchase_invoice_id = purchase_invoice_partner
 			if data.paid_amount:															
