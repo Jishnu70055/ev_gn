@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Master",
  "links": [],
- "modified": "2021-11-24 12:35:56.195337",
+ "modified": "2021-11-27 15:34:23.203413",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Master",
@@ -61,6 +61,14 @@
    "doc_view": "List",
    "label": "Sales Person",
    "link_to": "Sales Person",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "format": "",
+   "label": "Vehicle Owner",
+   "link_to": "Supplier",
+   "stats_filter": "{\"supplier_group\": \"Vehicle Owner\"}",
    "type": "DocType"
   }
  ],

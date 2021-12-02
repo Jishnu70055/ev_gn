@@ -10,11 +10,13 @@
   "driver",
   "vehicle",
   "paid_by",
-  "amended_from",
+  "supplier",
   "column_break_5",
+  "company",
   "paid",
   "date",
-  "amount"
+  "amount",
+  "amended_from"
  ],
  "fields": [
   {
@@ -75,6 +77,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
@@ -87,6 +90,7 @@
    "options": "Driver"
   },
   {
+   "default": "Cash",
    "depends_on": "eval:doc.paid==1;",
    "fieldname": "paid_by",
    "fieldtype": "Select",
@@ -100,12 +104,27 @@
    "fieldname": "paid",
    "fieldtype": "Check",
    "label": "Paid"
+  },
+  {
+   "default": "Evergreen",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "depends_on": "eval: doc.paid == 0 & doc.vehicle == null;",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "mandatory_depends_on": "eval: doc.paid == 0 & doc.vehicle == null;",
+   "options": "Supplier"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-11-25 18:13:03.512701",
+ "modified": "2021-12-01 12:06:32.718974",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Expense",

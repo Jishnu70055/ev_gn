@@ -148,7 +148,6 @@
    "label": "Multiple Supplier"
   },
   {
-   "depends_on": "eval:doc.multiple_supplier",
    "fieldname": "supplier_partner",
    "fieldtype": "Link",
    "label": "Supplier Partner",
@@ -160,7 +159,6 @@
    "label": "Supplier Partner Quantity"
   },
   {
-   "depends_on": "eval:doc.multiple_supplier",
    "fieldname": "supplier_partner_rate",
    "fieldtype": "Float",
    "label": "Supplier Partner Rate"
@@ -328,7 +326,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-11-25 12:34:54.829705",
+ "modified": "2021-12-01 19:37:53.415706",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Details",

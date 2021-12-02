@@ -181,3 +181,9 @@ doc_events = {
 
 # fixtures = ["Custom Field","Client Script","Property Setter", "Role", "Custom DocPerm"]
 # fixtures = ["Role", "Custom DocPerm"]
+# fixtures = [
+# 	{"dt": "Client Script",
+# 	"filters": [["dt", "in", "Vehicle"]]}
+# ]
+
+after_migrate = "ev_gn.ev_gn.migrate.after_migrate"
