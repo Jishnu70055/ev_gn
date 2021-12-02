@@ -1,0 +1,32 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "Item Default",
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2021-12-02 19:35:35.248581",
+   "default_value": null,
+   "doc_type": "Item Default",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "expense_account",
+   "idx": 0,
+   "modified": "2021-12-02 19:35:35.248581",
+   "modified_by": "Administrator",
+   "name": "Item Default-expense_account-in_list_view",
+   "owner": "Administrator",
+   "parent": null,
+   "parentfield": null,
+   "parenttype": null,
+   "property": "in_list_view",
+   "property_type": "Check",
+   "row_name": null,
+   "value": "1"
+  }
+ ],
+ "sync_on_migrate": 1
+}
