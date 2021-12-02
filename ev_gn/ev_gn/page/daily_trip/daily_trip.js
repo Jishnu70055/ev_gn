@@ -31,6 +31,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let col_count = 32  //The count of empty arrays to be created
     let partner_amount_array
     let Options = ['Rent', 'Rate'];
+    let payment_method = ['Cash', 'Bank']
     let gst_percentage = ['5%'];
     // index of cell in table  
     let driver_ = 0
@@ -157,7 +158,6 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 //Cell for table creation     
                                 const createdCell = function (cell) {
                                     let original
-                                    console.log("cell creation", counts)
                                     //condition for contenteditable true or false --start
                                     counts == supplier_amt ?
                                         cell.setAttribute('contenteditable', false)
@@ -168,7 +168,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                     cell.setAttribute('spellcheck', false)
                                     cell.setAttribute('class', "cell")
 
-                                    counts=counts+1
+                                    counts = counts + 1
                                     cell.addEventListener('focus', function (e) {
                                         original = e.target.textContent
                                     })
@@ -257,6 +257,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         // console.log("td values are", query);
 
 
+
                                         q = query + "%"
                                         console.log(q)
 
@@ -285,6 +286,11 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         })
                                     }
                                     if ($('#myTable').DataTable().cell(this).index().column == item_) {
+
+
+                                        let value = frappe.db.get_value('Item', 'ol-6767', 'stock_uom')
+                                        console.log("High end value", value)
+                                        
                                         q = query + "%"
                                         frappe.call({
                                             method: 'frappe.client.get_list',
@@ -493,26 +499,10 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                     }
 
                                     if ($('#myTable').DataTable().cell(this).index().column == payment__method) {
-                                        q = query + "%"
-                                        frappe.call({
-                                            method: 'frappe.client.get_list',
-                                            args: {
-                                                doctype: 'Mode of Payment',
-                                                fields: ['name'],
-                                                filters: [
-                                                    ['name', 'like', q],
-                                                ]
-                                            },
-                                            callback: (e) => {
-                                                r = e.message
-                                                $('.suggestions li').remove();
-                                                r.map((x) => {
-                                                    // console.log("current value are", x.name)
-                                                    $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x.name}</li>`); //add value to suggestion part
-                                                })
-                                                $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
-                                            }
+                                        payment_method.map((x) => {
+                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`);
                                         })
+                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
 
                                     }
                                     //api fetch for suggestion part end
@@ -631,8 +621,9 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
                                         var cell = $('#myTable').DataTable().cell("td.active")
-                                        console.log('selected cell', cell)
                                         cell.data(e.target.innerText).draw()
+                                        cell.index().column==item_?default_value(cell.index().row,cell.index().column,e.target.innerHTML):""
+                                        
 
 
                                         // gst claculation done while select 5% --start
@@ -1060,6 +1051,19 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         today = today.toISOString().split('T')[0]
         current_date = today.split("-").join("-");
         document.getElementById("date").value = today;
+
+
+
+    }
+    function default_value(row,column,value) {
+        console.log('value is value',value)
+        frappe.db.get_value('Item', value, 'stock_uom')
+            .then(r => {
+                
+                console.log("Item date and stock_uom", r.message.stock_uom);
+                table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add calculation 
+            })
+            .catch(e => console.log("error", e))
     }
 
 }
