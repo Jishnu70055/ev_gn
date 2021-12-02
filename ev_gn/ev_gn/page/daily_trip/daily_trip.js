@@ -159,7 +159,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 const createdCell = function (cell) {
                                     let original
                                     //condition for contenteditable true or false --start
-                                    counts == supplier_amt ?
+                                    counts == supplier_amt || counts == partner__amt||counts== net_vehicle_balance || counts == frc_gst || counts == total_vehicle_rent ?
                                         cell.setAttribute('contenteditable', false)
                                         :
                                         cell.setAttribute('contenteditable', true)
@@ -290,7 +290,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                         let value = frappe.db.get_value('Item', 'ol-6767', 'stock_uom')
                                         console.log("High end value", value)
-                                        
+
                                         q = query + "%"
                                         frappe.call({
                                             method: 'frappe.client.get_list',
@@ -622,20 +622,20 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                         var cell = $('#myTable').DataTable().cell("td.active")
                                         cell.data(e.target.innerText).draw()
-                                        cell.index().column==item_?default_value(cell.index().row,cell.index().column,e.target.innerHTML):""
-                                        
+                                        cell.index().column == item_ ? default_value(cell.index().row, cell.index().column, e.target.innerHTML) : ""
 
 
-                                        // gst claculation done while select 5% --start
-                                        let r = cell.index().row
-                                        let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
-                                        let gst_calc = parseFloat(customer_amount * .05).toFixed(2)
-                                        console.log("gst claac", gst_calc)
-                                        e.target.innerText == 5 ?
-                                            (table.cell({ row: r, column: gst_amount }).data(gst_calc))
-                                            :
-                                            (table.cell({ row: r, column: gst_amount }).data(0))
-                                        // gst claculation done while select 5% --end
+
+                                        // // gst claculation done while select 5% --start
+                                        // let r = cell.index().row
+                                        // let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
+                                        // let gst_calc = parseFloat(customer_amount * .05).toFixed(2)
+                                        // console.log("gst claac", gst_calc)
+                                        // e.target.innerText == 5 ?
+                                        //     (table.cell({ row: r, column: gst_amount }).data(gst_calc))
+                                        //     :
+                                        //     (table.cell({ row: r, column: gst_amount }).data(1))
+                                        // // gst claculation done while select 5% --end
 
                                     }
 
@@ -985,6 +985,23 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         selected_vehicle = ''
         selected_vehicle = this.value
         console.log('selected vehicle', selected_vehicle)
+        frappe.db.get_value('Vehicle', selected_vehicle, ['driver_bata', 'vehicle_owner'])
+            .then(r => {
+
+                console.log("vehicle with driver ", r.message.vehicle_ownner);
+                r.message.vehicle_ownner ?
+                    (console.log('pass'),
+                    table.cell({ column: driver_ }).data(r.message.vehicle_ownner), 
+                    table.cell({ column: bata__percentage }).data(r.message.driver_bata) )
+                :
+                (
+                    console.log('fail'),
+                    table.cell({ row:0,column: bata__percentage }).data(r.message.driver_bata)
+                )
+
+                // table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add calculation 
+            })
+            .catch(e => console.log("error", e))
     });
     // });
     $('#date').on('change', function () {
@@ -1055,13 +1072,13 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
     }
-    function default_value(row,column,value) {
-        console.log('value is value',value)
+    function default_value(row, column, value) {
+        console.log('value is value', value)
         frappe.db.get_value('Item', value, 'stock_uom')
             .then(r => {
-                
+
                 console.log("Item date and stock_uom", r.message.stock_uom);
-                table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add calculation 
+                table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add default value in uom 
             })
             .catch(e => console.log("error", e))
     }
