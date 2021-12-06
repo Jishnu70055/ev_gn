@@ -88,19 +88,20 @@ def create_payment_entry(self, data, sales_invoice, amount, mode):
 	return payment_entry
 
 def create_expense(data, self):
+	bata_amount = data.bata_amount * data.trip
 	expense = frappe.get_doc({
 			'doctype': 'Journal Entry',
 			'posting_date': self.date,
 			"accounts":[
 			{
 				"account": "Cash - EJ",
-				"credit_in_account_currency": data.bata_amount,
+				"credit_in_account_currency": bata_amount,
 				"vehicle": self.vehicle,
 				"cost_center": "Vehicle - EJ"
 			},
 			{
 				"account": "Driver Bata - EJ",
-				"debit_in_account_currency": data.bata_amount,
+				"debit_in_account_currency": bata_amount,
 				"vehicle": self.vehicle,
 				"cost_center": "Vehicle - EJ"
 			}
@@ -112,7 +113,8 @@ def create_expense(data, self):
 def calculate_net_balance(self, data):
 	vehicle = frappe.get_doc('Vehicle', self.vehicle)
 	for row in vehicle.vehicle_owner:
-		share_amount = data.net_total * row.share_percentage / 100
+		share_amount_trips = data.net_total * data.trip
+		share_amount = share_amount_trips * row.share_percentage / 100
 		journal_entry = frappe.get_doc({
 			'doctype': 'Journal Entry',
 			'posting_date': self.date,
