@@ -28,9 +28,12 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         print("-------------------------")
         supplier_partner = trip[9]
         sales_partner = trip[7]
-        partner_rate = int(trip[10])
-        partner_quantity = int(trip[11])
-        partner_amount = int(trip[12])
+        if (trip[10] and trip[11] and trip[12] != ''):
+            partner_rate = int(trip[10])
+            partner_quantity = int(trip[11])
+            partner_amount = int(trip[12])
+        else:
+            partner_rate, partner_quantity, partner_amount = 0, 0, 0
         customer = trip[13]
         customer_site = trip[14]
         customer_rate_type = trip[16]
@@ -70,7 +73,10 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         net_frc = float(trip[27])
         net_total = int(trip[31])
         bata_amount = trip[30]
-        gst_percentage = int(trip[15])
+        if trip[15]:
+            gst_percentage = int(trip[15])
+        else:
+            gst_percentage = 0
         trip_sheet.append("trip_details",
                 {
                     "sales_person":sales_partner,
