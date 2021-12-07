@@ -1,5 +1,7 @@
+let flag = false;
+let validation_array=[] // add value in validation 
 frappe.pages['daily-trip'].on_page_load = function (wrapper) {
-
+    
     var page = frappe.ui.make_app_page({
         parent: wrapper,
         title: 'Trip Page',
@@ -23,6 +25,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
     // Decalre required variables
+    
     let current_date //set date 
     let selected_vehicle //selected option for vehicle 
     let table //used for creating datatable 
@@ -159,7 +162,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 const createdCell = function (cell) {
                                     let original
                                     //condition for contenteditable true or false --start
-                                    counts == supplier_amt || counts == partner__amt||counts== net_vehicle_balance || counts == frc_gst || counts == total_vehicle_rent ?
+                                    counts == supplier_amt || counts == partner__amt || counts == net_vehicle_balance || counts == frc_gst || counts == total_vehicle_rent ?
                                         cell.setAttribute('contenteditable', false)
                                         :
                                         cell.setAttribute('contenteditable', true)
@@ -512,10 +515,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 });
                                 //hide suggestion area 
                                 $('body').on('click', function () {
-                                    // $('.suggestions ul').remove();
-
                                     $(".suggestions").addClass("d-none")
-                                    // e.target.classList.add('active');
                                 })
 
                                 // //CODE ADDING STACKOVERFLOW
@@ -839,114 +839,75 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         console.log($('#vehicle option').filter(':selected').val())
         selected_vehicle = $('#vehicle option').filter(':selected').val();
         current_date ? current_date : today_date()
-        // $table_data = table.rows().data();
-        // console.log("table row is",table.row(':eq(0)').cell(':eq(11)').data( "safwan" ).draw()) 
         console.log(table.rows().count())
         console.log("partner_amt_array", partner_amount_array)
-
         let total_rows = table.rows().count()
-
         $table_data = $('#myTable').DataTable().rows().data().toArray()
         console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle)
-        // json_data = JSON.stringify($table_data);
-        // console.log(json_data)
-        // frappe.call({
-        //     method: "ev_gn.post_trip_data.post_data",
-        //     // args: { "row_array": $table_data, "date": current_date, "selected_vehicle": selected_vehicle }
-        //     args: { 
-        //         'selected_vehicle': "vehicle" 
-        //     }
-
-        //     callback: function(r)!dz
-
-        //     {
-        //         frappe.throw(r.message)
-        //     }
-        // })
-
-        frappe.call({
-            method: 'ev_gn.post_trip_data.post_data',
-            args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "submit" }
-
-            // callback: function(r) {r.message}
-            // callback: function(r) {
-            //     if (!r.exc) {
-            //         // code snippet
-            //     }
-            // }
-        })
-            .then(
-                (e) => {
-                    console.log("Success", e),
-                        location.reload()
-                }
-            )
-            .catch((e) => console.log("Error", e))
-        // frappe.call('ev_gn.post_trip_data.post_data_test', {
-        //     "a":1
-        // }).then(r => {
-        //     console.log(r.message)
-        // })
+        validation_scan()
+        validation_array.length>0 ?
+         (alert("Some field are not compelted ,Please Verify"), 
+         validation_handler(),
+         validation_array=[])
+         :
+         (
+             $table_data = $('#myTable').DataTable().rows().data().toArray(),
+             console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle),
+             frappe.call({
+                 method: 'ev_gn.post_trip_data.post_data',
+                 args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "submit" }
+             })
+                 .then(
+                     (e) => {
+                         console.log("Success", e),
+                             location.reload()
+                     }
+                 )
+                 .catch((e) => console.log("Error", e))
+         )
 
 
     });
     $('#SaveAndHoldData').on('click', function () {
-
+        // $('#myTable tr:nth-child(1) td:nth-child(1)').addClass('border border-danger bg-warning');
         let table = $('#myTable').DataTable()
+
         // let selected_value = $("#vehicle option:first").attr('selected', 'selected');
         console.log($('#vehicle option').filter(':selected').val())
         selected_vehicle = $('#vehicle option').filter(':selected').val();
         current_date ? current_date : today_date()
         // $table_data = table.rows().data();
         // console.log("table row is",table.row(':eq(0)').cell(':eq(11)').data( "safwan" ).draw()) 
-        console.log(table.rows().count())
+        console.log("row count", table.rows().count())
         console.log("partner_amt_array", partner_amount_array)
-
+        let row = table.rows().count()
+        console.log("validation call", row)
+        
         let total_rows = table.rows().count()
-
-        $table_data = $('#myTable').DataTable().rows().data().toArray()
-        console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle)
-        // json_data = JSON.stringify($table_data);
-        // console.log(json_data)
-        // frappe.call({
-        //     method: "ev_gn.post_trip_data.post_data",
-        //     // args: { "row_array": $table_data, "date": current_date, "selected_vehicle": selected_vehicle }
-        //     args: { 
-        //         'selected_vehicle': "vehicle" 
-        //     }
-
-        //     callback: function(r)!dz
-
-        //     {
-        //         frappe.throw(r.message)
-        //     }
-        // })
-
-        frappe.call({
-            method: 'ev_gn.post_trip_data.post_data',
-            args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "hold" }
-
-            // callback: function(r) {r.message}
-            // callback: function(r) {
-            //     if (!r.exc) {
-            //         // code snippet
-            //     }
-            // }
-        })
-            .then(
-                (e) => {
-                    console.log("Success", e),
-                        location.reload()
-                }
-            )
-            .catch((e) => console.log("Error", e))
-        // frappe.call('ev_gn.post_trip_data.post_data_test', {
-        //     "a":1
-        // }).then(r => {
-        //     console.log(r.message)
-        // })
-
-
+        
+        validation_scan()
+        validation_array.length>0 ?
+         (
+             alert("Some field are not compelted ,Please Verify"), 
+             validation_handler(),
+             validation_array=[]
+             )
+         :
+         (
+             $table_data = $('#myTable').DataTable().rows().data().toArray(),
+             console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle),
+             frappe.call({
+                 method: 'ev_gn.post_trip_data.post_data',
+                 args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "hold" }
+             })
+                 .then(
+                     (e) => {
+                         console.log("Success", e),
+                             location.reload()
+                     }
+                 )
+                 .catch((e) => console.log("Error", e))
+         )
     });
 
     // Autoselect Data
@@ -991,13 +952,13 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                 console.log("vehicle with driver ", r.message.vehicle_ownner);
                 r.message.vehicle_ownner ?
                     (console.log('pass'),
-                    table.cell({ column: driver_ }).data(r.message.vehicle_ownner), 
-                    table.cell({ column: bata__percentage }).data(r.message.driver_bata) )
-                :
-                (
-                    console.log('fail'),
-                    table.cell({ row:0,column: bata__percentage }).data(r.message.driver_bata)
-                )
+                        table.cell({ column: driver_ }).data(r.message.vehicle_ownner),
+                        table.cell({ column: bata__percentage }).data(r.message.driver_bata))
+                    :
+                    (
+                        console.log('fail'),
+                        table.cell({ row: 0, column: bata__percentage }).data(r.message.driver_bata)
+                    )
 
                 // table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add calculation 
             })
@@ -1016,11 +977,11 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     });
 
     // Select row on clicking it
-    $('#myTable').on('click', 'tr', function () {
+    // $('#myTable').on('click', 'tr', function () {
 
 
-        $(this).toggleClass('selected');
-    });
+    //     $("tr").toggleClass('selected');
+    // });
 
 
     $('#deleteRow').click('#myTable', function (e) {
@@ -1083,4 +1044,36 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
             .catch(e => console.log("error", e))
     }
 
+}
+function validation_scan() {
+    let table = $('#myTable').DataTable()
+    let row = table.rows().count();
+    let net_col=32
+    console.log("validation calling", row, 32)
+       for (i = 0; i < row; i++) {
+            console.log("row value is ", i)
+            for (j = 0; j < net_col; j++) {
+                // table.cell({ row: i, column: j }).data()?console.log(`value not found in cell row :${i} column:${J}`):console.log(`value not found in cell row :${i} column:${J}`);
+
+                table.cell({ row: i, column: j }).data() ?
+                    (console.log(`%c value  found : ${table.cell({ row: i, column: j }).data()}`, 'background:yellow;color:green'),
+                    console.log("flag value is",flag )
+                    )
+                    :
+                    (
+                       j==28||j==29?""
+                       :
+                       (
+                         validation_array=[...validation_array,{"row":i,"column":j}]
+                       )   
+                    )
+            }
+        }
+}
+function validation_handler(){
+    console.log('validation handler calling ',validation_array)
+    validation_array.length>=1?
+    (validation_array.map(x=>$(`#myTable tr:nth-child(${x.row+1}) td:nth-child(${x.column+1})`).addClass('border border-danger bg-light')))
+    :
+    ""
 }
