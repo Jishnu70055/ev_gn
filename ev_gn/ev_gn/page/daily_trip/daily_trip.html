@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.0/datatables.min.css" />
-
+    <link rel="stylesheet" type="text/css" href="daily_trip.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -17,19 +17,26 @@
 
 
     </script>
-    
+
 
 </head>
 
 <body style="position: relative;">
+    <div id="alert_card">
+        <div class="container ">
+            <div class="alert alert-danger py-4">
+                <strong>Mandatory Field Are Not Completed</strong>
+            </div>
+        </div>
+    </div>
     <div class="suggestions bg-light  border border-1 border-dark  w-25 " data-active-cell="">
         <ul class="list-style-none w-100 overflow-auto  list-group mh-auto" style="max-height:150px">
         </ul>
     </div>
     <a href="http://localhost:8000/app/evergreen-app" target="_blank"><button id="homePage"
             class="btn btn-primary fa fa-home">Home Page</button></a>
-            <button id="getData" class="btn btn-primary float-right mx-4">Save & Submit</button>
-            <button id="SaveAndHoldData" class="btn btn-primary float-right mx-4">Save & Hold</button>
+    <button id="getData" class="btn btn-primary float-right mx-4">Save & Submit</button>
+    <button id="SaveAndHoldData" class="btn btn-primary float-right mx-4">Save & Hold</button>
     <br><br><br>
     <div id="form">
         <form class="form-group">
@@ -49,7 +56,7 @@
                     <th>Supplier Rate</th>
                     <th>Supplier Quantity</th>
                     <th>Sales Person</th>
-                    <th >Supplier Amount</th>
+                    <th>Supplier Amount</th>
                     <th>Supplier Partner</th>
                     <th>Partner Rate</th>
                     <th>Partner Quantity</th>
