@@ -52,7 +52,10 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
             paid_amount = int(trip[23])
         payment_method = trip[24]
         total = int(trip[25])
-        no_of_trips = int(trip[21])
+        if (trip[21] == ''):
+            no_of_trips = 1
+        else:
+            no_of_trips = int(trip[21])
         if (trip[28] == ''):
             bata_rate = int(0)
         else:
