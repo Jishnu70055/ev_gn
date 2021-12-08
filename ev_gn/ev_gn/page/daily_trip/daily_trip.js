@@ -646,22 +646,27 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 //         //keyup
                                 $("#body").find("tbody").on('blur', 'td', function (e) {
 
-
                                     let table = $('#myTable').DataTable()
                                     let cell = table.cell(this)
                                     let row = cell.index().row
                                     let column = cell.index().column
                                     cell.data(this.innerText).draw()
+                                    if (
+                                        cell.index().column == supplier_rate || cell.index().column == supplier_qty ||
+                                        cell.index().column == partner__rate || cell.index().column == partner__qty ||
+                                        cell.index().column == coustomer__rate || cell.index().column == coustomer__qty ||
+                                        cell.index().column == gst_p_ || cell.index().column == frc_ ||
+                                        cell.index().column == bata__rate || cell.index().column == bata__percentage
+                                    ) {
+                                        check_integer() ? cell_border_error_remove(row, cell.index().column) :
+                                            ($('#alertdata').empty(),
+                                                $('#alertdata').append("Please Enter a valid Number"),
+                                                $("#alert_card").fadeIn(),
+                                                closeSnoAlertBox(),
+                                                cell_border_error(row, cell.index().column))
 
-                                    // muliple_calutlation(r,9,10,11)
-                                    // value_a = table.cell({ row: r, column: column_a }).data() ? parseInt(table.cell({ row: r, column: column_a }).data()) : 0;
-                                    // value_b = table.cell({ row: r, column: 10 }).data() ? parseInt(table.cell({ row: r, column: column_a }).data()) : 1;
-                                    // console.log("value_a ", value_a)
-                                    // table.cell({ row: r, column: 11 }).data(value_a + value_b);
+                                    }
 
-                                    // console.log("Row:", table.row(`:eq(${r})`).remove())     
-
-                                    // supplier total == supplier rate*supplier_qty
                                     if (cell.index().column == supplier_rate || cell.index().column == supplier_qty) {
                                         let r = cell.index().row
                                         muliple_calutlation(r, supplier_rate, supplier_qty, supplier_amt)
@@ -764,8 +769,6 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                 })
 
-
-
                                 $('body').on('focus', '[contenteditable]', function () {
                                     $("td").removeClass("active")
                                     $(".suggestions").addClass("d-none");// onload to remove suggestion box
@@ -781,9 +784,6 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         $this.data('before', $this.html());
                                         $this.trigger('change', e.target.value);
                                         console.log("changed",)
-
-
-
                                     }
                                     console.log("not changed")
                                 });
@@ -850,7 +850,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                 $("#alert_card").fadeIn(),
                 closeSnoAlertBox(),
                 validation_handler()
-                )
+            )
             :
             (
                 $table_data = $('#myTable').DataTable().rows().data().toArray(),
@@ -916,31 +916,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
     // Creating drop down list funtion
-    var elmts = ["Etios", "Innova", "Cressida", "Corolla", "Camry"];
     var select = document.getElementById("vehicle");
-
-    // function create_vehicle_list() {
-
-    //     frappe.db.get_list('Vehicle', { fields: ['license_plate'] })
-    //         .then(
-    //             r => {
-    //                 // console.log("value are ", r)
-    //                 r.map((x) => {
-    //                     console.log("vehicle no plate mapping", x.license_plate)
-    //                     // var optn = elmts[x.license_plate];
-    //                     var el = document.createElement("option");
-    //                     el.textContent = x.license_plate;
-    //                     el.value = x.license_plate;
-    //                     select.appendChild(el);
-    //                 })
-    //             }
-    //         )
-    //         .catch(err => console.log("erorr is", err))
-
-    //     // down.innerHTML = "Elements Added";
-    //     console.log("clicked");
-    // }
-    // create_vehicle_list()
 
     $('#vehicle').on('click change', function (e) {
         console.log("vehicle changed ", e.target.value)
@@ -1003,38 +979,21 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     });
 
     function muliple_calutlation(row, column_a, column_b, calc) { // multiplication calucultation
-        // console.log("muliple calutlation", "=>", "row", row, "columna:", column_a, "columnb:", column_b, calc)
-        // console.log(this.innerText);
-        // console.log(cell.index().row)
-        // let r = cell.index().row
+
         value_a = table.cell({ row: row, column: column_a }).data() ? parseInt(table.cell({ row: row, column: column_a }).data()) : 0; //column_A is rate  
         value_b = table.cell({ row: row, column: column_b }).data() ? parseInt(table.cell({ row: row, column: column_b }).data()) : 1;  //coloumn_b is qty
         console.log("value_a ", value_a)
         console.log("value_B ", value_b)
         table.cell({ row: row, column: calc }).data(value_a * value_b); //add calculation 
-
-        // table.cell({ row: row, column: gst_p_ }).data() == "5%" ? table.cell({ row: row, column: gst_amount }).data((value_a * value_b * .05).toFixed(2)) : ""
-        // table.cell({ row: r, column: gst_p_ }).data() == "5%" ? table.cell({ row: row, column: gst_amount }).data(value_a * value_b * .05) : ""
-        // console.log("value in gst percentage",table.cell({ row: r, column: gst_amount }).data())
     }
-    // function gst_clacution(row) {
-    //     let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
-    //     let gst_calc = parseFloat(customer_amount * .05).toFixed(2)
-    //     console.log("gst claac", gst_calc)
-    //     e.target.innerText == "5%" ?
-    //         (table.cell({ row: 0, column: gst_amount }).data(gst_calc))
-    //         :
-    //         (table.cell({ row: 0, column: gst_amount }).data(0))
-    // }
+
     function today_date() {
         let today = new Date()
         today = today.toISOString().split('T')[0]
         current_date = today.split("-").join("-");
         document.getElementById("date").value = today;
-
-
-
     }
+
     function default_value(row, column, value) {
         console.log('value is value', value)
         frappe.db.get_value('Item', value, 'stock_uom')
@@ -1067,7 +1026,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                             || j == supplier_rate || j == supplier_qty || j == supplier_amt
                             || j == coustomer_ || j == coustomer__site || j == coustomer__amt ||
                             j == coustomer__qty || j == coustomer__rate || j == coustomer__rate__type ||
-                            j == supplier_ || j == partner__rate || j== partner__qty || j== gst_p_ || j== frc_ ||
+                            j == supplier_ || j == partner__rate || j == partner__qty || j == gst_p_ || j == frc_ ||
                             j == total_vehicle_rent || j == frc_gst || j == bata__amount || j == net_vehicle_balance ?
                             (
                                 validation_array = [...validation_array, { "row": i, "column": j }]
@@ -1079,7 +1038,9 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         }
     }
     function validation_handler() {
-        console.log('validation handler calling ', validation_array)
+        $('#alertdata').empty()
+        $('#alertdata').append("Mandatory Field Are Not Completed"),
+            console.log('validation handler calling ', validation_array)
         let rows_ = table.rows().count()
         for (i = 1; i <= rows_; i++) {
             for (j = 1; j <= col_count; j++) {
@@ -1091,12 +1052,25 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         validation_array.length >= 1 ?
             (
                 validation_array.map(x => {
-                    // $(`#myTable tr:nth-child(${x.row + 1}) td:nth-child(${x.column + 1})`).removeClass('border border-danger bg-light')
-                    $(`#myTable tr:nth-child(${x.row + 1}) td:nth-child(${x.column + 1})`).addClass('border border-danger bg-light')
+                    cell_border_error(x.row, x.column)
                 }
                 ))
             :
             ""
+    }
+    function cell_border_error(row, column) {
+        $(`#myTable tr:nth-child(${row + 1}) td:nth-child(${column + 1})`).addClass('border border-danger bg-light')
+    }
+    function cell_border_error_remove(row, column) {
+        $(`#myTable tr:nth-child(${row + 1}) td:nth-child(${column + 1})`).removeClass('border border-danger bg-light')
+    }
+    function check_integer() {
+        let tdvalue = parseInt($('#myTable').DataTable().cell("td.active").data())
+        console.log("td value is ", tdvalue)
+        // Number.isInteger(tdvalue)&&tdvalue>0?true:false
+        if (Number.isInteger(tdvalue) && tdvalue > 0) {
+            return true
+        }
     }
     function closeSnoAlertBox() {
         window.setTimeout(function () {
