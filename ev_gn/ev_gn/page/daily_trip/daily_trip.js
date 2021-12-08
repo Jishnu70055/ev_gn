@@ -268,9 +268,9 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             method: 'frappe.client.get_list',
                                             args: {
                                                 doctype: 'Driver',
-                                                fields: ['full_name'],
+                                                fields: ['name'],
                                                 filters: [
-                                                    ['full_name', 'like', q],
+                                                    ['name', 'like', q],
 
                                                 ]
                                             },
@@ -280,7 +280,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 r.map((x) => {
 
 
-                                                    $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary pe-auto hover pe-auto nav-link list-group-item-action">${x.full_name}</li>`); //add value to suggestion part
+                                                    $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary pe-auto hover pe-auto nav-link list-group-item-action">${x.name}</li>`); //add value to suggestion part
 
 
                                                 })
@@ -1067,6 +1067,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                             || j == supplier_rate || j == supplier_qty || j == supplier_amt
                             || j == coustomer_ || j == coustomer__site || j == coustomer__amt ||
                             j == coustomer__qty || j == coustomer__rate || j == coustomer__rate__type ||
+                            j == supplier_ || j == partner__rate || j== partner__qty || j== gst_p_ || j== frc_ ||
                             j == total_vehicle_rent || j == frc_gst || j == bata__amount || j == net_vehicle_balance ?
                             (
                                 validation_array = [...validation_array, { "row": i, "column": j }]
