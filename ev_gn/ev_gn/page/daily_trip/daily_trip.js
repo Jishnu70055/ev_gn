@@ -656,7 +656,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         cell.index().column == supplier_rate || cell.index().column == supplier_qty ||
                                         cell.index().column == partner__rate || cell.index().column == partner__qty ||
                                         cell.index().column == coustomer__rate || cell.index().column == coustomer__qty ||
-                                        cell.index().column == gst_p_ || cell.index().column == frc_ || cell.index().column== no__of__tips 
+                                         cell.index().column == frc_ || cell.index().column== no__of__tips 
                                         
                                     ) {
                                         check_integer() ? cell_border_error_remove(row, cell.index().column) :
@@ -665,8 +665,20 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 $("#alert_card").fadeIn(),
                                                 validtion_point=true,
                                                 closeSnoAlertBox(),
-                                                cell_border_error(row, cell.index().column))
+                                                cell_border_error(row, cell.index().column),
+                                                validation_array_push())
 
+                                    }
+                                    if( cell.index().column == gst_p_){
+                                        table.cell({ row: row, column: gst_p_ }).data()=="5"||table.cell({ row: row, column: gst_p_ }).data()=="0"?
+                                        cell_border_error_remove(row, cell.index().column)
+                                        :
+                                        ($('#alertdata').empty(),
+                                                $('#alertdata').append("GST should be 5 or 0"),
+                                                $("#alert_card").fadeIn(),
+                                                validtion_point=true,
+                                                closeSnoAlertBox(),
+                                                cell_border_error(row, cell.index().column))
                                     }
                                     // if(cell.index().column == bata__rate || cell.index().column == bata__amount){
                                     //     table.cell({ row: row, column: bata__rate }).data()=="" || table.cell({ row: row, column: bata__percentage }).data()==""?"":(
@@ -924,7 +936,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 location.reload()
                         }
                     )
-                    .catch((e) => console.log("Error", e))
+                    .catch((e) =>{ console.log("Error", e)
+                    $('#alertdata').append("Something went wrong"),
+                    $("#alert_card").fadeIn(),
+                    validtion_point=true,
+                    closeSnoAlertBox()}
+                    )
             )
     });
 
@@ -1088,6 +1105,11 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         if (Number.isInteger(tdvalue) && tdvalue > 0) {
             return true
         }
+    }
+    function validation_array_push(row,column){
+        let validation_array_flag=false
+        validation_int_array.length?
+
     }
     function closeSnoAlertBox() {
         window.setTimeout(function () {
