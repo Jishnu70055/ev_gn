@@ -152,12 +152,13 @@ class TripSheet(Document):
 		
 
 	def before_submit(self):
-		for data in self.trip_details:																	
+		for data in self.trip_details:	
 			if data.gst_percentage == 5:
 				gst_template = "GST 5% - EJ"
+				sales_invoice = create_sales_invoice(self, data, gst_template)
 			else:
 				gst_template = None
-			sales_invoice = create_sales_invoice(self, data, gst_template)
+				sales_invoice = create_sales_invoice(self, data, gst_template)
 			data.sales_invoice_id = sales_invoice									
 			purchase_invoice = create_purchase_invoice(data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)	
 			data.purchase_invoice_id = purchase_invoice						
