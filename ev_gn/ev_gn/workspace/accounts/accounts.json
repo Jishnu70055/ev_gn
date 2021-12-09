@@ -45,6 +45,15 @@
   },
   {
    "hidden": 0,
+   "is_query_report": 1,
+   "label": "Cash Flow",
+   "link_to": "Cash Flow",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
    "is_query_report": 0,
    "label": "Trip Reports",
    "link_type": "DocType",
@@ -62,7 +71,7 @@
    "type": "Link"
   }
  ],
- "modified": "2021-11-27 16:09:42.587365",
+ "modified": "2021-12-09 16:08:08.946059",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Accounts",
