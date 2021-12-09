@@ -163,7 +163,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                 const createdCell = function (cell) {
                                     let original
                                     //condition for contenteditable true or false --start
-                                    counts == supplier_amt || counts == partner__amt || counts == net_vehicle_balance || counts == frc_gst || counts == total_vehicle_rent ?
+                                    counts == supplier_amt || counts == partner__amt || counts == net_vehicle_balance || counts == frc_gst || counts == total_vehicle_rent || counts == bata__amount ?
                                         cell.setAttribute('contenteditable', false)
                                         :
                                         cell.setAttribute('contenteditable', true)
@@ -656,7 +656,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         cell.index().column == supplier_rate || cell.index().column == supplier_qty ||
                                         cell.index().column == partner__rate || cell.index().column == partner__qty ||
                                         cell.index().column == coustomer__rate || cell.index().column == coustomer__qty ||
-                                        cell.index().column == gst_p_ || cell.index().column == frc_ || cell.index().column== no__of__tips ||
+                                        cell.index().column == gst_p_ || cell.index().column == frc_ || cell.index().column== no__of__tips 
                                         
                                     ) {
                                         check_integer() ? cell_border_error_remove(row, cell.index().column) :
@@ -668,6 +668,17 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 cell_border_error(row, cell.index().column))
 
                                     }
+                                    // if(cell.index().column == bata__rate || cell.index().column == bata__amount){
+                                    //     table.cell({ row: row, column: bata__rate }).data()=="" || table.cell({ row: row, column: bata__percentage }).data()==""?"":(
+                                    //         check_integer() ? cell_border_error_remove(row, cell.index().column) :
+                                    //         ($('#alertdata').empty(),
+                                    //             $('#alertdata').append("Please Enter a valid Number"),
+                                    //             $("#alert_card").fadeIn(),
+                                    //             validtion_point=true,
+                                    //             closeSnoAlertBox(),
+                                    //             cell_border_error(row, cell.index().column))
+                                    //     )
+                                    // }
 
                                     if (cell.index().column == supplier_rate || cell.index().column == supplier_qty) {
                                         let r = cell.index().row
@@ -725,12 +736,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                     }
                                     // BATA TOTAL = BATA PERCENTAGE * TOTAL VEHICLE RENT
                                     if (cell.index().column == bata__percentage) {
-                                        console.log("bata_percentage")
                                         let r = cell.index().row;
+                                        console.log("bata_percentage",table.cell({ row: r, column: bata__percentage }).data())
                                         console.log(table.cell({ row: r, column: bata__percentage }).data())
                                         table.cell({ row: r, column: bata__percentage }).data()?table.cell({ row: r, column: bata__rate }).data(""):""
                                         let bata_percentage = table.cell({ row: r, column: bata__percentage }).data() ? (parseInt(table.cell({ row: r, column: bata__percentage }).data()) / 100) * parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
-                                        table.cell({ row: r, column: bata__percentage }).data()>=0?table.cell({ row: r, column: bata__amount }).data(bata_percentage):""
+                                        table.cell({ row: r, column: bata__percentage }).data()!=""&&table.cell({ row: r, column: bata__percentage }).data()>=0?table.cell({ row: r, column: bata__amount }).data(bata_percentage):""
                                     }
 
                                     //TOTAL = CUSTOMER_AMOUNT - PARTNER_AMOUNT-SUPPLIER_AMOUNT-NETFRC
