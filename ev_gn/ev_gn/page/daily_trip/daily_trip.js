@@ -665,8 +665,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 $("#alert_card").fadeIn(),
                                                 validtion_point=true,
                                                 closeSnoAlertBox(),
-                                                cell_border_error(row, cell.index().column),
-                                                validation_array_push())
+                                                cell_border_error(row, cell.index().column))
 
                                     }
                                     if( cell.index().column == gst_p_){
@@ -1105,11 +1104,6 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         if (Number.isInteger(tdvalue) && tdvalue > 0) {
             return true
         }
-    }
-    function validation_array_push(row,column){
-        let validation_array_flag=false
-        validation_int_array.length?
-
     }
     function closeSnoAlertBox() {
         window.setTimeout(function () {
