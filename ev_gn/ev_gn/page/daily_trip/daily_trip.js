@@ -25,7 +25,8 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
     // Decalre required variables
-
+    let validtion_point=false // 
+    let validation_int_array=[] //array
     let current_date //set date 
     let selected_vehicle //selected option for vehicle 
     let table //used for creating datatable 
@@ -655,13 +656,14 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         cell.index().column == supplier_rate || cell.index().column == supplier_qty ||
                                         cell.index().column == partner__rate || cell.index().column == partner__qty ||
                                         cell.index().column == coustomer__rate || cell.index().column == coustomer__qty ||
-                                        cell.index().column == gst_p_ || cell.index().column == frc_ ||
+                                        cell.index().column == gst_p_ || cell.index().column == frc_ || j== no__of__tips ||
                                         cell.index().column == bata__rate || cell.index().column == bata__percentage
                                     ) {
                                         check_integer() ? cell_border_error_remove(row, cell.index().column) :
                                             ($('#alertdata').empty(),
                                                 $('#alertdata').append("Please Enter a valid Number"),
                                                 $("#alert_card").fadeIn(),
+                                                validtion_point=true,
                                                 closeSnoAlertBox(),
                                                 cell_border_error(row, cell.index().column))
 
@@ -1022,12 +1024,13 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                     )
                     :
                     (
-                        j == driver_ || j == item_ || j == uom_
-                            || j == supplier_rate || j == supplier_qty || j == supplier_amt
+                             j == driver_ || j == item_ || j == uom_
+                            || j == supplier_rate || j == supplier_qty || j == supplier_amt || j == supplier__site
                             || j == coustomer_ || j == coustomer__site || j == coustomer__amt ||
                             j == coustomer__qty || j == coustomer__rate || j == coustomer__rate__type ||
-                            j == supplier_ || j == partner__rate || j == partner__qty || j == gst_p_ || j == frc_ ||
-                            j == total_vehicle_rent || j == frc_gst || j == bata__amount || j == net_vehicle_balance ?
+                            j == supplier_ || j == frc_ || j == total_vehicle_rent || j == frc_gst ||
+                             j == bata__amount || j == net_vehicle_balance 
+                            ?
                             (
                                 validation_array = [...validation_array, { "row": i, "column": j }]
                             )
