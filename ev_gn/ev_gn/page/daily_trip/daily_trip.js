@@ -657,7 +657,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         cell.index().column == partner__rate || cell.index().column == partner__qty ||
                                         cell.index().column == coustomer__rate || cell.index().column == coustomer__qty ||
                                         cell.index().column == gst_p_ || cell.index().column == frc_ || cell.index().column== no__of__tips ||
-                                        cell.index().column == bata__rate 
+                                        
                                     ) {
                                         check_integer() ? cell_border_error_remove(row, cell.index().column) :
                                             ($('#alertdata').empty(),
