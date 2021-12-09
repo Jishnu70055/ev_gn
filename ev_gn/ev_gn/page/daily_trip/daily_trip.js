@@ -656,7 +656,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         cell.index().column == supplier_rate || cell.index().column == supplier_qty ||
                                         cell.index().column == partner__rate || cell.index().column == partner__qty ||
                                         cell.index().column == coustomer__rate || cell.index().column == coustomer__qty ||
-                                        cell.index().column == gst_p_ || cell.index().column == frc_ || j== no__of__tips ||
+                                        cell.index().column == gst_p_ || cell.index().column == frc_ || cell.index().column== no__of__tips ||
                                         cell.index().column == bata__rate || cell.index().column == bata__percentage
                                     ) {
                                         check_integer() ? cell_border_error_remove(row, cell.index().column) :
@@ -717,6 +717,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                     }
                                     //BATA TOTAL = BATE RATE 
                                     if (cell.index().column == bata__rate) {
+                                        console.log("bata_rate")
                                         let r = cell.index().row;
                                         let bata_rate = table.cell({ row: r, column: bata__rate }).data() ? parseFloat(table.cell({ row: r, column: bata__rate }).data()) : 0;
                                         table.cell({ row: r, column: bata__percentage }).data(0);
@@ -724,6 +725,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                     }
                                     // BATA TOTAL = BATA PERCENTAGE * TOTAL VEHICLE RENT
                                     if (cell.index().column == bata__percentage) {
+                                        console.log("bata_percentage")
                                         let r = cell.index().row;
                                         table.cell({ row: r, column: bata__rate }).data(0);
                                         let bata_percentage = table.cell({ row: r, column: bata__percentage }).data() ? (parseInt(table.cell({ row: r, column: bata__percentage }).data()) / 100) * parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
