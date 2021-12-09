@@ -7,40 +7,71 @@ from frappe.model.document import Document
 
 				
 def create_sales_invoice(self, data, gst_template):
-	sales_invoice = frappe.get_doc({
-		"doctype":"Sales Invoice",
-		"customer":data.customer,
-		"site":data.customer_site,
-		"customer_group":'All Customer Groups',
-		"no_of_trips": data.trip,
-		"vehicle_number": self.vehicle,
-		"vehicle": self.vehicle,
-		"cost_center": "Vehicle - EJ",
-		"trip_id": self.name,
-		"taxes_and_charges": gst_template,
-		"taxes": [{
-			"charge_type": "On Net Total",
-			"account_head": "CGST - EJ",
-			"description": "CGST",
-			"rate": 2.5
-    		},
-			{
-			"charge_type": "On Net Total",
-			"account_head": "SGST - EJ",
-			"description": "SGST",
-			"rate": 2.5
-			}]
-		})
-	sales_invoice.append("items",{
-		"item_code":data.item,
-		"qty": data.trip * data.customer_quantity,
-		"uom": data.uom,
-		"rate": data.customer_rate,
-		"amount":data.trip * data.customer_amount,
-		})
-	sales_invoice.save()
-	sales_invoice.submit()
-	return sales_invoice.name
+	if gst_template == 'GST 5% - EJ':
+		charge_type = "On Net Total"
+		account_head = "CGST - EJ"
+		description = "CGST"
+		rate = 2.5
+		charge_type_2 = "On Net Total"
+		account_head_2 = "SGST - EJ"
+		description_2 = "SGST"
+		rate_2 = 2.5
+		sales_invoice = frappe.get_doc({
+			"doctype":"Sales Invoice",
+			"customer":data.customer,
+			"site":data.customer_site,
+			"customer_group":'All Customer Groups',
+			"no_of_trips": data.trip,
+			"vehicle_number": self.vehicle,
+			"vehicle": self.vehicle,
+			"cost_center": "Vehicle - EJ",
+			"trip_id": self.name,
+			"taxes_and_charges": gst_template,
+			"taxes": [{
+				"charge_type": charge_type,
+				"account_head": account_head,
+				"description": description,
+				"rate": rate
+				},
+				{
+				"charge_type": charge_type_2,
+				"account_head": account_head_2,
+				"description": description_2,
+				"rate": rate_2
+				}]
+			})
+		sales_invoice.append("items",{
+			"item_code":data.item,
+			"qty": data.trip * data.customer_quantity,
+			"uom": data.uom,
+			"rate": data.customer_rate,
+			"amount":data.trip * data.customer_amount,
+			})
+		sales_invoice.save()
+		sales_invoice.submit()
+		return sales_invoice.name
+	else:
+		sales_invoice = frappe.get_doc({
+			"doctype":"Sales Invoice",
+			"customer":data.customer,
+			"site":data.customer_site,
+			"customer_group":'All Customer Groups',
+			"no_of_trips": data.trip,
+			"vehicle_number": self.vehicle,
+			"vehicle": self.vehicle,
+			"cost_center": "Vehicle - EJ",
+			"trip_id": self.name,
+			})
+		sales_invoice.append("items",{
+			"item_code":data.item,
+			"qty": data.trip * data.customer_quantity,
+			"uom": data.uom,
+			"rate": data.customer_rate,
+			"amount":data.trip * data.customer_amount,
+			})
+		sales_invoice.save()
+		sales_invoice.submit()
+		return sales_invoice.name
 
 def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, item, uom, vehicle, name):
 	purchase_invoice = frappe.get_doc({
