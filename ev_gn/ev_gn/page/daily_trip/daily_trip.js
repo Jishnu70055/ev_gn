@@ -642,7 +642,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 //     :
                                                 //     (table.cell({ row: r, column: gst_amount }).data(1))
                                                 // // gst claculation done while select 5% --end
-
+                                                //
                                             }
 
 
