@@ -246,11 +246,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             $('.suggestions li').remove();
                                             $(".suggestions").removeClass("d-none")// to remove d-none in suggestion div
                                             $('#myTable').css({ 'position': 'relative' })
-                                            // $('.suggestions').css({ 'margin-left': '40px', 'width': '200px', 'background-color': 'black', 'color': 'white' })
-                                            // $('#customfield_10102').css({ 'width': '200px' });
-
-                                            // frappe.db.get_list('Driver', { fields: ['full_name'] })
-
+                                        
                                             if (e.which == 27) {
                                                 $(".suggestions").addClass("d-none")
                                             }
@@ -631,6 +627,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                                 var cell = $('#myTable').DataTable().cell("td.active")
                                                 cell.data(e.target.innerText).draw()
+                                                $("#body").find("td.active").next().show().focus();
                                                 cell.index().column == item_ ? default_value(cell.index().row, cell.index().column, e.target.innerHTML) : ""
 
 
@@ -1068,7 +1065,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
             .then(r => {
 
                 console.log("Driver date and driver", r, table.rows().count());
-                table.cell({ row: table.rows().count() - 1, column: driver_ }).data(r.message.driver); //add default value in uom 
+                table.cell({ row: table.rows().count() - 1, column: driver_ }).data(r.message.driver); //add default value in driver
             })
             .catch(e => console.log("error", e))
     }

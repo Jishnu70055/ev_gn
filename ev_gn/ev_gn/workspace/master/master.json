@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Master",
  "links": [],
- "modified": "2021-11-27 15:34:23.203413",
+ "modified": "2021-12-14 14:52:23.899091",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Master",
@@ -69,6 +69,30 @@
    "label": "Vehicle Owner",
    "link_to": "Supplier",
    "stats_filter": "{\"supplier_group\": \"Vehicle Owner\"}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Customer List",
+   "link_to": "Customer",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Supplier List",
+   "link_to": "Supplier",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Item List",
+   "link_to": "Item",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Driver List",
+   "link_to": "Driver",
    "type": "DocType"
   }
  ],
