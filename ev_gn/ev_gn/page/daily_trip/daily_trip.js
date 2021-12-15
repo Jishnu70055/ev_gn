@@ -869,39 +869,69 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     // Post data from DataTable to backend
     $('#getData').on('click', function () {
 
-        let table = $('#myTable').DataTable()
-        // let selected_value = $("#vehicle option:first").attr('selected', 'selected');
-        console.log($('#vehicle option').filter(':selected').val())
-        selected_vehicle = $('#vehicle option').filter(':selected').val();
-        current_date ? current_date : today_date()
-        console.log(table.rows().count())
-        console.log("partner_amt_array", partner_amount_array)
-        let total_rows = table.rows().count()
-        $table_data = $('#myTable').DataTable().rows().data().toArray()
-        console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle)
-        validation_scan()
-        validation_array.length > 0 ?
-            (
-                $("#alert_card").fadeIn(),
-                closeSnoAlertBox(),
-                validation_handler()
-            )
-            :
-            (
-                $table_data = $('#myTable').DataTable().rows().data().toArray(),
-                console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle),
-                frappe.call({
-                    method: 'ev_gn.post_trip_data.post_data',
-                    args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "submit" }
-                })
-                    .then(
-                        (e) => {
-                            console.log("Success", e),
-                                location.reload()
+        ////start////
+     
+            // $('#myTable').loading();
+            $('body').LoadingOverlay("show", {
+                image       : "",
+                text        : ""
+            });
+    
+            // $('#myTable tr:nth-child(1) td:nth-child(1)').addClass('border border-danger bg-warning');
+            let table = $('#myTable').DataTable()
+    
+            // let selected_value = $("#vehicle option:first").attr('selected', 'selected');
+            console.log($('#vehicle option').filter(':selected').val())
+            selected_vehicle = $('#vehicle option').filter(':selected').val();
+            current_date ? current_date : today_date()
+            // $table_data = table.rows().data();
+            // console.log("table row is",table.row(':eq(0)').cell(':eq(11)').data( "safwan" ).draw()) 
+            console.log("row count", table.rows().count())
+            console.log("partner_amt_array", partner_amount_array)
+            let row = table.rows().count()
+            console.log("validation call", row)
+    
+            let total_rows = table.rows().count()
+    
+            validation_scan()
+            validation_array.length > 0 ?
+                (
+                    $('body').LoadingOverlay("hide"),
+                    $("#alert_card").fadeIn(),
+                    closeSnoAlertBox(),
+                    validation_handler()
+                )
+                :
+                (
+                    $table_data = $('#myTable').DataTable().rows().data().toArray(),
+                    console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle),
+                    frappe.call({
+                        method: 'ev_gn.post_trip_data.post_data',
+                        args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "submit" }
+                    })
+                        .then(
+                            (e) => {
+                                console.log("Success", e);
+                                location.reload();
+                                $('body').LoadingOverlay("hide")
+                            }
+                        )
+                        .catch((e) => {
+                            $('body').LoadingOverlay("hide");
+                            console.log("Error", e);
+                            $('#alertdata').empty();
+                            $('#alertdata').append("Something went wrong");
+                                $("#alert_card").fadeIn();
+                                validtion_point = true;
+                                closeSnoAlertBox()
+    
                         }
-                    )
-                    .catch((e) => console.log("Error", e))
-            )
+                        )
+                )
+    
+        ////end////
+
+    
 
 
     });
@@ -954,6 +984,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                     .catch((e) => {
                         $('body').LoadingOverlay("hide");
                         console.log("Error", e);
+                        $('#alertdata').empty();
                         $('#alertdata').append("Something went wrong");
                             $("#alert_card").fadeIn();
                             validtion_point = true;
