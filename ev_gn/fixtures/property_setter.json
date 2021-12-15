@@ -8450,23 +8450,6 @@
  },
  {
   "default_value": null,
-  "doc_type": "Customer",
-  "docstatus": 0,
-  "doctype": "Property Setter",
-  "doctype_or_field": "DocField",
-  "field_name": "customer_name",
-  "modified": "2021-12-15 12:11:31.358836",
-  "name": "Customer-customer_name-unique",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "property": "unique",
-  "property_type": "Check",
-  "row_name": null,
-  "value": "1"
- },
- {
-  "default_value": null,
   "doc_type": "Item",
   "docstatus": 0,
   "doctype": "Property Setter",
