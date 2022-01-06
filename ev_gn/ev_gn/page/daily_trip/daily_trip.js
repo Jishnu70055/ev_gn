@@ -37,23 +37,23 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let partner_amount_array
     let Options = ['Rent', 'Rate'];
     let payment_method = ['Cash', 'Bank']
-    let gst_percentage = [5];
+    let gst_percentage = [5,0];
     // index of cell in table  
     let driver_ = 0
-    let item_ = 1
-    let uom_ = 2
-    let supplier_ = 3
-    let supplier__site = 4
-    let supplier_rate = 5
-    let supplier_qty = 6
-    let sales__person = 7
-    let supplier_amt = 8
-    let supplier_partner = 9
-    let partner__rate = 10
-    let partner__qty = 11
-    let partner__amt = 12
-    let coustomer_ = 13
-    let coustomer__site = 14
+    let supplier_ = 1
+    let supplier__site = 2
+    let supplier_rate = 3
+    let supplier_qty = 4
+    let sales__person = 5
+    let supplier_amt = 6
+    let supplier_partner = 7
+    let partner__rate = 8
+    let partner__qty = 9
+    let partner__amt = 10
+    let coustomer_ = 11
+    let coustomer__site = 12
+    let item_ = 13
+    let uom_ = 14
     let gst_p_ = 15
     let coustomer__rate__type = 16
     let coustomer__rate = 17
@@ -168,8 +168,8 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         const createdCell = function (cell) {
                                             let original
                                             //condition for contenteditable true or false --start
-                                            counts == supplier_amt || counts == partner__amt || counts == net_vehicle_balance || counts == frc_gst || counts == total_vehicle_rent || counts == bata__amount ?
-                                                cell.setAttribute('contenteditable', false)
+                                            counts == supplier_amt || counts == partner__amt || counts == net_vehicle_balance || counts == coustomer__amt|| counts == partner__qty || counts == frc_gst || counts == total_vehicle_rent || counts == bata__amount ?
+                                                cell.setAttribute('contenteditable', false)//set read only data
                                                 :
                                                 cell.setAttribute('contenteditable', true)
                                             //condition for contenteditable true or false --end
@@ -695,7 +695,10 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             //             cell_border_error(row, cell.index().column))
                                             //     )
                                             // }
-
+                                            if(cell.index().column == supplier_qty){
+                                                value_a = table.cell({ row: row, column: supplier_qty }).data()
+                                                table.cell({ row: row, column: partner__qty }).data(value_a) //add calculation 
+                                            }
                                             if (cell.index().column == supplier_rate || cell.index().column == supplier_qty) {
                                                 let r = cell.index().row
                                                 muliple_calutlation(r, supplier_rate, supplier_qty, supplier_amt)
@@ -725,9 +728,9 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 // customer type='rent' => coustomer amt / coustomer qty
                                                 table.cell({ row: r, column: coustomer__rate__type }).data() == "Rent" ? (
 
-                                                    value_a = table.cell({ row: row, column: coustomer__amt }).data() ? parseInt(table.cell({ row: row, column: coustomer__amt }).data()) : 0, //column_A is rate  
-                                                    value_b = table.cell({ row: row, column: coustomer__qty }).data() ? parseInt(table.cell({ row: row, column: coustomer__qty }).data()) : 1,  //coloumn_b is qty
-                                                    table.cell({ row: row, column: coustomer__rate }).data(value_a / value_b) //add calculation 
+                                                    value_a = table.cell({ row: row, column: coustomer__rate }).data() ? parseInt(table.cell({ row: row, column: coustomer__rate }).data()) : 0, //column_A is rate  
+                                                    console.log('value a in coustomer rate ',value_a),
+                                                    table.cell({ row: row, column: coustomer__amt }).data(value_a) //add calculation 
 
                                                 ) : ""
                                                 let coustomer_amt = table.cell({ row: row, column: coustomer__amt }).data() ? parseInt(table.cell({ row: row, column: coustomer__amt }).data()) : 1;
@@ -746,6 +749,13 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             if (cell.index().column == bata__rate) {
                                                 console.log("bata_rate")
                                                 let r = cell.index().row;
+                                                console.log('no fo row',r)
+                                                table.cell({ row: r, column: bata__rate }).data()==""
+                                                ?
+                                                $(`#myTable tr:nth-child(${r+1}) td:nth-child(${bata__percentage+1})`).attr('contenteditable', true)
+                                                :
+                                                $(`#myTable tr:nth-child(${r+1}) td:nth-child(${bata__percentage+1})`).attr('contenteditable', false)
+                                                // table.cell({ row: r, column: bata__percentage }).setAttribute('contenteditable', false)
                                                 let bata_rate = table.cell({ row: r, column: bata__rate }).data() ? parseFloat(table.cell({ row: r, column: bata__rate }).data()) : 0;
                                                 table.cell({ row: r, column: bata__percentage }).data("");
                                                 table.cell({ row: r, column: bata__amount }).data(bata_rate);
@@ -753,6 +763,11 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             // BATA TOTAL = BATA PERCENTAGE * TOTAL VEHICLE RENT
                                             if (cell.index().column == bata__percentage) {
                                                 let r = cell.index().row;
+                                                table.cell({ row: r, column: bata__percentage }).data()==""
+                                                ?
+                                                $(`#myTable tr:nth-child(${r+1}) td:nth-child(${bata__rate+1})`).attr('contenteditable', true)
+                                                :
+                                                $(`#myTable tr:nth-child(${r+1}) td:nth-child(${bata__rate+1})`).attr('contenteditable', false)
                                                 console.log("bata_percentage", table.cell({ row: r, column: bata__percentage }).data())
                                                 console.log(table.cell({ row: r, column: bata__percentage }).data())
                                                 table.cell({ row: r, column: bata__percentage }).data() ? table.cell({ row: r, column: bata__rate }).data("") : ""
