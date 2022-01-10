@@ -7,6 +7,220 @@
   "docstatus": 0,
   "doctype": "Report",
   "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"company\",\"Sales Invoice\"],[\"grand_total\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"customer_name\",\"Sales Invoice\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"vehicle\",\"Sales Invoice\"],[\"no_of_trips\",\"Sales Invoice\"],[\"trip_id\",\"Sales Invoice\"],[\"site\",\"Sales Invoice\"],[\"posting_date\",\"Sales Invoice\"],[\"total_qty\",\"Sales Invoice\"],[\"base_total_taxes_and_charges\",\"Sales Invoice\"],[\"uom\",\"Sales Invoice Item\"],[\"item_code\",\"Sales Invoice Item\"],[\"amount\",\"Sales Invoice Item\"],[\"rate\",\"Sales Invoice Item\"],[\"description\",\"Sales Invoice Item\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"company\":120,\"grand_total\":120,\"currency\":120,\"customer_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"vehicle\":120,\"no_of_trips\":120,\"trip_id\":120,\"site\":120,\"posting_date\":120,\"total_qty\":120,\"base_total_taxes_and_charges\":120,\"Sales Invoice Item:uom\":120,\"Sales Invoice Item:item_code\":120,\"Sales Invoice Item:amount\":120,\"Sales Invoice Item:rate\":120,\"Sales Invoice Item:description\":200,\"party_account_currency\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-09 19:29:08.030775",
+  "module": "Accounts",
+  "name": "Sales Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "Sales Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Employee Self Service"
+   },
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"company\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"grand_total\",\"Purchase Invoice\"],[\"currency\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"base_grand_total\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"suppier_site\",\"Purchase Invoice\"],[\"total_qty\",\"Purchase Invoice\"],[\"trip_id\",\"Purchase Invoice\"],[\"no_of_trips\",\"Purchase Invoice\"],[\"item_code\",\"Purchase Invoice Item\"],[\"rate\",\"Purchase Invoice Item\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"company\":120,\"posting_date\":120,\"grand_total\":120,\"currency\":120,\"supplier_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"suppier_site\":120,\"total_qty\":120,\"trip_id\":120,\"no_of_trips\":120,\"Purchase Invoice Item:item_code\":120,\"Purchase Invoice Item:rate\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-09 19:48:04.954689",
+  "module": "Accounts",
+  "name": "Purchase Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "Purchase Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"net_total\",\"Trip Details\"],[\"total\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"item\",\"Trip Details\"],[\"uom\",\"Trip Details\"],[\"supplier\",\"Trip Details\"],[\"supplier_site\",\"Trip Details\"],[\"supplier_rate\",\"Trip Details\"],[\"supplier_quantity\",\"Trip Details\"],[\"supplier_amount\",\"Trip Details\"],[\"supplier_partner\",\"Trip Details\"],[\"supplier_partner_quantity\",\"Trip Details\"],[\"supplier_partner_rate\",\"Trip Details\"],[\"supplier_partner_amount\",\"Trip Details\"],[\"total_supplier_amount\",\"Trip Details\"],[\"customer\",\"Trip Details\"],[\"customer_quantity\",\"Trip Details\"],[\"customer_site\",\"Trip Details\"],[\"customer_rate\",\"Trip Details\"],[\"customer_amount\",\"Trip Details\"],[\"trip\",\"Trip Details\"],[\"distance\",\"Trip Details\"],[\"gst_percentage\",\"Trip Details\"],[\"gst_amount\",\"Trip Details\"],[\"frc\",\"Trip Details\"],[\"bata_amount\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"vehicle\":120,\"date\":120,\"Trip Details:net_total\":120,\"total\":120,\"Trip Details:driver\":120,\"Trip Details:item\":120,\"Trip Details:uom\":120,\"Trip Details:supplier\":120,\"Trip Details:supplier_site\":120,\"Trip Details:supplier_rate\":120,\"Trip Details:supplier_quantity\":120,\"Trip Details:supplier_amount\":120,\"Trip Details:supplier_partner\":120,\"Trip Details:supplier_partner_quantity\":120,\"Trip Details:supplier_partner_rate\":120,\"Trip Details:supplier_partner_amount\":120,\"Trip Details:total_supplier_amount\":120,\"Trip Details:customer\":120,\"Trip Details:customer_quantity\":120,\"Trip Details:customer_site\":120,\"Trip Details:customer_rate\":120,\"Trip Details:customer_amount\":120,\"Trip Details:trip\":120,\"Trip Details:distance\":120,\"Trip Details:gst_percentage\":120,\"Trip Details:gst_amount\":120,\"Trip Details:frc\":120,\"Trip Details:bata_amount\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-09 22:23:34.025874",
+  "module": "Ev Gn",
+  "name": "Total Trip Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Total Trip Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Total Trip Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "Total Trip Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Total Trip Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Payment Entry\"],[\"payment_type\",\"Payment Entry\"],[\"posting_date\",\"Payment Entry\"],[\"reference_doctype\",\"Payment Entry Reference\"],[\"party_type\",\"Payment Entry\"],[\"party_name\",\"Payment Entry\"],[\"mode_of_payment\",\"Payment Entry\"],[\"bank_account\",\"Payment Entry\"],[\"party_bank_account\",\"Payment Entry\"]],\"order_by\":\"`tabPayment Entry`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"payment_type\":120,\"posting_date\":120,\"Payment Entry Reference:reference_doctype\":120,\"party_type\":120,\"party_name\":120,\"mode_of_payment\":120,\"bank_account\":120,\"party_bank_account\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-09 22:46:58.540151",
+  "module": "Accounts",
+  "name": "Payment Reports",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Payment Entry",
+  "reference_report": null,
+  "report_name": "Payment Reports",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Payment Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Payment Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Payment Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
   "is_standard": "Yes",
   "javascript": null,
   "json": null,
@@ -46,7 +260,7 @@
   ]
  },
  {
-  "add_total_row": 0,
+  "add_total_row": 1,
   "columns": [],
   "disable_prepared_report": 0,
   "disabled": 0,
@@ -150,7 +364,7 @@
   ]
  },
  {
-  "add_total_row": 0,
+  "add_total_row": 1,
   "columns": [],
   "disable_prepared_report": 0,
   "disabled": 0,
@@ -9448,7 +9662,7 @@
   ]
  },
  {
-  "add_total_row": 1,
+  "add_total_row": 0,
   "columns": [],
   "disable_prepared_report": 0,
   "disabled": 0,
