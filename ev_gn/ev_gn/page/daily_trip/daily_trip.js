@@ -697,7 +697,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             // }
                                             if(cell.index().column == supplier_qty){
                                                 value_a = table.cell({ row: row, column: supplier_qty }).data()
-                                                table.cell({ row: row, column: partner__qty }).data(value_a) //add calculation 
+                                                table.cell({ row: row, column: partner__qty }).data(parseInt(value_a)) //add calculation 
                                             }
                                             if (cell.index().column == supplier_rate || cell.index().column == supplier_qty) {
                                                 let r = cell.index().row
