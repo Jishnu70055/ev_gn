@@ -20,7 +20,10 @@
   {
    "fieldname": "vehicle",
    "fieldtype": "Link",
+   "in_global_search": 1,
    "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Vehicle",
    "options": "Vehicle",
    "reqd": 1
@@ -77,7 +80,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-11-11 14:07:47.327548",
+ "modified": "2022-01-09 19:53:20.924737",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Sheet",
