@@ -18,24 +18,24 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
     trip_sheet.date = arg2
     for trip in total_trips:     #creating trip sheet for each row
         driver = trip[0]
-        item = trip[1]
-        uom = trip[2]
-        supplier = trip[3]
-        supplier_site = trip[4]
-        supplier_rate = trip[5]
-        supplier_quantity = int(trip[6])
-        supplier_amount = int(trip[8])
+        item = trip[13]#1
+        uom = trip[14]#2
+        supplier = trip[1]#3
+        supplier_site = trip[2]#4
+        supplier_rate = trip[3]#5
+        supplier_quantity = int(trip[4])#6
+        supplier_amount = int(trip[6])#8
         print("-------------------------")
-        supplier_partner = trip[9]
-        sales_partner = trip[7]
-        if (trip[10] and trip[11] and trip[12] != ''):
-            partner_rate = int(trip[10])
-            partner_quantity = int(trip[11])
-            partner_amount = int(trip[12])
+        supplier_partner = trip[7]#9
+        sales_partner = trip[5]#7
+        if (trip[8] and trip[9] and trip[10] != ''):
+            partner_rate = int(trip[8])#10
+            partner_quantity = int(trip[9])#11
+            partner_amount = int(trip[10])#12
         else:
             partner_rate, partner_quantity, partner_amount = 0, 0, 0
-        customer = trip[13]
-        customer_site = trip[14]
+        customer = trip[11]#13 #customer = 11 ,customer site =12,partner quantity = 9 
+        customer_site = trip[12]#14
         customer_rate_type = trip[16]
         if (trip[17] == ''):
             customer_rate = int(0)
