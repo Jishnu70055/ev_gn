@@ -7175,6 +7175,23 @@
  },
  {
   "default_value": null,
+  "doc_type": "Customer",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "customer_type",
+  "modified": "2022-01-10 18:53:43.524758",
+  "name": "Customer-customer_type-default",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "property": "default",
+  "property_type": "Text",
+  "row_name": null,
+  "value": "Individual"
+ },
+ {
+  "default_value": null,
   "doc_type": "Quotation",
   "docstatus": 0,
   "doctype": "Property Setter",
@@ -8481,22 +8498,5 @@
   "property_type": "Check",
   "row_name": null,
   "value": "0"
- },
- {
-  "default_value": null,
-  "doc_type": "Customer",
-  "docstatus": 0,
-  "doctype": "Property Setter",
-  "doctype_or_field": "DocField",
-  "field_name": "customer_type",
-  "modified": "2022-01-10 18:53:43.524758",
-  "name": "Customer-customer_type-default",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "property": "default",
-  "property_type": "Text",
-  "row_name": null,
-  "value": "Individual"
  }
 ]
