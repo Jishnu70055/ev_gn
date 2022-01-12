@@ -104,27 +104,6 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 //when 'one' is selected, add another chosen. 
                                                 console.log('working now')
                                                 default_driver()
-
-
-                                                frappe.db.get_value('Vehicle', selected_vehicle, ['driver_bata', 'vehicle_owner'])
-                                                    .then(r => {
-
-                                                        console.log("vehicle with driver ", r.message.vehicle_ownner);
-                                                        r.message.vehicle_ownner ?
-                                                            (console.log('pass'),
-                                                                table.cell({ column: driver_ }).data(r.message.vehicle_ownner),
-                                                                table.cell({ column: bata__percentage }).data(r.message.driver_bata))
-                                                            :
-                                                            (
-                                                                console.log('fail'),
-                                                                table.cell({ row: 0, column: bata__percentage }).data(r.message.driver_bata)
-                                                            )
-
-                                                        // table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add calculation 
-                                                    })
-                                                    .catch(e => console.log("error", e))
-
-
                                             });
                                         }
                                     )
@@ -420,27 +399,20 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 })
                                             }
                                             if ($('#myTable').DataTable().cell(this).index().column == supplier__site) {
-                                                q = query + "%"
-                                                frappe.call({
-                                                    method: 'frappe.client.get_list',
-                                                    args: {
-                                                        doctype: 'Site',
-                                                        fields: ['site_name'],
-                                                        filters: [
-                                                            ['site_name', 'like', q],
-
-                                                        ]
-                                                    },
-                                                    callback: (e) => {
-                                                        r = e.message
+                                              
+                                                let cell = $('#myTable').DataTable().cell("td.active")
+                                                let r = cell.index().row
+                                                frappe.db.get_doc('Supplier', table.cell({ row: r, column: supplier_ }).data())
+                                                    .then(doc => {
+                                                        let items = doc.supplier_site_list
+                                                        console.log('items in the doc are', items)
                                                         $('.suggestions li').remove();
-                                                        r.map((x) => {
-                                                            // console.log("current value are", x.site_name)
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x.site_name}</li>`); //add value to suggestion part
+                                                        items.map((x) => {
+                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x.site}</li>`); //add value to suggestion part
                                                         })
                                                         $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
-                                                    }
-                                                })
+                                                        // }
+                                                    })
 
                                             }
                                             if ($('#myTable').DataTable().cell(this).index().column == supplier_partner) {
@@ -1062,23 +1034,23 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         selected_vehicle = this.value
         console.log('selected vehicle', selected_vehicle)
         default_driver()
-        frappe.db.get_value('Vehicle', selected_vehicle, ['driver_bata', 'vehicle_owner'])
-            .then(r => {
+        // frappe.db.get_value('Vehicle', selected_vehicle, ['driver_bata', 'vehicle_owner'])
+        //     .then(r => {
 
-                console.log("vehicle with driver ", r.message.vehicle_ownner);
-                r.message.vehicle_ownner ?
-                    (console.log('pass'),
-                        table.cell({ column: driver_ }).data(r.message.vehicle_ownner),
-                        table.cell({ column: bata__percentage }).data(r.message.driver_bata))
-                    :
-                    (
-                        console.log('fail'),
-                        table.cell({ row: 0, column: bata__percentage }).data(r.message.driver_bata)
-                    )
+        //         console.log("vehicle with driver ", r.message.vehicle_ownner);
+        //         r.message.vehicle_ownner ?
+        //             (console.log('pass'),
+        //                 table.cell({ column: driver_ }).data(r.message.vehicle_ownner),
+        //                 table.cell({ column: bata__percentage }).data(r.message.driver_bata))
+        //             :
+        //             (
+        //                 console.log('fail'),
+        //                 table.cell({ row: 0, column: bata__percentage }).data(r.message.driver_bata)
+        //             )
 
-                // table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add calculation 
-            })
-            .catch(e => console.log("error", e))
+        //         // table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add calculation 
+        //     })
+        //     .catch(e => console.log("error", e))
     });
     // });
     $('#date').on('change', function () {
