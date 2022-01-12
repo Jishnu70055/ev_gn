@@ -387,6 +387,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                                         ]
                                                     },
+
                                                     callback: (e) => {
                                                         r = e.message
                                                         $('.suggestions li').remove();
@@ -398,6 +399,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                     }
                                                 })
                                             }
+
                                             if ($('#myTable').DataTable().cell(this).index().column == supplier__site) {
                                               
                                                 let cell = $('#myTable').DataTable().cell("td.active")
@@ -469,19 +471,6 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             }
                                             //FILTER COUSTOMER SITE AS PER COUSTOMER FILED
                                             if ($('#myTable').DataTable().cell(this).index().column == coustomer__site) {
-                                                // q = query + "%"
-                                                // frappe.call({
-                                                //     method: 'frappe.client.get_list',
-                                                //     args: {
-                                                //         doctype: 'Site',
-                                                //         fields: ['site_name'],
-                                                //         filters: [
-                                                //             ['site_name', 'like', q],
-
-                                                //         ]
-                                                //     },
-                                                // callback: (e) => {
-                                                // r = e.message
                                                 let cell = $('#myTable').DataTable().cell("td.active")
                                                 let r = cell.index().row
                                                 frappe.db.get_doc('Customer', table.cell({ row: r, column: coustomer_ }).data())
