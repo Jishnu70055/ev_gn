@@ -9,9 +9,137 @@
   "filters": [],
   "is_standard": "No",
   "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"company\",\"Sales Invoice\"],[\"grand_total\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"customer_name\",\"Sales Invoice\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"vehicle\",\"Sales Invoice\"],[\"no_of_trips\",\"Sales Invoice\"],[\"trip_id\",\"Sales Invoice\"],[\"site\",\"Sales Invoice\"],[\"posting_date\",\"Sales Invoice\"],[\"total_qty\",\"Sales Invoice\"],[\"base_total_taxes_and_charges\",\"Sales Invoice\"],[\"uom\",\"Sales Invoice Item\"],[\"item_code\",\"Sales Invoice Item\"],[\"amount\",\"Sales Invoice Item\"],[\"rate\",\"Sales Invoice Item\"],[\"description\",\"Sales Invoice Item\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"company\":120,\"grand_total\":120,\"currency\":120,\"customer_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"vehicle\":120,\"no_of_trips\":120,\"trip_id\":120,\"site\":120,\"posting_date\":120,\"total_qty\":120,\"base_total_taxes_and_charges\":120,\"Sales Invoice Item:uom\":120,\"Sales Invoice Item:item_code\":120,\"Sales Invoice Item:amount\":120,\"Sales Invoice Item:rate\":120,\"Sales Invoice Item:description\":200,\"party_account_currency\":120},\"group_by\":null}",
+  "json": "{\"filters\":[[\"Purchase Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"],[\"expense_account\",\"Purchase Invoice Item\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"posting_date\":120,\"supplier_name\":120,\"outstanding_amount\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120,\"Purchase Invoice Item:expense_account\":120},\"group_by\":null}",
   "letter_head": null,
-  "modified": "2022-01-09 19:29:08.030775",
+  "modified": "2022-01-11 14:35:08.097462",
+  "module": "Accounts",
+  "name": "Company Expense Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "Company Expense Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Purchase Invoice\",\"is_vehicle_purchase\",\"=\",1,false],[\"Purchase Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"],[\"vehicle\",\"Purchase Invoice\"],[\"vehicle\",\"Purchase Invoice Item\"],[\"expense_account\",\"Purchase Invoice Item\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"posting_date\":120,\"supplier_name\":120,\"outstanding_amount\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120,\"vehicle\":120,\"Purchase Invoice Item:vehicle\":120,\"Purchase Invoice Item:expense_account\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-11 19:46:02.952486",
+  "module": "Accounts",
+  "name": "Vehicle Expense Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "Vehicle Expense Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 1,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Sales Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"docstatus\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"company\",\"Sales Invoice\"],[\"grand_total\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"customer_name\",\"Sales Invoice\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"vehicle\",\"Sales Invoice\"],[\"no_of_trips\",\"Sales Invoice\"],[\"trip_id\",\"Sales Invoice\"],[\"site\",\"Sales Invoice\"],[\"posting_date\",\"Sales Invoice\"],[\"total_qty\",\"Sales Invoice\"],[\"base_total_taxes_and_charges\",\"Sales Invoice\"],[\"uom\",\"Sales Invoice Item\"],[\"item_code\",\"Sales Invoice Item\"],[\"amount\",\"Sales Invoice Item\"],[\"rate\",\"Sales Invoice Item\"],[\"description\",\"Sales Invoice Item\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"company\":120,\"grand_total\":120,\"currency\":120,\"customer_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"vehicle\":120,\"no_of_trips\":120,\"trip_id\":120,\"site\":120,\"posting_date\":120,\"total_qty\":120,\"base_total_taxes_and_charges\":120,\"Sales Invoice Item:uom\":120,\"Sales Invoice Item:item_code\":120,\"Sales Invoice Item:amount\":120,\"Sales Invoice Item:rate\":120,\"Sales Invoice Item:description\":200,\"party_account_currency\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-11 19:10:32.924383",
   "module": "Accounts",
   "name": "Sales Report",
   "parent": null,
@@ -131,9 +259,9 @@
   "filters": [],
   "is_standard": "No",
   "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"net_total\",\"Trip Details\"],[\"total\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"item\",\"Trip Details\"],[\"uom\",\"Trip Details\"],[\"supplier\",\"Trip Details\"],[\"supplier_site\",\"Trip Details\"],[\"supplier_rate\",\"Trip Details\"],[\"supplier_quantity\",\"Trip Details\"],[\"supplier_amount\",\"Trip Details\"],[\"supplier_partner\",\"Trip Details\"],[\"supplier_partner_quantity\",\"Trip Details\"],[\"supplier_partner_rate\",\"Trip Details\"],[\"supplier_partner_amount\",\"Trip Details\"],[\"total_supplier_amount\",\"Trip Details\"],[\"customer\",\"Trip Details\"],[\"customer_quantity\",\"Trip Details\"],[\"customer_site\",\"Trip Details\"],[\"customer_rate\",\"Trip Details\"],[\"customer_amount\",\"Trip Details\"],[\"trip\",\"Trip Details\"],[\"distance\",\"Trip Details\"],[\"gst_percentage\",\"Trip Details\"],[\"gst_amount\",\"Trip Details\"],[\"frc\",\"Trip Details\"],[\"bata_amount\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"vehicle\":120,\"date\":120,\"Trip Details:net_total\":120,\"total\":120,\"Trip Details:driver\":120,\"Trip Details:item\":120,\"Trip Details:uom\":120,\"Trip Details:supplier\":120,\"Trip Details:supplier_site\":120,\"Trip Details:supplier_rate\":120,\"Trip Details:supplier_quantity\":120,\"Trip Details:supplier_amount\":120,\"Trip Details:supplier_partner\":120,\"Trip Details:supplier_partner_quantity\":120,\"Trip Details:supplier_partner_rate\":120,\"Trip Details:supplier_partner_amount\":120,\"Trip Details:total_supplier_amount\":120,\"Trip Details:customer\":120,\"Trip Details:customer_quantity\":120,\"Trip Details:customer_site\":120,\"Trip Details:customer_rate\":120,\"Trip Details:customer_amount\":120,\"Trip Details:trip\":120,\"Trip Details:distance\":120,\"Trip Details:gst_percentage\":120,\"Trip Details:gst_amount\":120,\"Trip Details:frc\":120,\"Trip Details:bata_amount\":120},\"group_by\":null}",
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"net_total\",\"Trip Details\"],[\"total\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"item\",\"Trip Details\"],[\"uom\",\"Trip Details\"],[\"supplier\",\"Trip Details\"],[\"supplier_site\",\"Trip Details\"],[\"supplier_rate\",\"Trip Details\"],[\"supplier_quantity\",\"Trip Details\"],[\"supplier_amount\",\"Trip Details\"],[\"supplier_partner\",\"Trip Details\"],[\"supplier_partner_quantity\",\"Trip Details\"],[\"supplier_partner_rate\",\"Trip Details\"],[\"supplier_partner_amount\",\"Trip Details\"],[\"total_supplier_amount\",\"Trip Details\"],[\"customer\",\"Trip Details\"],[\"customer_quantity\",\"Trip Details\"],[\"customer_site\",\"Trip Details\"],[\"customer_rate\",\"Trip Details\"],[\"customer_amount\",\"Trip Details\"],[\"trip\",\"Trip Details\"],[\"distance\",\"Trip Details\"],[\"gst_percentage\",\"Trip Details\"],[\"gst_amount\",\"Trip Details\"],[\"frc\",\"Trip Details\"],[\"bata_amount\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:net_total\":120,\"total\":120,\"Trip Details:driver\":120,\"Trip Details:item\":120,\"Trip Details:uom\":120,\"Trip Details:supplier\":120,\"Trip Details:supplier_site\":120,\"Trip Details:supplier_rate\":120,\"Trip Details:supplier_quantity\":120,\"Trip Details:supplier_amount\":120,\"Trip Details:supplier_partner\":120,\"Trip Details:supplier_partner_quantity\":120,\"Trip Details:supplier_partner_rate\":120,\"Trip Details:supplier_partner_amount\":120,\"Trip Details:total_supplier_amount\":120,\"Trip Details:customer\":120,\"Trip Details:customer_quantity\":120,\"Trip Details:customer_site\":120,\"Trip Details:customer_rate\":120,\"Trip Details:customer_amount\":120,\"Trip Details:trip\":120,\"Trip Details:distance\":120,\"Trip Details:gst_percentage\":120,\"Trip Details:gst_amount\":120,\"Trip Details:frc\":120,\"Trip Details:bata_amount\":120},\"group_by\":null}",
   "letter_head": null,
-  "modified": "2022-01-09 22:23:34.025874",
+  "modified": "2022-01-11 19:48:28.144237",
   "module": "Ev Gn",
   "name": "Total Trip Report",
   "parent": null,
@@ -10115,6 +10243,64 @@
   "roles": [
    {
     "parent": "Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Sales Invoice\",\"customer\",\"=\",\"demo2 customer\"],[\"Sales Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"docstatus\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"posting_date\",\"Sales Invoice\"],[\"amount\",\"Sales Invoice Item\"],[\"due_date\",\"Sales Invoice\"],[\"status\",\"Sales Invoice\"],[\"due_date\",\"Payment Schedule\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"currency\":120,\"posting_date\":120,\"Sales Invoice Item:amount\":120,\"due_date\":120,\"status\":120,\"Payment Schedule:due_date\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"party_account_currency\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-11 19:40:14.968663",
+  "module": "Accounts",
+  "name": "Receivables Summary",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "Receivables Summary",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Receivables Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Receivables Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Receivables Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Employee Self Service"
+   },
+   {
+    "parent": "Receivables Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Receivables Summary",
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "Evergreen User"
