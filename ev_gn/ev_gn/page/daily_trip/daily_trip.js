@@ -958,6 +958,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         console.log($('#vehicle option').filter(':selected').val())
         selected_vehicle = $('#vehicle option').filter(':selected').val();
         current_date ? current_date : today_date()
+        current_date ? console.log(current_date) : today_date()
         // $table_data = table.rows().data();
         // console.log("table row is",table.row(':eq(0)').cell(':eq(11)').data( "safwan" ).draw()) 
         console.log("row count", table.rows().count())
@@ -1044,9 +1045,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     // });
     $('#date').on('change', function () {
         var date = new Date($('#date').val());
-        day = date.getDate();
+        day = date.getDate()
         month = date.getMonth() + 1;
         year = date.getFullYear();
+        day =day<10?"0"+day:day
+        month =month<10?"0"+month:month
+        console.log('day',day,'month',month,'year',year)
         current_date = ''
         current_date = [day, month, year].join('-');
         //   alert([day, month, year].join('/'));
@@ -1088,10 +1092,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
     function today_date() {
         let today = new Date()
+        console.log('today date is ',today)
         today = today.toISOString().split('T')[0]
         current_date = today.split("-").join("-");
         document.getElementById("date").value = today;
     }
+    
 
     function default_value(row, column, value) {
         console.log('value is value', value)
