@@ -100,6 +100,32 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 select.appendChild(el);
                                             })
                                             $("#vehicle").chosen({ no_results_text: "Oops, nothing found!" })
+                                            $('#vehicle').chosen().change(function (e) {
+                                                //when 'one' is selected, add another chosen. 
+                                                console.log('working now')
+                                                default_driver()
+
+
+                                                frappe.db.get_value('Vehicle', selected_vehicle, ['driver_bata', 'vehicle_owner'])
+                                                    .then(r => {
+
+                                                        console.log("vehicle with driver ", r.message.vehicle_ownner);
+                                                        r.message.vehicle_ownner ?
+                                                            (console.log('pass'),
+                                                                table.cell({ column: driver_ }).data(r.message.vehicle_ownner),
+                                                                table.cell({ column: bata__percentage }).data(r.message.driver_bata))
+                                                            :
+                                                            (
+                                                                console.log('fail'),
+                                                                table.cell({ row: 0, column: bata__percentage }).data(r.message.driver_bata)
+                                                            )
+
+                                                        // table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add calculation 
+                                                    })
+                                                    .catch(e => console.log("error", e))
+
+
+                                            });
                                         }
                                     )
                                     .catch(err => console.log("erorr is", err))
@@ -1022,13 +1048,20 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
     // Creating drop down list funtion
     var select = document.getElementById("vehicle");
+    $('#vehicle').trigger("change")
 
-    $('#vehicle').on('click change', function (e) {
+    // $('#vehicle').chosen().change(function(e){
+    //     console.log("changes call")
+    //         //when 'one' is selected, add another chosen. 
+
+    //     });
+    $('#vehicle').on('change', function (e) {
         console.log("vehicle changed ", e.target.value)
         // alert( this.value );
         selected_vehicle = ''
         selected_vehicle = this.value
         console.log('selected vehicle', selected_vehicle)
+        default_driver()
         frappe.db.get_value('Vehicle', selected_vehicle, ['driver_bata', 'vehicle_owner'])
             .then(r => {
 
