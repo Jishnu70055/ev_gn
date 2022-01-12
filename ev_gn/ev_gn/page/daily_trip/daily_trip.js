@@ -37,7 +37,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let partner_amount_array
     let Options = ['Rent', 'Rate'];
     let payment_method = ['Cash', 'Bank']
-    let gst_percentage = [5,0];
+    let gst_percentage = [5, 0];
     // index of cell in table  
     let driver_ = 0
     let supplier_ = 1
@@ -168,7 +168,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         const createdCell = function (cell) {
                                             let original
                                             //condition for contenteditable true or false --start
-                                            counts == supplier_amt || counts == partner__amt || counts == net_vehicle_balance || counts == coustomer__amt|| counts == partner__qty || counts == frc_gst || counts == total_vehicle_rent || counts == bata__amount ?
+                                            counts == supplier_amt || counts == partner__amt || counts == net_vehicle_balance || counts == coustomer__amt || counts == partner__qty || counts == frc_gst || counts == total_vehicle_rent || counts == bata__amount ?
                                                 cell.setAttribute('contenteditable', false)//set read only data
                                                 :
                                                 cell.setAttribute('contenteditable', true)
@@ -246,7 +246,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             $('.suggestions li').remove();
                                             $(".suggestions").removeClass("d-none")// to remove d-none in suggestion div
                                             $('#myTable').css({ 'position': 'relative' })
-                                        
+
                                             if (e.which == 27) {
                                                 $(".suggestions").addClass("d-none")
                                             }
@@ -469,28 +469,34 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 })
 
                                             }
+                                            //FILTER COUSTOMER SITE AS PER COUSTOMER FILED
                                             if ($('#myTable').DataTable().cell(this).index().column == coustomer__site) {
-                                                q = query + "%"
-                                                frappe.call({
-                                                    method: 'frappe.client.get_list',
-                                                    args: {
-                                                        doctype: 'Site',
-                                                        fields: ['site_name'],
-                                                        filters: [
-                                                            ['site_name', 'like', q],
+                                                // q = query + "%"
+                                                // frappe.call({
+                                                //     method: 'frappe.client.get_list',
+                                                //     args: {
+                                                //         doctype: 'Site',
+                                                //         fields: ['site_name'],
+                                                //         filters: [
+                                                //             ['site_name', 'like', q],
 
-                                                        ]
-                                                    },
-                                                    callback: (e) => {
-                                                        r = e.message
+                                                //         ]
+                                                //     },
+                                                // callback: (e) => {
+                                                // r = e.message
+                                                let cell = $('#myTable').DataTable().cell("td.active")
+                                                let r = cell.index().row
+                                                frappe.db.get_doc('Customer', table.cell({ row: r, column: coustomer_ }).data())
+                                                    .then(doc => {
+                                                        let items = doc.site_list
+                                                        console.log('items in the doc are', items)
                                                         $('.suggestions li').remove();
-                                                        r.map((x) => {
-                                                            // console.log("current value are", x.site_name)
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x.site_name}</li>`); //add value to suggestion part
+                                                        items.map((x) => {
+                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x.site}</li>`); //add value to suggestion part
                                                         })
                                                         $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
-                                                    }
-                                                })
+                                                        // }
+                                                    })
                                             }
                                             if ($('#myTable').DataTable().cell(this).index().column == coustomer__rate__type) {
                                                 Options.map((x) => {
@@ -629,6 +635,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 cell.data(e.target.innerText).draw()
                                                 $("#body").find("td.active").next().show().focus();
                                                 cell.index().column == item_ ? default_value(cell.index().row, cell.index().column, e.target.innerHTML) : ""
+                                                // cell.index().column == coustomer_ ? default_customerlist(cell.index().row, cell.index().column, e.target.innerHTML) : ""
 
 
 
@@ -695,7 +702,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             //             cell_border_error(row, cell.index().column))
                                             //     )
                                             // }
-                                            if(cell.index().column == supplier_qty){
+                                            if (cell.index().column == supplier_qty) {
                                                 value_a = table.cell({ row: row, column: supplier_qty }).data()
                                                 table.cell({ row: row, column: partner__qty }).data(parseInt(value_a)) //add calculation 
                                             }
@@ -729,7 +736,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 table.cell({ row: r, column: coustomer__rate__type }).data() == "Rent" ? (
 
                                                     value_a = table.cell({ row: row, column: coustomer__rate }).data() ? parseInt(table.cell({ row: row, column: coustomer__rate }).data()) : 0, //column_A is rate  
-                                                    console.log('value a in coustomer rate ',value_a),
+                                                    console.log('value a in coustomer rate ', value_a),
                                                     table.cell({ row: row, column: coustomer__amt }).data(value_a) //add calculation 
 
                                                 ) : ""
@@ -749,12 +756,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             if (cell.index().column == bata__rate) {
                                                 console.log("bata_rate")
                                                 let r = cell.index().row;
-                                                console.log('no fo row',r)
-                                                table.cell({ row: r, column: bata__rate }).data()==""
-                                                ?
-                                                $(`#myTable tr:nth-child(${r+1}) td:nth-child(${bata__percentage+1})`).attr('contenteditable', true)
-                                                :
-                                                $(`#myTable tr:nth-child(${r+1}) td:nth-child(${bata__percentage+1})`).attr('contenteditable', false)
+                                                console.log('no fo row', r)
+                                                table.cell({ row: r, column: bata__rate }).data() == ""
+                                                    ?
+                                                    $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${bata__percentage + 1})`).attr('contenteditable', true)
+                                                    :
+                                                    $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${bata__percentage + 1})`).attr('contenteditable', false)
                                                 // table.cell({ row: r, column: bata__percentage }).setAttribute('contenteditable', false)
                                                 let bata_rate = table.cell({ row: r, column: bata__rate }).data() ? parseFloat(table.cell({ row: r, column: bata__rate }).data()) : 0;
                                                 table.cell({ row: r, column: bata__percentage }).data("");
@@ -763,11 +770,11 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             // BATA TOTAL = BATA PERCENTAGE * TOTAL VEHICLE RENT
                                             if (cell.index().column == bata__percentage) {
                                                 let r = cell.index().row;
-                                                table.cell({ row: r, column: bata__percentage }).data()==""
-                                                ?
-                                                $(`#myTable tr:nth-child(${r+1}) td:nth-child(${bata__rate+1})`).attr('contenteditable', true)
-                                                :
-                                                $(`#myTable tr:nth-child(${r+1}) td:nth-child(${bata__rate+1})`).attr('contenteditable', false)
+                                                table.cell({ row: r, column: bata__percentage }).data() == ""
+                                                    ?
+                                                    $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${bata__rate + 1})`).attr('contenteditable', true)
+                                                    :
+                                                    $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${bata__rate + 1})`).attr('contenteditable', false)
                                                 console.log("bata_percentage", table.cell({ row: r, column: bata__percentage }).data())
                                                 console.log(table.cell({ row: r, column: bata__percentage }).data())
                                                 table.cell({ row: r, column: bata__percentage }).data() ? table.cell({ row: r, column: bata__rate }).data("") : ""
@@ -885,76 +892,76 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     $('#getData').on('click', function () {
 
         ////start////
-     
-            // $('#myTable').loading();
-            $('body').LoadingOverlay("show", {
-                image       : "",
-                text        : ""
-            });
-    
-            // $('#myTable tr:nth-child(1) td:nth-child(1)').addClass('border border-danger bg-warning');
-            let table = $('#myTable').DataTable()
-    
-            // let selected_value = $("#vehicle option:first").attr('selected', 'selected');
-            console.log($('#vehicle option').filter(':selected').val())
-            selected_vehicle = $('#vehicle option').filter(':selected').val();
-            current_date ? current_date : today_date()
-            // $table_data = table.rows().data();
-            // console.log("table row is",table.row(':eq(0)').cell(':eq(11)').data( "safwan" ).draw()) 
-            console.log("row count", table.rows().count())
-            console.log("partner_amt_array", partner_amount_array)
-            let row = table.rows().count()
-            console.log("validation call", row)
-    
-            let total_rows = table.rows().count()
-    
-            validation_scan()
-            validation_array.length > 0 ?
-                (
-                    $('body').LoadingOverlay("hide"),
-                    $("#alert_card").fadeIn(),
-                    closeSnoAlertBox(),
-                    validation_handler()
-                )
-                :
-                (
-                    $table_data = $('#myTable').DataTable().rows().data().toArray(),
-                    console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle),
-                    frappe.call({
-                        method: 'ev_gn.post_trip_data.post_data',
-                        args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "submit" }
-                    })
-                        .then(
-                            (e) => {
-                                console.log("Success", e);
-                                location.reload();
-                                $('body').LoadingOverlay("hide")
-                            }
-                        )
-                        .catch((e) => {
-                            $('body').LoadingOverlay("hide");
-                            console.log("Error", e);
-                            $('#alertdata').empty();
-                            $('#alertdata').append("Something went wrong");
-                                $("#alert_card").fadeIn();
-                                validtion_point = true;
-                                closeSnoAlertBox()
-    
+
+        // $('#myTable').loading();
+        $('body').LoadingOverlay("show", {
+            image: "",
+            text: ""
+        });
+
+        // $('#myTable tr:nth-child(1) td:nth-child(1)').addClass('border border-danger bg-warning');
+        let table = $('#myTable').DataTable()
+
+        // let selected_value = $("#vehicle option:first").attr('selected', 'selected');
+        console.log($('#vehicle option').filter(':selected').val())
+        selected_vehicle = $('#vehicle option').filter(':selected').val();
+        current_date ? current_date : today_date()
+        // $table_data = table.rows().data();
+        // console.log("table row is",table.row(':eq(0)').cell(':eq(11)').data( "safwan" ).draw()) 
+        console.log("row count", table.rows().count())
+        console.log("partner_amt_array", partner_amount_array)
+        let row = table.rows().count()
+        console.log("validation call", row)
+
+        let total_rows = table.rows().count()
+
+        validation_scan()
+        validation_array.length > 0 ?
+            (
+                $('body').LoadingOverlay("hide"),
+                $("#alert_card").fadeIn(),
+                closeSnoAlertBox(),
+                validation_handler()
+            )
+            :
+            (
+                $table_data = $('#myTable').DataTable().rows().data().toArray(),
+                console.log("data in table", $table_data, "current date", current_date, "selected data", selected_vehicle),
+                frappe.call({
+                    method: 'ev_gn.post_trip_data.post_data',
+                    args: { arg1: selected_vehicle, arg2: current_date, arg3: $table_data, arg4: "submit" }
+                })
+                    .then(
+                        (e) => {
+                            console.log("Success", e);
+                            location.reload();
+                            $('body').LoadingOverlay("hide")
                         }
-                        )
-                )
-    
+                    )
+                    .catch((e) => {
+                        $('body').LoadingOverlay("hide");
+                        console.log("Error", e);
+                        $('#alertdata').empty();
+                        $('#alertdata').append("Something went wrong");
+                        $("#alert_card").fadeIn();
+                        validtion_point = true;
+                        closeSnoAlertBox()
+
+                    }
+                    )
+            )
+
         ////end////
 
-    
+
 
 
     });
     $('#SaveAndHoldData').on('click', function () {
         // $('#myTable').loading();
         $('body').LoadingOverlay("show", {
-            image       : "",
-            text        : ""
+            image: "",
+            text: ""
         });
 
         // $('#myTable tr:nth-child(1) td:nth-child(1)').addClass('border border-danger bg-warning');
@@ -1001,9 +1008,9 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                         console.log("Error", e);
                         $('#alertdata').empty();
                         $('#alertdata').append("Something went wrong");
-                            $("#alert_card").fadeIn();
-                            validtion_point = true;
-                            closeSnoAlertBox()
+                        $("#alert_card").fadeIn();
+                        validtion_point = true;
+                        closeSnoAlertBox()
 
                     }
                     )
@@ -1102,6 +1109,33 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
             })
             .catch(e => console.log("error", e))
     }
+
+    function default_customerlist(row, column, value) {
+        console.log('value is value', value)
+        // frappe.db.get_value('Customer', {"site": value}, 'site_list', function(value) {
+        //     site = value})
+        //     .then(r => {
+
+        //         console.log("Customer date and site_list", r.message);
+        //         table.cell({ row: row, column: coustomer__site }).data(r.message); //add default value in uom 
+        //     })
+        //     .catch(e => console.log("error", e))
+        frappe.db.get_doc('Customer', value)
+            .then(doc => {
+
+
+                let items = doc.site_list
+                console.log('items in the doc are', items)
+                $('.suggestions li').remove();
+                items.map((x) => {
+                    // console.log("current value are", x.site_name)
+                    $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x.site}</li>`); //add value to suggestion part
+                })
+                $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`);
+
+            })
+    }
+
     function default_driver() {
         console.log("default driver")
         let selected_vehicle = $('#vehicle option').filter(':selected').val();
