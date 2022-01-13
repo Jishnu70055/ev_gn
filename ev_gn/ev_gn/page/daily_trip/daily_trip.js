@@ -1053,8 +1053,6 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         console.log('day',day,'month',month,'year',year)
         current_date = ''
         current_date = [year, month, day].join('-');
-        //   alert([day, month, year].join('/'));
-
     });
 
     // Select row on clicking it
