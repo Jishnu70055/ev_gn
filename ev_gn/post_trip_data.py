@@ -12,10 +12,15 @@ def post_data_test(a):#row_array,,date,selected_vehicle
 
 @frappe.whitelist()
 def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
+    from datetime import datetime
+    date_obj=arg2
+    date_format=datetime.strptime(date_obj,'%d-%m-%Y').date()
+    print (date_format)
+    print(type(date_format))
     total_trips = json.loads(arg3) #converting string array into json
     trip_sheet = frappe.new_doc("Trip Sheet")
     trip_sheet.vehicle = arg1
-    trip_sheet.date = arg2
+    trip_sheet.date = date_format
     for trip in total_trips:     #creating trip sheet for each row
         driver = trip[0]
         item = trip[13]#1
