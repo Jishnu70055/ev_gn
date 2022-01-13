@@ -1052,7 +1052,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         month =month<10?"0"+month:month
         console.log('day',day,'month',month,'year',year)
         current_date = ''
-        current_date = [day, month, year].join('-');
+        current_date = [year, month, day].join('-');
         //   alert([day, month, year].join('/'));
 
     });
