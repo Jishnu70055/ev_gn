@@ -3,18 +3,13 @@ import json
 
 from frappe.exceptions import FileAlreadyAttachedException
 
-@frappe.whitelist()
-def post_data_test(a):#row_array,,date,selected_vehicle
-    # total_trips = json.loads(row_array) #converting string array into json
-    print (a)
-
 
 
 @frappe.whitelist()
 def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
     from datetime import datetime
     date_obj=arg2
-    date_format=datetime.strptime(date_obj,'%d-%m-%Y').date()
+    date_format=datetime.strptime(date_obj,'%Y-%m-%d').date()
     print (date_format)
     print(type(date_format))
     total_trips = json.loads(arg3) #converting string array into json
