@@ -9,6 +9,76 @@
   "filters": [],
   "is_standard": "No",
   "javascript": null,
+  "json": "{\"columns\":[{\"fieldname\":\"account\",\"label\":\"Account\",\"fieldtype\":\"Link\",\"options\":\"Account\",\"width\":300,\"id\":\"account\",\"name\":\"Account\",\"editable\":false,\"compareValue\":null},{\"fieldname\":\"mar_2022\",\"label\":\"2021-2022\",\"fieldtype\":\"Currency\",\"options\":\"currency\",\"width\":150,\"id\":\"mar_2022\",\"name\":\"2021-2022\",\"editable\":false,\"compareValue\":null}]}",
+  "letter_head": null,
+  "modified": "2022-01-13 12:14:27.059677",
+  "module": "Accounts",
+  "name": "Balance Sheet2",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "GL Entry",
+  "reference_report": "Balance Sheet",
+  "report_name": "Balance Sheet2",
+  "report_script": null,
+  "report_type": "Custom Report",
+  "roles": [
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
   "json": "{\"filters\":[[\"Purchase Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"],[\"expense_account\",\"Purchase Invoice Item\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"posting_date\":120,\"supplier_name\":120,\"outstanding_amount\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120,\"Purchase Invoice Item:expense_account\":120},\"group_by\":null}",
   "letter_head": null,
   "modified": "2022-01-11 14:35:08.097462",
@@ -1123,7 +1193,7 @@
   "roles": []
  },
  {
-  "add_total_row": 1,
+  "add_total_row": 0,
   "columns": [],
   "disable_prepared_report": 0,
   "disabled": 0,
@@ -1150,7 +1220,7 @@
   "roles": []
  },
  {
-  "add_total_row": 1,
+  "add_total_row": 0,
   "columns": [],
   "disable_prepared_report": 0,
   "disabled": 0,
