@@ -63,7 +63,7 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         if (trip[29] == ''):
             bata_percentage = int(0)
         else:
-            bata_percentage = int(trip[29])
+            bata_percentage = float(trip[29])
         frc = int(trip[26])
         if (trip[22] == ''):
             distance = int(0)
