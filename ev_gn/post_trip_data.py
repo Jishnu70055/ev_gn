@@ -23,35 +23,35 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         supplier = trip[1]#3
         supplier_site = trip[2]#4
         supplier_rate = trip[3]#5
-        supplier_quantity = int(trip[4])#6
-        supplier_amount = int(trip[6])#8
+        supplier_quantity = float(trip[4])#6
+        supplier_amount = float(trip[6])#8
         print("-------------------------")
         supplier_partner = trip[7]#9
         sales_partner = trip[5]#7
         if (trip[8] and trip[9] and trip[10] != ''):
-            partner_rate = int(trip[8])#10
-            partner_quantity = int(trip[9])#11
-            partner_amount = int(trip[10])#12
+            partner_rate = float(trip[8])#10
+            partner_quantity = float(trip[9])#11
+            partner_amount = float(trip[10])#12
         else:
             partner_rate, partner_quantity, partner_amount = 0, 0, 0
         customer = trip[11]#13 #customer = 11 ,customer site =12,partner quantity = 9 
         customer_site = trip[12]#14
         customer_rate_type = trip[16]
         if (trip[17] == ''):
-            customer_rate = int(0)
+            customer_rate = float(0)
         else:
-            customer_rate = int(trip[17])
+            customer_rate = float(trip[17])
         if (trip[18] == ''):
             customer_quantity = int(0)
         else:
-            customer_quantity = int(trip[18])
-        customer_amount = int(trip[19])
+            customer_quantity = float(trip[18])
+        customer_amount = float(trip[19])
         if (trip[23] == ''):
             paid_amount = int(0)
         else:
-            paid_amount = int(trip[23])
+            paid_amount = float(trip[23])
         payment_method = trip[24]
-        total = int(trip[25])
+        total = float(trip[25])
         if (trip[21] == ''):
             no_of_trips = 1
         else:
@@ -59,12 +59,12 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         if (trip[28] == ''):
             bata_rate = int(0)
         else:
-            bata_rate = int(trip[28])
+            bata_rate = float(trip[28])
         if (trip[29] == ''):
             bata_percentage = int(0)
         else:
             bata_percentage = float(trip[29])
-        frc = int(trip[26])
+        frc = float(trip[26])
         if (trip[22] == ''):
             distance = int(0)
         else:
@@ -74,10 +74,10 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         else:
             gst_amount = float(trip[20])
         net_frc = float(trip[27])
-        net_total = int(trip[31])
+        net_total = float(trip[31])
         bata_amount = trip[30]
         if trip[15]:
-            gst_percentage = int(trip[15])
+            gst_percentage = float(trip[15])
         else:
             gst_percentage = 0
         trip_sheet.append("trip_details",
