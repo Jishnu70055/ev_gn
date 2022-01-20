@@ -38,6 +38,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let Options = ['Rent', 'Rate'];
     let payment_method = ['Cash', 'Bank']
     let gst_percentage = [5, 0];
+    
     // index of cell in table  
     let driver_ = 0
     let supplier_ = 1
