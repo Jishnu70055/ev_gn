@@ -33,11 +33,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let table //used for creating datatable 
     let counts = 0
     let rows //used for storing rows empty array
-    let col_count = 32  //The count of empty arrays to be created
+    let col_count = 34  //The count of empty arrays to be created
     let partner_amount_array
     let Options = ['Rent', 'Rate'];
     let payment_method = ['Cash', 'Bank']
     let gst_percentage = [5, 0];
+    
     // index of cell in table  
     let driver_ = 0
     let supplier_ = 1
@@ -60,17 +61,20 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let coustomer__qty = 18
     let coustomer__amt = 19
     let gst_amount = 20
-    let no__of__tips = 21
-    let distance_ = 22
-    let recived__cash__amt = 23
-    let payment__method = 24
-    let total_vehicle_rent = 25
-    let frc_ = 26
-    let frc_gst = 27
-    let bata__rate = 28
-    let bata__percentage = 29
-    let bata__amount = 30
-    let net_vehicle_balance = 31
+    let Invoice_number = 21
+    let Dispatch_DocNo = 22
+    let BillofLading__LR_RRNo = 23
+    let no__of__tips = 24
+    let distance_ = 25
+    let recived__cash__amt = 26
+    // let payment__method = 27
+    let total_vehicle_rent = 27
+    let frc_ = 28
+    let frc_gst = 29
+    let bata__rate = 30
+    let bata__percentage = 31
+    let bata__amount = 32
+    let net_vehicle_balance = 33
 
 
 
@@ -401,7 +405,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             }
 
                                             if ($('#myTable').DataTable().cell(this).index().column == supplier__site) {
-                                              
+
                                                 let cell = $('#myTable').DataTable().cell("td.active")
                                                 let r = cell.index().row
                                                 frappe.db.get_doc('Supplier', table.cell({ row: r, column: supplier_ }).data())
@@ -499,13 +503,13 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
                                             }
 
-                                            if ($('#myTable').DataTable().cell(this).index().column == payment__method) {
-                                                payment_method.map((x) => {
-                                                    $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`);
-                                                })
-                                                $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
+                                            // if ($('#myTable').DataTable().cell(this).index().column == payment__method) {
+                                            //     payment_method.map((x) => {
+                                            //         $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`);
+                                            //     })
+                                            //     $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
 
-                                            }
+                                            // }
                                             //api fetch for suggestion part end
 
 
@@ -621,6 +625,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 var cell = $('#myTable').DataTable().cell("td.active")
                                                 cell.data(e.target.innerText).draw()
                                                 $("#body").find("td.active").next().show().focus();
+                                                let r = cell.index().row
+                                                cell.index().column == sales__person
+                                                    ?
+                                                    $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${supplier_partner + 1})`).show().focus()
+                                                    :
+                                                    ''
                                                 cell.index().column == item_ ? default_value(cell.index().row, cell.index().column, e.target.innerHTML) : ""
                                                 // cell.index().column == coustomer_ ? default_customerlist(cell.index().row, cell.index().column, e.target.innerHTML) : ""
 
@@ -677,6 +687,22 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                         validtion_point = true,
                                                         closeSnoAlertBox(),
                                                         cell_border_error(row, cell.index().column))
+                                                let r = cell.index().row
+                                                table.cell({ row: r, column: gst_p_ }).data() == "5"
+                                                    ?
+                                                    (console.log('changes added in conteneditable true'),
+                                                        $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${Invoice_number + 1})`).attr('contenteditable', true),
+                                                        $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${Dispatch_DocNo + 1})`).attr('contenteditable', true),
+                                                        $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${BillofLading__LR_RRNo + 1})`).attr('contenteditable', true),
+                                                        console.log('changes added in conteneditable true,now its done')
+                                                    )
+                                                    :
+                                                    (console.log('changes added in conteneditable false'),
+                                                        $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${Invoice_number + 1})`).attr('contenteditable', false),
+                                                        $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${Dispatch_DocNo + 1})`).attr('contenteditable', false),
+                                                        $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${BillofLading__LR_RRNo + 1})`).attr('contenteditable', false),
+                                                        console.log('changes added in conteneditable false,now its done')
+                                                    )
                                             }
                                             // if(cell.index().column == bata__rate || cell.index().column == bata__amount){
                                             //     table.cell({ row: row, column: bata__rate }).data()=="" || table.cell({ row: row, column: bata__percentage }).data()==""?"":(
@@ -1048,9 +1074,9 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         day = date.getDate()
         month = date.getMonth() + 1;
         year = date.getFullYear();
-        day =day<10?"0"+day:day
-        month =month<10?"0"+month:month
-        console.log('day',day,'month',month,'year',year)
+        day = day < 10 ? "0" + day : day
+        month = month < 10 ? "0" + month : month
+        console.log('day', day, 'month', month, 'year', year)
         current_date = ''
         current_date = [year, month, day].join('-');
     });
@@ -1090,12 +1116,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
     function today_date() {
         let today = new Date()
-        console.log('today date is ',today)
+        console.log('today date is ', today)
         today = today.toISOString().split('T')[0]
         current_date = today.split("-").join("-");
         document.getElementById("date").value = today;
     }
-    
+
 
     function default_value(row, column, value) {
         console.log('value is value', value)
