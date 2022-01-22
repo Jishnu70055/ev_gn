@@ -18,6 +18,7 @@ def create_sales_invoice(self, data, gst_template):
 		rate_2 = 2.5
 		sales_invoice = frappe.get_doc({
 			"doctype":"Sales Invoice",
+			"naming_series" : "SRET-.YY.-",
 			"customer":data.customer,
 			"site":data.customer_site,
 			"customer_group":'All Customer Groups',
@@ -27,6 +28,9 @@ def create_sales_invoice(self, data, gst_template):
 			"cost_center": "Vehicle - EJ",
 			"trip_id": self.name,
 			"taxes_and_charges": gst_template,
+			"bill_of_lading":data.bill_of_lading,
+			"invoice_no":data.invoice_no,
+			"dispatch_doc_no":data.dispatch_doc_no,
 			"taxes": [{
 				"charge_type": charge_type,
 				"account_head": account_head,

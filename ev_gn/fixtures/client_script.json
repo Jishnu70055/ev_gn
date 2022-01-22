@@ -2,6 +2,45 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
+  "dt": "Page",
+  "enabled": 1,
+  "modified": "2021-11-11 00:28:58.994341",
+  "name": "Page-List",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "console.log(\"hello\")",
+  "view": "List"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Page",
+  "enabled": 1,
+  "modified": "2021-11-11 00:29:42.005649",
+  "name": "Page-Form",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "console.log(\"hello2\")",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Trip Sheet",
+  "enabled": 1,
+  "modified": "2021-10-28 12:58:31.830311",
+  "name": "Trip Sheet-Form",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on(\"Trip Details\", \"supplier_rate\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_amount\", row.supplier_quantity * row.supplier_rate);\n});\n\nfrappe.ui.form.on(\"Trip Details\", \"supplier_quantity\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_amount\", row.supplier_quantity * row.supplier_rate);\n});\n\nfrappe.ui.form.on(\"Trip Details\", \"supplier_partner_rate\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_partner_amount\", row.supplier_partner_quantity * row.supplier_partner_rate);\n});\n\nfrappe.ui.form.on(\"Trip Details\", \"supplier_partner_quantity\", function(frm, cdt, cdn)\n{\n    var row = locals[cdt][cdn];\n    frappe.model.set_value(cdt, cdn, \"supplier_partner_amount\", row.supplier_partner_quantity * row.supplier_partner_rate);\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
   "dt": "Vehicle",
   "enabled": 1,
   "modified": "2021-11-26 20:02:02.418745",
@@ -10,6 +49,19 @@
   "parentfield": null,
   "parenttype": null,
   "script": "frappe.ui.form.on(\"Vehicle\",  \"onload\", function(frm)\n{\n    frm.set_query(\"share_holder\", \"vehicle_owner\", function(frm,cdt, cdn)\n    {\n        var row = locals[cdt][cdn];\n        return{\n            filters: [[\"Supplier\", \"supplier_group\", \"=\", \"Vehicle Owner\"]]\n        }\n    })\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Sales Invoice",
+  "enabled": 1,
+  "modified": "2022-01-21 10:20:04.226413",
+  "name": "Sales Invoice-Form",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Sales Invoice', {\n  before_save:function(frm) {\n      if(frm.doc.taxes_and_charges=='GST 5% - EJ'){frm.doc.naming_series='SRET-.YY.-'}\n      console.log(frm.doc.taxes_and_charges,\"Hellooo\");\n      \n  }\n});",
   "view": "Form"
  }
 ]

@@ -51,7 +51,11 @@
   "bata_percentage",
   "bata_amount",
   "distance",
-  "net_total"
+  "net_total",
+  "bill_of_lading",
+  "invoice_no",
+  "dispatch_doc_no",
+  "challan_no"
  ],
  "fields": [
   {
@@ -155,7 +159,7 @@
   },
   {
    "fieldname": "supplier_partner_quantity",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Supplier Partner Quantity"
   },
   {
@@ -186,7 +190,7 @@
   },
   {
    "fieldname": "customer_quantity",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "in_list_view": 1,
    "label": "Customer Quantity",
    "reqd": 1
@@ -199,7 +203,7 @@
   },
   {
    "fieldname": "supplier_quantity",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Supplier Quantity",
    "reqd": 1
   },
@@ -321,12 +325,32 @@
    "fieldtype": "Link",
    "label": "Sales Person",
    "options": "Sales Person"
+  },
+  {
+   "fieldname": "bill_of_lading",
+   "fieldtype": "Data",
+   "label": "Bill Of Lading"
+  },
+  {
+   "fieldname": "invoice_no",
+   "fieldtype": "Data",
+   "label": "Invoice No"
+  },
+  {
+   "fieldname": "dispatch_doc_no",
+   "fieldtype": "Data",
+   "label": "Dispatch Doc No"
+  },
+  {
+   "fieldname": "challan_no",
+   "fieldtype": "Data",
+   "label": "Challan No"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-01-19 11:16:47.272966",
+ "modified": "2022-01-20 16:06:25.202202",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Details",

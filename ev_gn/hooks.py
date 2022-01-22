@@ -187,7 +187,7 @@ doc_events = {
 # ]
 
 # fixtures = ["Custom Field","Client Script","Property Setter", "Role", "Custom DocPerm"]
-fixtures = ["Report","Property Setter"]
+fixtures = ["Report","Property Setter","Client Script"]
 # fixtures = [
 # 	{"dt": "Client Script",
 # 	"filters": [["dt", "in", "Vehicle"]]}
