@@ -33,7 +33,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let table //used for creating datatable 
     let counts = 0
     let rows //used for storing rows empty array
-    let col_count = 34  //The count of empty arrays to be created
+    let col_count = 35  //The count of empty arrays to be created
     let partner_amount_array
     let Options = ['Rent', 'Rate'];
     let payment_method = ['Cash', 'Bank']
@@ -43,38 +43,39 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
     let driver_ = 0
     let supplier_ = 1
     let supplier__site = 2
-    let supplier_rate = 3
-    let supplier_qty = 4
-    let sales__person = 5
-    let supplier_amt = 6
-    let supplier_partner = 7
-    let partner__rate = 8
-    let partner__qty = 9
-    let partner__amt = 10
-    let coustomer_ = 11
-    let coustomer__site = 12
-    let item_ = 13
-    let uom_ = 14
-    let gst_p_ = 15
-    let coustomer__rate__type = 16
-    let coustomer__rate = 17
-    let coustomer__qty = 18
-    let coustomer__amt = 19
-    let gst_amount = 20
-    let Invoice_number = 21
-    let Dispatch_DocNo = 22
-    let BillofLading__LR_RRNo = 23
-    let no__of__tips = 24
-    let distance_ = 25
-    let recived__cash__amt = 26
-    // let payment__method = 27
-    let total_vehicle_rent = 27
-    let frc_ = 28
-    let frc_gst = 29
-    let bata__rate = 30
-    let bata__percentage = 31
-    let bata__amount = 32
-    let net_vehicle_balance = 33
+    let supplier_uom = 3
+    let supplier_rate = 4
+    let supplier_qty = 5
+    let sales__person = 6
+    let supplier_amt = 7
+    let supplier_partner = 8
+    let partner__rate = 9
+    let partner__qty = 10
+    let partner__amt = 11
+    let coustomer_ = 12
+    let coustomer__site = 13
+    let item_ = 14
+    let uom_ = 15
+    let gst_p_ = 16
+    let coustomer__rate__type = 17
+    let coustomer__rate = 18
+    let coustomer__qty = 19
+    let coustomer__amt = 20
+    let gst_amount = 21
+    let Invoice_number = 22
+    let Dispatch_DocNo = 23
+    let BillofLading__LR_RRNo = 24
+    let no__of__tips = 25
+    let distance_ = 26
+    let recived__cash__amt = 27
+    // let payment__method = 28
+    let total_vehicle_rent = 28
+    let frc_ = 29
+    let frc_gst = 30
+    let bata__rate = 31
+    let bata__percentage = 32
+    let bata__amount = 33
+    let net_vehicle_balance = 34
 
 
 
@@ -331,7 +332,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                     }
                                                 })
                                             }
-                                            if ($('#myTable').DataTable().cell(this).index().column == uom_) {
+                                            if ($('#myTable').DataTable().cell(this).index().column == uom_||$('#myTable').DataTable().cell(this).index().column == supplier_uom) {
                                                 q = query + "%"
                                                 frappe.call({
                                                     method: 'frappe.client.get_list',
