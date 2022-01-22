@@ -332,6 +332,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                     }
                                                 })
                                             }
+                                            
                                             if ($('#myTable').DataTable().cell(this).index().column == uom_||$('#myTable').DataTable().cell(this).index().column == supplier_uom) {
                                                 q = query + "%"
                                                 frappe.call({
