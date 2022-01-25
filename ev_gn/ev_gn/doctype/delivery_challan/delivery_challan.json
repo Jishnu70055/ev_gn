@@ -8,20 +8,20 @@
  "engine": "InnoDB",
  "field_order": [
   "customer",
+  "sales_invoice_id",
   "tax_invoice_number",
   "challan_no",
   "challan_type",
   "vehicle_number",
   "reference_number",
   "site",
-  "cgst_percentage",
-  "sgst_percentage",
-  "cgst_amount",
-  "sgst_amount",
+  "sales_taxes_and_charges",
+  "delivery_challan_item",
   "total",
   "total_amount",
   "total_tax",
-  "total_value"
+  "total_value",
+  "amended_from"
  ],
  "fields": [
   {
@@ -62,26 +62,6 @@
    "options": "Site"
   },
   {
-   "fieldname": "cgst_percentage",
-   "fieldtype": "Data",
-   "label": "CGST Percentage"
-  },
-  {
-   "fieldname": "sgst_percentage",
-   "fieldtype": "Data",
-   "label": "SGST Percentage"
-  },
-  {
-   "fieldname": "cgst_amount",
-   "fieldtype": "Data",
-   "label": "CGST Amount"
-  },
-  {
-   "fieldname": "sgst_amount",
-   "fieldtype": "Data",
-   "label": "SGST Amount"
-  },
-  {
    "fieldname": "total",
    "fieldtype": "Data",
    "label": "Total"
@@ -100,11 +80,39 @@
    "fieldname": "total_value",
    "fieldtype": "Data",
    "label": "Total Value"
+  },
+  {
+   "fieldname": "sales_taxes_and_charges",
+   "fieldtype": "Table",
+   "label": "Sales Taxes And Charges",
+   "options": "Sales Taxes and Charges"
+  },
+  {
+   "fieldname": "delivery_challan_item",
+   "fieldtype": "Table",
+   "label": "Delivery Challan Item",
+   "options": "Delivery Challan Item"
+  },
+  {
+   "fieldname": "sales_invoice_id",
+   "fieldtype": "Link",
+   "label": "Sales Invoice ID",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Delivery Challan",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2022-01-23 22:57:36.322066",
+ "modified": "2022-01-25 19:50:17.033828",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Delivery Challan",

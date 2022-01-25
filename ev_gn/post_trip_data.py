@@ -18,71 +18,72 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
     trip_sheet.date = date_format
     for trip in total_trips:     #creating trip sheet for each row
         driver = trip[0]
-        item = trip[13]#1 ok
-        uom = trip[14]#2 ok 
-        supplier = trip[1]#3 ok
-        supplier_site = trip[2]#4 ok
-        supplier_rate = trip[3]#5 ok
-        supplier_quantity = float(trip[4])#6 ok
-        supplier_amount = float(trip[6])#8 ok
+        item = trip[14]
+        uom = trip[15] 
+        supplier = trip[1]
+        supplier_site = trip[2]
+        supplier_uom = trip[3]
+        supplier_rate = trip[4]
+        supplier_quantity = float(trip[5])
+        supplier_amount = float(trip[7])
         print("-------------------------")
-        supplier_partner = trip[7]#9 ok
-        sales_partner = trip[5]#7 ok
-        if (trip[8] and trip[9] and trip[10] != ''):
-            partner_rate = float(trip[8])#10 ok
-            partner_quantity = float(trip[9])#11 ok
-            partner_amount = float(trip[10])#12 ok 
+        supplier_partner = trip[8]
+        sales_partner = trip[6]
+        if (trip[9] and trip[10] and trip[11] != ''):
+            partner_rate = float(trip[9])
+            partner_quantity = float(trip[10])
+            partner_amount = float(trip[11]) 
         else:
             partner_rate, partner_quantity, partner_amount = 0, 0, 0
-        customer = trip[11]#13 #customer = 11 ,customer site =12,partner quantity = 9 ok
-        customer_site = trip[12]#14
-        customer_rate_type = trip[16] #ok
-        if (trip[17] == ''):
+        customer = trip[12]
+        customer_site = trip[13]
+        customer_rate_type = trip[17] 
+        if (trip[18] == ''):
             customer_rate = float(0)
         else:
-            customer_rate = float(trip[17])
-        if (trip[18] == ''):
+            customer_rate = float(trip[18])
+        if (trip[19] == ''):
             customer_quantity = int(0)
         else:
-            customer_quantity = float(trip[18])
-        customer_amount = float(trip[19])
-        if (trip[26] == ''):
+            customer_quantity = float(trip[19])
+        customer_amount = float(trip[20])
+        if (trip[27] == ''):
             paid_amount = int(0)
         else:
-            paid_amount = float(trip[26])
+            paid_amount = float(trip[27])
         # payment_method = trip[24]
-        total = float(trip[27])
-        if (trip[24] == ''):
+        total = float(trip[28])
+        if (trip[25] == ''):
             no_of_trips = 1
         else:
-            no_of_trips = int(trip[24])
-        if (trip[30] == ''):
+            no_of_trips = int(trip[25])
+        if (trip[31] == ''):
             bata_rate = int(0)
         else:
-            bata_rate = float(trip[30])
-        if (trip[31] == ''):
+            bata_rate = float(trip[31])
+        if (trip[32] == ''):
             bata_percentage = int(0)
         else:
-            bata_percentage = float(trip[31])
-        frc = float(trip[28])
-        if (trip[25] == ''):
+            bata_percentage = float(trip[32])
+        frc = float(trip[29])
+        if (trip[26] == ''):
             distance = int(0)
         else:
-            distance = int(trip[25])
-        if (trip[20] == ''):
+            distance = int(trip[26])
+        if (trip[21] == ''):
             gst_amount = int(0)
         else:
-            gst_amount = float(trip[20])
-        net_frc = float(trip[29])
-        net_total = float(trip[33])
-        bata_amount = trip[32]
-        if trip[15]:
-            gst_percentage = float(trip[15])
+            gst_amount = float(trip[21])
+        net_frc = float(trip[30])
+        net_total = float(trip[34])
+        bata_amount = trip[33]
+        if trip[16]:
+            gst_percentage = float(trip[16])
         else:
             gst_percentage = 0
-        invoice_number = trip[21]
-        dispatch_doc_no = trip[22]
-        bill_of_lading = trip[23]
+        invoice_number = trip[22]
+        dispatch_doc_no = trip[23]
+        bill_of_lading = trip[24]
         trip_sheet.append("trip_details",
                 {
                     "sales_person":sales_partner,
@@ -121,7 +122,8 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
                     "gst_percentage" : gst_percentage,
                     "bill_of_lading" : bill_of_lading ,              
                     "invoice_no" : invoice_number,
-                    "dispatch_doc_no" : dispatch_doc_no
+                    "dispatch_doc_no" : dispatch_doc_no,
+                    "supplier_uom" : supplier_uom
                 })
         
     if arg4 == 'hold':
@@ -130,3 +132,13 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         trip_sheet.save()
         trip_sheet.submit()
     return "Success"
+
+
+def vehicle_share_validation(doc,event):
+    total_percentage = 0
+    for individual_share in doc.vehicle_owner:
+        total_percentage = total_percentage + int(individual_share.share_percentage)
+    if total_percentage == 100:
+        pass
+    else:
+        frappe.throw("Share Percentage Not Equals to 100")
