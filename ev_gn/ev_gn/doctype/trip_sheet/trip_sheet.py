@@ -5,6 +5,14 @@ from os import name
 import frappe
 from frappe.model.document import Document
 
+
+# def create_delivery_challan(sales_invoice_name):
+# 	sales_invoice_data = frappe.get_doc("Sales Invoice",sales_invoice_name)
+# 	delivery_challan = frappe.get_doc({
+# 		"doctype":"Delivery Challan"
+# 	})
+
+
 				
 def create_sales_invoice(self, data, gst_template):
 	if gst_template == 'GST 5% - EJ':
@@ -52,7 +60,61 @@ def create_sales_invoice(self, data, gst_template):
 			"amount":data.trip * data.customer_amount,
 			})
 		sales_invoice.save()
+		delivery_challan = frappe.get_doc({
+		"doctype":"Delivery Challan",
+		"customer":data.customer,
+		"tax_invoice_number":data.invoice_no,
+		"vehicle_number":self.vehicle,
+		"site":data.customer_site,
+		"total_amount":sales_invoice.base_total,
+		"total_tax":sales_invoice.base_total_taxes_and_charges,
+		"total_value":sales_invoice.base_grand_total,
+		"sales_taxes_and_charges": [{
+				"charge_type": charge_type,
+				"account_head": account_head,
+				"description": description,
+				"rate": rate
+				},
+				{
+				"charge_type": charge_type_2,
+				"account_head": account_head_2,
+				"description": description_2,
+				"rate": rate_2
+				}],
+		"delivery_challan_item":[{
+			"item":data.item,
+			"quantity":data.trip * data.customer_quantity,
+			"rate":data.customer_rate,
+			"taxable_value":data.trip * data.customer_amount,
+			}]		
+		})
+		# delivery_challan.append("items_1",{
+		# 	"item_code":data.item,
+		# 	"qty": data.trip * data.customer_quantity,
+		# 	"uom": data.uom,
+		# 	"rate": data.customer_rate,
+		# 	"amount":data.trip * data.customer_amount,
+		# 	})
+		# delivery_challan.append("sales_taxes_and_charges": {
+		# 		"charge_type": charge_type,
+		# 		"account_head": account_head,
+		# 		"description": description,
+		# 		"rate": rate
+		# 		},
+		# 		{
+		# 		"charge_type": charge_type_2,
+		# 		"account_head": account_head_2,
+		# 		"description": description_2,
+		# 		"rate": rate_2
+		# 		})
+
+		delivery_challan.save()
+		delivery_challan.challan_no = delivery_challan.name
+		delivery_challan.sales_invoice_id = sales_invoice.name
+		delivery_challan.save()
+		sales_invoice.challan_no = delivery_challan.name
 		sales_invoice.submit()
+		delivery_challan.submit()
 		return sales_invoice.name
 	else:
 		sales_invoice = frappe.get_doc({
@@ -74,6 +136,7 @@ def create_sales_invoice(self, data, gst_template):
 			"amount":data.trip * data.customer_amount,
 			})
 		sales_invoice.save()
+
 		sales_invoice.submit()
 		return sales_invoice.name
 

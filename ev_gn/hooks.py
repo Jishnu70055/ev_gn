@@ -194,3 +194,9 @@ fixtures = ["Report","Property Setter","Client Script"]
 # ]
 
 # after_migrate = "ev_gn.ev_gn.migrate.after_migrate"\d
+
+doc_events = {
+	"Vehicle": {
+		"validate": "ev_gn.post_trip_data.vehicle_share_validation"
+	}
+}

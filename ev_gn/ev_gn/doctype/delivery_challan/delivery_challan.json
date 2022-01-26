@@ -1,0 +1,137 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "DC.####",
+ "creation": "2022-01-23 22:52:22.897645",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "sales_invoice_id",
+  "tax_invoice_number",
+  "challan_no",
+  "challan_type",
+  "vehicle_number",
+  "reference_number",
+  "site",
+  "sales_taxes_and_charges",
+  "delivery_challan_item",
+  "total",
+  "total_amount",
+  "total_tax",
+  "total_value",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "tax_invoice_number",
+   "fieldtype": "Data",
+   "label": "Tax Invoice Number"
+  },
+  {
+   "fieldname": "challan_no",
+   "fieldtype": "Data",
+   "label": "Challan No"
+  },
+  {
+   "fieldname": "challan_type",
+   "fieldtype": "Data",
+   "label": "Challan Type"
+  },
+  {
+   "fieldname": "vehicle_number",
+   "fieldtype": "Data",
+   "label": "Vehicle Number"
+  },
+  {
+   "fieldname": "reference_number",
+   "fieldtype": "Data",
+   "label": "Reference Number"
+  },
+  {
+   "fieldname": "site",
+   "fieldtype": "Link",
+   "label": "Site",
+   "options": "Site"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Data",
+   "label": "Total"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Data",
+   "label": "Total Amount"
+  },
+  {
+   "fieldname": "total_tax",
+   "fieldtype": "Data",
+   "label": "Total Tax"
+  },
+  {
+   "fieldname": "total_value",
+   "fieldtype": "Data",
+   "label": "Total Value"
+  },
+  {
+   "fieldname": "sales_taxes_and_charges",
+   "fieldtype": "Table",
+   "label": "Sales Taxes And Charges",
+   "options": "Sales Taxes and Charges"
+  },
+  {
+   "fieldname": "delivery_challan_item",
+   "fieldtype": "Table",
+   "label": "Delivery Challan Item",
+   "options": "Delivery Challan Item"
+  },
+  {
+   "fieldname": "sales_invoice_id",
+   "fieldtype": "Link",
+   "label": "Sales Invoice ID",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Delivery Challan",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-01-25 19:50:17.033828",
+ "modified_by": "Administrator",
+ "module": "Ev Gn",
+ "name": "Delivery Challan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
