@@ -1,10 +1,21 @@
-
-#alert_card{
+#alert_card {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 20%;
     right: 20%;
     text-align: center;
-    display:none;
+    display: none;
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 15px;
+    background-color: #aaa;
+    /* or add it to the track */
+}
+
+.suggestions-scroll::-webkit-scrollbar {
+    width: 15px;
+    background-color: #aaa;
+    /* or add it to the track */
 }
