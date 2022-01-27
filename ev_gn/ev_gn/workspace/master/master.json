@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Master",
  "links": [],
- "modified": "2021-12-14 14:52:23.899091",
+ "modified": "2022-01-27 14:08:47.281808",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Master",
@@ -93,6 +93,12 @@
    "doc_view": "List",
    "label": "Driver List",
    "link_to": "Driver",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Delivery Challan",
+   "link_to": "Delivery Challan",
    "type": "DocType"
   }
  ],
