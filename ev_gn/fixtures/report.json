@@ -10,973 +10,6 @@
   "is_standard": "Yes",
   "javascript": null,
   "json": null,
-  "letter_head": null,
-  "modified": "2022-01-20 11:19:37.427335",
-  "module": "Ev Gn",
-  "name": "Vehicle Balance Report2",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": "SELECT \n    `tabTrip Details`.total AS \"Vehicle Rent\", `tabPurchase Invoice`.supplier, \n    `tabTrip Details`.net_total AS \"Net Total\",\n    `tabTrip Details`.bata_amount AS \"Bata Amount\",\n    MONTHNAME(`tabTrip Sheet`.date) AS \"Month in tripsheet\", \n    YEAR(`tabTrip Sheet`.date) AS \"Year In Trip Sheet\" \nFROM \n    `tabTrip Sheet`\nINNER JOIN \n    `tabTrip Details` ON `tabTrip Sheet`.name = `tabTrip Details`.parent\nINNER JOIN\n    `tabPurchase Invoice` ON `tabPurchase Invoice`.vehicle = `tabTrip Sheet`.vehicle  \nwhere\n    `tabPurchase Invoice`.is_vehicle_purchase =1\n    \n    \n  \n\n\n\n",
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "Vehicle Balance Report2",
-  "report_script": null,
-  "report_type": "Query Report",
-  "roles": [
-   {
-    "parent": "Vehicle Balance Report2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "Vehicle Balance Report2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Vehicle Balance Report2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"columns\":[{\"fieldname\":\"account\",\"label\":\"Account\",\"fieldtype\":\"Link\",\"options\":\"Account\",\"width\":300,\"id\":\"account\",\"name\":\"Account\",\"editable\":false,\"compareValue\":null},{\"fieldname\":\"mar_2022\",\"label\":\"2021-2022\",\"fieldtype\":\"Currency\",\"options\":\"currency\",\"width\":150,\"id\":\"mar_2022\",\"name\":\"2021-2022\",\"editable\":false,\"compareValue\":null}]}",
-  "letter_head": null,
-  "modified": "2022-01-13 12:14:27.059677",
-  "module": "Accounts",
-  "name": "Balance Sheet2",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "GL Entry",
-  "reference_report": "Balance Sheet",
-  "report_name": "Balance Sheet2",
-  "report_script": null,
-  "report_type": "Custom Report",
-  "roles": [
-   {
-    "parent": "Balance Sheet2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Balance Sheet2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Balance Sheet2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   },
-   {
-    "parent": "Balance Sheet2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Balance Sheet2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   },
-   {
-    "parent": "Balance Sheet2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Balance Sheet2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[[\"Purchase Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"],[\"expense_account\",\"Purchase Invoice Item\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"posting_date\":120,\"supplier_name\":120,\"outstanding_amount\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120,\"Purchase Invoice Item:expense_account\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2022-01-11 14:35:08.097462",
-  "module": "Accounts",
-  "name": "Company Expense Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Purchase Invoice",
-  "reference_report": null,
-  "report_name": "Company Expense Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Company Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Company Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Purchase User"
-   },
-   {
-    "parent": "Company Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Company Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   },
-   {
-    "parent": "Company Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Company Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[[\"Purchase Invoice\",\"is_vehicle_purchase\",\"=\",1,false],[\"Purchase Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"],[\"vehicle\",\"Purchase Invoice\"],[\"vehicle\",\"Purchase Invoice Item\"],[\"expense_account\",\"Purchase Invoice Item\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"posting_date\":120,\"supplier_name\":120,\"outstanding_amount\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120,\"vehicle\":120,\"Purchase Invoice Item:vehicle\":120,\"Purchase Invoice Item:expense_account\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2022-01-11 19:46:02.952486",
-  "module": "Accounts",
-  "name": "Vehicle Expense Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Purchase Invoice",
-  "reference_report": null,
-  "report_name": "Vehicle Expense Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Vehicle Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Vehicle Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Purchase User"
-   },
-   {
-    "parent": "Vehicle Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Vehicle Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   },
-   {
-    "parent": "Vehicle Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Vehicle Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 1,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[[\"Sales Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"docstatus\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"company\",\"Sales Invoice\"],[\"grand_total\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"customer_name\",\"Sales Invoice\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"vehicle\",\"Sales Invoice\"],[\"no_of_trips\",\"Sales Invoice\"],[\"trip_id\",\"Sales Invoice\"],[\"site\",\"Sales Invoice\"],[\"posting_date\",\"Sales Invoice\"],[\"total_qty\",\"Sales Invoice\"],[\"base_total_taxes_and_charges\",\"Sales Invoice\"],[\"uom\",\"Sales Invoice Item\"],[\"item_code\",\"Sales Invoice Item\"],[\"amount\",\"Sales Invoice Item\"],[\"rate\",\"Sales Invoice Item\"],[\"description\",\"Sales Invoice Item\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"company\":120,\"grand_total\":120,\"currency\":120,\"customer_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"vehicle\":120,\"no_of_trips\":120,\"trip_id\":120,\"site\":120,\"posting_date\":120,\"total_qty\":120,\"base_total_taxes_and_charges\":120,\"Sales Invoice Item:uom\":120,\"Sales Invoice Item:item_code\":120,\"Sales Invoice Item:amount\":120,\"Sales Invoice Item:rate\":120,\"Sales Invoice Item:description\":200,\"party_account_currency\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2022-01-11 19:10:32.924383",
-  "module": "Accounts",
-  "name": "Sales Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Sales Invoice",
-  "reference_report": null,
-  "report_name": "Sales Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Sales Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Sales Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Sales Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Employee Self Service"
-   },
-   {
-    "parent": "Sales Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Sales Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"company\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"grand_total\",\"Purchase Invoice\"],[\"currency\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"base_grand_total\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"suppier_site\",\"Purchase Invoice\"],[\"total_qty\",\"Purchase Invoice\"],[\"trip_id\",\"Purchase Invoice\"],[\"no_of_trips\",\"Purchase Invoice\"],[\"item_code\",\"Purchase Invoice Item\"],[\"rate\",\"Purchase Invoice Item\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"company\":120,\"posting_date\":120,\"grand_total\":120,\"currency\":120,\"supplier_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"suppier_site\":120,\"total_qty\":120,\"trip_id\":120,\"no_of_trips\":120,\"Purchase Invoice Item:item_code\":120,\"Purchase Invoice Item:rate\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2022-01-09 19:48:04.954689",
-  "module": "Accounts",
-  "name": "Purchase Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Purchase Invoice",
-  "reference_report": null,
-  "report_name": "Purchase Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Purchase Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Purchase Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Purchase User"
-   },
-   {
-    "parent": "Purchase Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Purchase Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   },
-   {
-    "parent": "Purchase Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Purchase Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"net_total\",\"Trip Details\"],[\"total\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"item\",\"Trip Details\"],[\"uom\",\"Trip Details\"],[\"supplier\",\"Trip Details\"],[\"supplier_site\",\"Trip Details\"],[\"supplier_rate\",\"Trip Details\"],[\"supplier_quantity\",\"Trip Details\"],[\"supplier_amount\",\"Trip Details\"],[\"supplier_partner\",\"Trip Details\"],[\"supplier_partner_quantity\",\"Trip Details\"],[\"supplier_partner_rate\",\"Trip Details\"],[\"supplier_partner_amount\",\"Trip Details\"],[\"total_supplier_amount\",\"Trip Details\"],[\"customer\",\"Trip Details\"],[\"customer_quantity\",\"Trip Details\"],[\"customer_site\",\"Trip Details\"],[\"customer_rate\",\"Trip Details\"],[\"customer_amount\",\"Trip Details\"],[\"trip\",\"Trip Details\"],[\"distance\",\"Trip Details\"],[\"gst_percentage\",\"Trip Details\"],[\"gst_amount\",\"Trip Details\"],[\"frc\",\"Trip Details\"],[\"bata_amount\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:net_total\":120,\"total\":120,\"Trip Details:driver\":120,\"Trip Details:item\":120,\"Trip Details:uom\":120,\"Trip Details:supplier\":120,\"Trip Details:supplier_site\":120,\"Trip Details:supplier_rate\":120,\"Trip Details:supplier_quantity\":120,\"Trip Details:supplier_amount\":120,\"Trip Details:supplier_partner\":120,\"Trip Details:supplier_partner_quantity\":120,\"Trip Details:supplier_partner_rate\":120,\"Trip Details:supplier_partner_amount\":120,\"Trip Details:total_supplier_amount\":120,\"Trip Details:customer\":120,\"Trip Details:customer_quantity\":120,\"Trip Details:customer_site\":120,\"Trip Details:customer_rate\":120,\"Trip Details:customer_amount\":120,\"Trip Details:trip\":120,\"Trip Details:distance\":120,\"Trip Details:gst_percentage\":120,\"Trip Details:gst_amount\":120,\"Trip Details:frc\":120,\"Trip Details:bata_amount\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2022-01-11 19:48:28.144237",
-  "module": "Ev Gn",
-  "name": "Total Trip Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "Total Trip Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Total Trip Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "Total Trip Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Total Trip Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Payment Entry\"],[\"payment_type\",\"Payment Entry\"],[\"posting_date\",\"Payment Entry\"],[\"reference_doctype\",\"Payment Entry Reference\"],[\"party_type\",\"Payment Entry\"],[\"party_name\",\"Payment Entry\"],[\"mode_of_payment\",\"Payment Entry\"],[\"bank_account\",\"Payment Entry\"],[\"party_bank_account\",\"Payment Entry\"]],\"order_by\":\"`tabPayment Entry`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"payment_type\":120,\"posting_date\":120,\"Payment Entry Reference:reference_doctype\":120,\"party_type\":120,\"party_name\":120,\"mode_of_payment\":120,\"bank_account\":120,\"party_bank_account\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2022-01-09 22:46:58.540151",
-  "module": "Accounts",
-  "name": "Payment Reports",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Payment Entry",
-  "reference_report": null,
-  "report_name": "Payment Reports",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Payment Reports",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Payment Reports",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Payment Reports",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2021-02-19 16:44:21.175113",
-  "module": "Accounts",
-  "name": "Tax Detail",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "GL Entry",
-  "reference_report": null,
-  "report_name": "Tax Detail",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "Tax Detail",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Tax Detail",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Tax Detail",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   }
-  ]
- },
- {
-  "add_total_row": 1,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2021-09-20 17:43:39.518851",
-  "module": "Accounts",
-  "name": "TDS Computation Summary",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Purchase Invoice",
-  "reference_report": null,
-  "report_name": "TDS Computation Summary",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "TDS Computation Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Purchase User"
-   },
-   {
-    "parent": "TDS Computation Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "TDS Computation Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "TDS Computation Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   }
-  ]
- },
- {
-  "add_total_row": 1,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2021-09-20 12:05:50.387572",
-  "module": "Accounts",
-  "name": "TDS Payable Monthly",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Purchase Invoice",
-  "reference_report": null,
-  "report_name": "TDS Payable Monthly",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "TDS Payable Monthly",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Purchase User"
-   },
-   {
-    "parent": "TDS Payable Monthly",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "TDS Payable Monthly",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "TDS Payable Monthly",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   }
-  ]
- },
- {
-  "add_total_row": 1,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": "",
-  "modified": "2020-12-30 11:49:21.713561",
-  "module": "Manufacturing",
-  "name": "Job Card Summary",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Job Card",
-  "reference_report": null,
-  "report_name": "Job Card Summary",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "Job Card Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Manufacturing User"
-   },
-   {
-    "parent": "Job Card Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Stock User"
-   },
-   {
-    "parent": "Job Card Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Manufacturing Manager"
-   },
-   {
-    "parent": "Job Card Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Stock Manager"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": "{}",
-  "letter_head": "Logo",
-  "modified": "2021-03-13 12:36:48.689413",
-  "module": "Regional",
-  "name": "E-Invoice Summary",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Sales Invoice",
-  "reference_report": null,
-  "report_name": "E-Invoice Summary",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "E-Invoice Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Administrator"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2021-07-09 11:07:43.473518",
-  "module": "Regional",
-  "name": "VAT Audit Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "GL Entry",
-  "reference_report": null,
-  "report_name": "VAT Audit Report",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": []
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2021-08-24 16:38:15.233395",
-  "module": "Stock",
-  "name": "Process Loss Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Work Order",
-  "reference_report": null,
-  "report_name": "Process Loss Report",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "Process Loss Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Manufacturing User"
-   },
-   {
-    "parent": "Process Loss Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Stock User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"supplier\",\"Trip Details\"],[\"supplier_unit\",\"Trip Details\"],[\"supplier_quantity\",\"Trip Details\"],[\"multiple_supplier\",\"Trip Details\"],[\"supplier_partner_quantity\",\"Trip Details\"],[\"supplier_partner_amount\",\"Trip Details\"],[\"customer_rate_type\",\"Trip Details\"],[\"paid_amount\",\"Trip Details\"],[\"customer_rate\",\"Trip Details\"],[\"payment_method\",\"Trip Details\"],[\"frc\",\"Trip Details\"],[\"gst\",\"Trip Details\"],[\"trip\",\"Trip Details\"],[\"customer_amount\",\"Trip Details\"],[\"customer_site\",\"Trip Details\"],[\"customer_quantity\",\"Trip Details\"],[\"customer\",\"Trip Details\"],[\"supplier_partner_rate\",\"Trip Details\"],[\"supplier_partner\",\"Trip Details\"],[\"supplier_amount\",\"Trip Details\"],[\"supplier_site\",\"Trip Details\"],[\"supplier_rate\",\"Trip Details\"],[\"item\",\"Trip Details\"],[\"gst_amount\",\"Trip Details\"],[\"bata_rate\",\"Trip Details\"],[\"distance\",\"Trip Details\"],[\"bata_precentage\",\"Trip Details\"],[\"net_frc\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:driver\":120,\"Trip Details:supplier\":120,\"Trip Details:supplier_unit\":120,\"Trip Details:supplier_quantity\":120,\"Trip Details:multiple_supplier\":120,\"Trip Details:supplier_partner_quantity\":120,\"Trip Details:supplier_partner_amount\":120,\"Trip Details:customer_rate_type\":120,\"Trip Details:paid_amount\":120,\"Trip Details:customer_rate\":120,\"Trip Details:payment_method\":120,\"Trip Details:frc\":120,\"Trip Details:gst\":120,\"Trip Details:trip\":120,\"Trip Details:customer_amount\":120,\"Trip Details:customer_site\":120,\"Trip Details:customer_quantity\":120,\"Trip Details:customer\":120,\"Trip Details:supplier_partner_rate\":120,\"Trip Details:supplier_partner\":120,\"Trip Details:supplier_amount\":120,\"Trip Details:supplier_site\":120,\"Trip Details:supplier_rate\":120,\"Trip Details:item\":120,\"Trip Details:gst_amount\":120,\"Trip Details:bata_rate\":120,\"Trip Details:distance\":120,\"Trip Details:bata_precentage\":120,\"Trip Details:net_frc\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-09-26 14:20:03.496445",
-  "module": "Ev Gn",
-  "name": "Trip Overview",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "Trip Overview",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Trip Overview",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "Trip Overview",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[[\"Sales Invoice\",\"company\",\"=\",\"Evergreen Jishnu\"],[\"Sales Invoice\",\"status\",\"=\",\"Overdue\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"grand_total\",\"Sales Invoice\"],[\"status\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"customer_name\",\"Sales Invoice\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"due_date\",\"Sales Invoice\"],[\"total\",\"Sales Invoice\"],[\"base_net_total\",\"Sales Invoice\"],[\"item_code\",\"Sales Invoice Item\"],[\"item_name\",\"Sales Invoice Item\"],[\"qty\",\"Sales Invoice Item\"],[\"uom\",\"Sales Invoice Item\"],[\"rate\",\"Sales Invoice Item\"],[\"amount\",\"Sales Invoice Item\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"grand_total\":120,\"status\":120,\"currency\":120,\"customer_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"due_date\":120,\"total\":120,\"base_net_total\":120,\"Sales Invoice Item:item_code\":120,\"Sales Invoice Item:item_name\":120,\"Sales Invoice Item:qty\":120,\"Sales Invoice Item:uom\":120,\"Sales Invoice Item:rate\":120,\"Sales Invoice Item:amount\":120,\"party_account_currency\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-09-27 17:33:00.038129",
-  "module": "Accounts",
-  "name": "Customer Outstanding",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Sales Invoice",
-  "reference_report": null,
-  "report_name": "Customer Outstanding",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Customer Outstanding",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Customer Outstanding",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Customer Outstanding",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Employee Self Service"
-   },
-   {
-    "parent": "Customer Outstanding",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2020-12-27 11:43:42.677584",
-  "module": "Manufacturing",
-  "name": "Production Plan Summary",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Production Plan",
-  "reference_report": null,
-  "report_name": "Production Plan Summary",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "Production Plan Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Manufacturing User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2021-06-02 18:59:55.470621",
-  "module": "Stock",
-  "name": "COGS By Item Group",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "GL Entry",
-  "reference_report": null,
-  "report_name": "COGS By Item Group",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "COGS By Item Group",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "COGS By Item Group",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "COGS By Item Group",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2021-08-16 20:22:27.343010",
-  "module": "Ev Gn",
-  "name": "Test report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "Test report",
-  "report_script": null,
-  "report_type": "Query Report",
-  "roles": [
-   {
-    "parent": "Test report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "System Manager"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
   "letter_head": "",
   "modified": "2017-06-23 04:46:43.209008",
   "module": "Manufacturing",
@@ -1239,7 +272,7 @@
   "roles": []
  },
  {
-  "add_total_row": 0,
+  "add_total_row": 1,
   "columns": [],
   "disable_prepared_report": 0,
   "disabled": 0,
@@ -1266,7 +299,7 @@
   "roles": []
  },
  {
-  "add_total_row": 0,
+  "add_total_row": 1,
   "columns": [],
   "disable_prepared_report": 0,
   "disabled": 0,
@@ -2476,6 +1509,110 @@
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "Accounts User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 1,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2021-09-20 17:43:39.518851",
+  "module": "Accounts",
+  "name": "TDS Computation Summary",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "TDS Computation Summary",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "TDS Computation Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "TDS Computation Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "TDS Computation Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "TDS Computation Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   }
+  ]
+ },
+ {
+  "add_total_row": 1,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2021-09-20 12:05:50.387572",
+  "module": "Accounts",
+  "name": "TDS Payable Monthly",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "TDS Payable Monthly",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "TDS Payable Monthly",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "TDS Payable Monthly",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "TDS Payable Monthly",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "TDS Payable Monthly",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
    }
   ]
  },
@@ -4496,6 +3633,58 @@
   "is_standard": "Yes",
   "javascript": null,
   "json": null,
+  "letter_head": "",
+  "modified": "2020-12-30 11:49:21.713561",
+  "module": "Manufacturing",
+  "name": "Job Card Summary",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Job Card",
+  "reference_report": null,
+  "report_name": "Job Card Summary",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Job Card Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Manufacturing User"
+   },
+   {
+    "parent": "Job Card Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Stock User"
+   },
+   {
+    "parent": "Job Card Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Manufacturing Manager"
+   },
+   {
+    "parent": "Job Card Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Stock Manager"
+   }
+  ]
+ },
+ {
+  "add_total_row": 1,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
   "letter_head": "Gadgets International",
   "modified": "2020-04-20 18:26:04.345289",
   "module": "Manufacturing",
@@ -5479,6 +4668,40 @@
   ]
  },
  {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2020-12-27 11:43:42.677584",
+  "module": "Manufacturing",
+  "name": "Production Plan Summary",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Production Plan",
+  "reference_report": null,
+  "report_name": "Production Plan Summary",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Production Plan Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Manufacturing User"
+   }
+  ]
+ },
+ {
   "add_total_row": 1,
   "columns": [],
   "disable_prepared_report": 0,
@@ -5641,6 +4864,40 @@
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "Loan Manager"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": "{}",
+  "letter_head": "Logo",
+  "modified": "2021-03-13 12:36:48.689413",
+  "module": "Regional",
+  "name": "E-Invoice Summary",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "E-Invoice Summary",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "E-Invoice Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Administrator"
    }
   ]
  },
@@ -6068,6 +5325,52 @@
   "javascript": null,
   "json": null,
   "letter_head": null,
+  "modified": "2021-06-02 18:59:55.470621",
+  "module": "Stock",
+  "name": "COGS By Item Group",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "GL Entry",
+  "reference_report": null,
+  "report_name": "COGS By Item Group",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "COGS By Item Group",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "COGS By Item Group",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "COGS By Item Group",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
   "modified": "2021-06-22 15:35:05.148177",
   "module": "Stock",
   "name": "Incorrect Stock Value Report",
@@ -6093,6 +5396,777 @@
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "Accounts Manager"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2021-07-09 11:07:43.473518",
+  "module": "Regional",
+  "name": "VAT Audit Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "GL Entry",
+  "reference_report": null,
+  "report_name": "VAT Audit Report",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": []
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 1,
+  "disabled": 1,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2021-08-26 04:14:37.202594",
+  "module": "Regional",
+  "name": "KSA VAT",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 1,
+  "query": null,
+  "ref_doctype": "GL Entry",
+  "reference_report": null,
+  "report_name": "KSA VAT",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "KSA VAT",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "System Manager"
+   },
+   {
+    "parent": "KSA VAT",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "KSA VAT",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2021-10-20 22:03:57.606612",
+  "module": "Manufacturing",
+  "name": "Process Loss Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Work Order",
+  "reference_report": null,
+  "report_name": "Process Loss Report",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Process Loss Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Manufacturing User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2021-12-16 09:55:58.341764",
+  "module": "Stock",
+  "name": "Stock Ledger Invariant Check",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Stock Ledger Entry",
+  "reference_report": null,
+  "report_name": "Stock Ledger Invariant Check",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Stock Ledger Invariant Check",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "System Manager"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2022-01-20 11:19:37.427335",
+  "module": "Ev Gn",
+  "name": "Vehicle Balance Report2",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": "SELECT \n    `tabTrip Details`.total AS \"Vehicle Rent\", `tabPurchase Invoice`.supplier, \n    `tabTrip Details`.net_total AS \"Net Total\",\n    `tabTrip Details`.bata_amount AS \"Bata Amount\",\n    MONTHNAME(`tabTrip Sheet`.date) AS \"Month in tripsheet\", \n    YEAR(`tabTrip Sheet`.date) AS \"Year In Trip Sheet\" \nFROM \n    `tabTrip Sheet`\nINNER JOIN \n    `tabTrip Details` ON `tabTrip Sheet`.name = `tabTrip Details`.parent\nINNER JOIN\n    `tabPurchase Invoice` ON `tabPurchase Invoice`.vehicle = `tabTrip Sheet`.vehicle  \nwhere\n    `tabPurchase Invoice`.is_vehicle_purchase =1\n    \n    \n  \n\n\n\n",
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Vehicle Balance Report2",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "Vehicle Balance Report2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "Vehicle Balance Report2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Vehicle Balance Report2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"columns\":[{\"fieldname\":\"account\",\"label\":\"Account\",\"fieldtype\":\"Link\",\"options\":\"Account\",\"width\":300,\"id\":\"account\",\"name\":\"Account\",\"editable\":false,\"compareValue\":null},{\"fieldname\":\"mar_2022\",\"label\":\"2021-2022\",\"fieldtype\":\"Currency\",\"options\":\"currency\",\"width\":150,\"id\":\"mar_2022\",\"name\":\"2021-2022\",\"editable\":false,\"compareValue\":null}]}",
+  "letter_head": null,
+  "modified": "2022-01-13 12:14:27.059677",
+  "module": "Accounts",
+  "name": "Balance Sheet2",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "GL Entry",
+  "reference_report": "Balance Sheet",
+  "report_name": "Balance Sheet2",
+  "report_script": null,
+  "report_type": "Custom Report",
+  "roles": [
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Balance Sheet2",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Purchase Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"],[\"expense_account\",\"Purchase Invoice Item\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"posting_date\":120,\"supplier_name\":120,\"outstanding_amount\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120,\"Purchase Invoice Item:expense_account\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-11 14:35:08.097462",
+  "module": "Accounts",
+  "name": "Company Expense Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "Company Expense Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Company Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Purchase Invoice\",\"is_vehicle_purchase\",\"=\",1,false],[\"Purchase Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"],[\"vehicle\",\"Purchase Invoice\"],[\"vehicle\",\"Purchase Invoice Item\"],[\"expense_account\",\"Purchase Invoice Item\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"posting_date\":120,\"supplier_name\":120,\"outstanding_amount\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120,\"vehicle\":120,\"Purchase Invoice Item:vehicle\":120,\"Purchase Invoice Item:expense_account\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-11 19:46:02.952486",
+  "module": "Accounts",
+  "name": "Vehicle Expense Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "Vehicle Expense Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Vehicle Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 1,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Sales Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"docstatus\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"company\",\"Sales Invoice\"],[\"grand_total\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"customer_name\",\"Sales Invoice\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"vehicle\",\"Sales Invoice\"],[\"no_of_trips\",\"Sales Invoice\"],[\"trip_id\",\"Sales Invoice\"],[\"site\",\"Sales Invoice\"],[\"posting_date\",\"Sales Invoice\"],[\"total_qty\",\"Sales Invoice\"],[\"base_total_taxes_and_charges\",\"Sales Invoice\"],[\"uom\",\"Sales Invoice Item\"],[\"item_code\",\"Sales Invoice Item\"],[\"amount\",\"Sales Invoice Item\"],[\"rate\",\"Sales Invoice Item\"],[\"description\",\"Sales Invoice Item\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"company\":120,\"grand_total\":120,\"currency\":120,\"customer_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"vehicle\":120,\"no_of_trips\":120,\"trip_id\":120,\"site\":120,\"posting_date\":120,\"total_qty\":120,\"base_total_taxes_and_charges\":120,\"Sales Invoice Item:uom\":120,\"Sales Invoice Item:item_code\":120,\"Sales Invoice Item:amount\":120,\"Sales Invoice Item:rate\":120,\"Sales Invoice Item:description\":200,\"party_account_currency\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-11 19:10:32.924383",
+  "module": "Accounts",
+  "name": "Sales Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "Sales Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Employee Self Service"
+   },
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Sales Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"company\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"grand_total\",\"Purchase Invoice\"],[\"currency\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"base_grand_total\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"suppier_site\",\"Purchase Invoice\"],[\"total_qty\",\"Purchase Invoice\"],[\"trip_id\",\"Purchase Invoice\"],[\"no_of_trips\",\"Purchase Invoice\"],[\"item_code\",\"Purchase Invoice Item\"],[\"rate\",\"Purchase Invoice Item\"],[\"amount\",\"Purchase Invoice Item\"],[\"party_account_currency\",\"Purchase Invoice\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"supplier\":120,\"company\":120,\"posting_date\":120,\"grand_total\":120,\"currency\":120,\"supplier_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"suppier_site\":120,\"total_qty\":120,\"trip_id\":120,\"no_of_trips\":120,\"Purchase Invoice Item:item_code\":120,\"Purchase Invoice Item:rate\":120,\"Purchase Invoice Item:amount\":120,\"party_account_currency\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-09 19:48:04.954689",
+  "module": "Accounts",
+  "name": "Purchase Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "Purchase Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Purchase Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"net_total\",\"Trip Details\"],[\"total\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"item\",\"Trip Details\"],[\"uom\",\"Trip Details\"],[\"supplier\",\"Trip Details\"],[\"supplier_site\",\"Trip Details\"],[\"supplier_rate\",\"Trip Details\"],[\"supplier_quantity\",\"Trip Details\"],[\"supplier_amount\",\"Trip Details\"],[\"supplier_partner\",\"Trip Details\"],[\"supplier_partner_quantity\",\"Trip Details\"],[\"supplier_partner_rate\",\"Trip Details\"],[\"supplier_partner_amount\",\"Trip Details\"],[\"total_supplier_amount\",\"Trip Details\"],[\"customer\",\"Trip Details\"],[\"customer_quantity\",\"Trip Details\"],[\"customer_site\",\"Trip Details\"],[\"customer_rate\",\"Trip Details\"],[\"customer_amount\",\"Trip Details\"],[\"trip\",\"Trip Details\"],[\"distance\",\"Trip Details\"],[\"gst_percentage\",\"Trip Details\"],[\"gst_amount\",\"Trip Details\"],[\"frc\",\"Trip Details\"],[\"bata_amount\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:net_total\":120,\"total\":120,\"Trip Details:driver\":120,\"Trip Details:item\":120,\"Trip Details:uom\":120,\"Trip Details:supplier\":120,\"Trip Details:supplier_site\":120,\"Trip Details:supplier_rate\":120,\"Trip Details:supplier_quantity\":120,\"Trip Details:supplier_amount\":120,\"Trip Details:supplier_partner\":120,\"Trip Details:supplier_partner_quantity\":120,\"Trip Details:supplier_partner_rate\":120,\"Trip Details:supplier_partner_amount\":120,\"Trip Details:total_supplier_amount\":120,\"Trip Details:customer\":120,\"Trip Details:customer_quantity\":120,\"Trip Details:customer_site\":120,\"Trip Details:customer_rate\":120,\"Trip Details:customer_amount\":120,\"Trip Details:trip\":120,\"Trip Details:distance\":120,\"Trip Details:gst_percentage\":120,\"Trip Details:gst_amount\":120,\"Trip Details:frc\":120,\"Trip Details:bata_amount\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-11 19:48:28.144237",
+  "module": "Ev Gn",
+  "name": "Total Trip Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Total Trip Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Total Trip Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "Total Trip Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Total Trip Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Payment Entry\"],[\"payment_type\",\"Payment Entry\"],[\"posting_date\",\"Payment Entry\"],[\"reference_doctype\",\"Payment Entry Reference\"],[\"party_type\",\"Payment Entry\"],[\"party_name\",\"Payment Entry\"],[\"mode_of_payment\",\"Payment Entry\"],[\"bank_account\",\"Payment Entry\"],[\"party_bank_account\",\"Payment Entry\"]],\"order_by\":\"`tabPayment Entry`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"payment_type\":120,\"posting_date\":120,\"Payment Entry Reference:reference_doctype\":120,\"party_type\":120,\"party_name\":120,\"mode_of_payment\":120,\"bank_account\":120,\"party_bank_account\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-09 22:46:58.540151",
+  "module": "Accounts",
+  "name": "Payment Reports",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Payment Entry",
+  "reference_report": null,
+  "report_name": "Payment Reports",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Payment Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Payment Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Payment Reports",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2021-02-19 16:44:21.175113",
+  "module": "Accounts",
+  "name": "Tax Detail",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "GL Entry",
+  "reference_report": null,
+  "report_name": "Tax Detail",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Tax Detail",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Tax Detail",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Tax Detail",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"supplier\",\"Trip Details\"],[\"supplier_unit\",\"Trip Details\"],[\"supplier_quantity\",\"Trip Details\"],[\"multiple_supplier\",\"Trip Details\"],[\"supplier_partner_quantity\",\"Trip Details\"],[\"supplier_partner_amount\",\"Trip Details\"],[\"customer_rate_type\",\"Trip Details\"],[\"paid_amount\",\"Trip Details\"],[\"customer_rate\",\"Trip Details\"],[\"payment_method\",\"Trip Details\"],[\"frc\",\"Trip Details\"],[\"gst\",\"Trip Details\"],[\"trip\",\"Trip Details\"],[\"customer_amount\",\"Trip Details\"],[\"customer_site\",\"Trip Details\"],[\"customer_quantity\",\"Trip Details\"],[\"customer\",\"Trip Details\"],[\"supplier_partner_rate\",\"Trip Details\"],[\"supplier_partner\",\"Trip Details\"],[\"supplier_amount\",\"Trip Details\"],[\"supplier_site\",\"Trip Details\"],[\"supplier_rate\",\"Trip Details\"],[\"item\",\"Trip Details\"],[\"gst_amount\",\"Trip Details\"],[\"bata_rate\",\"Trip Details\"],[\"distance\",\"Trip Details\"],[\"bata_precentage\",\"Trip Details\"],[\"net_frc\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:driver\":120,\"Trip Details:supplier\":120,\"Trip Details:supplier_unit\":120,\"Trip Details:supplier_quantity\":120,\"Trip Details:multiple_supplier\":120,\"Trip Details:supplier_partner_quantity\":120,\"Trip Details:supplier_partner_amount\":120,\"Trip Details:customer_rate_type\":120,\"Trip Details:paid_amount\":120,\"Trip Details:customer_rate\":120,\"Trip Details:payment_method\":120,\"Trip Details:frc\":120,\"Trip Details:gst\":120,\"Trip Details:trip\":120,\"Trip Details:customer_amount\":120,\"Trip Details:customer_site\":120,\"Trip Details:customer_quantity\":120,\"Trip Details:customer\":120,\"Trip Details:supplier_partner_rate\":120,\"Trip Details:supplier_partner\":120,\"Trip Details:supplier_amount\":120,\"Trip Details:supplier_site\":120,\"Trip Details:supplier_rate\":120,\"Trip Details:item\":120,\"Trip Details:gst_amount\":120,\"Trip Details:bata_rate\":120,\"Trip Details:distance\":120,\"Trip Details:bata_precentage\":120,\"Trip Details:net_frc\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-09-26 14:20:03.496445",
+  "module": "Ev Gn",
+  "name": "Trip Overview",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Trip Overview",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Trip Overview",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "Trip Overview",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Sales Invoice\",\"company\",\"=\",\"Evergreen Jishnu\"],[\"Sales Invoice\",\"status\",\"=\",\"Overdue\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"grand_total\",\"Sales Invoice\"],[\"status\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"customer_name\",\"Sales Invoice\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"due_date\",\"Sales Invoice\"],[\"total\",\"Sales Invoice\"],[\"base_net_total\",\"Sales Invoice\"],[\"item_code\",\"Sales Invoice Item\"],[\"item_name\",\"Sales Invoice Item\"],[\"qty\",\"Sales Invoice Item\"],[\"uom\",\"Sales Invoice Item\"],[\"rate\",\"Sales Invoice Item\"],[\"amount\",\"Sales Invoice Item\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"grand_total\":120,\"status\":120,\"currency\":120,\"customer_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"due_date\":120,\"total\":120,\"base_net_total\":120,\"Sales Invoice Item:item_code\":120,\"Sales Invoice Item:item_name\":120,\"Sales Invoice Item:qty\":120,\"Sales Invoice Item:uom\":120,\"Sales Invoice Item:rate\":120,\"Sales Invoice Item:amount\":120,\"party_account_currency\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-09-27 17:33:00.038129",
+  "module": "Accounts",
+  "name": "Customer Outstanding",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "Customer Outstanding",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Customer Outstanding",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Customer Outstanding",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Customer Outstanding",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Employee Self Service"
+   },
+   {
+    "parent": "Customer Outstanding",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2021-08-16 20:22:27.343010",
+  "module": "Ev Gn",
+  "name": "Test report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Test report",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "Test report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "System Manager"
    }
   ]
  },
@@ -6168,6 +6242,686 @@
   "report_script": null,
   "report_type": "Report Builder",
   "roles": []
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": "{}",
+  "letter_head": null,
+  "modified": "2021-12-15 10:25:04.442840",
+  "module": "Accounts",
+  "name": "Profit and Loss Statement",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "GL Entry",
+  "reference_report": null,
+  "report_name": "Profit and Loss Statement",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Profit and Loss Statement",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Profit and Loss Statement",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Profit and Loss Statement",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Sales Invoice\",\"company\",\"=\",\"Ever Green\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"docstatus\",\"Sales Invoice\"],[\"title\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"company\",\"Sales Invoice\"],[\"grand_total\",\"Sales Invoice\"],[\"status\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"customer_name\",\"Sales Invoice\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"due_date\",\"Sales Invoice\"],[\"is_return\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"title\":120,\"customer\":120,\"company\":120,\"grand_total\":120,\"status\":120,\"currency\":120,\"customer_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"due_date\":120,\"is_return\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-12-14 21:04:40.940075",
+  "module": "Accounts",
+  "name": "Sales Invoice Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "Sales Invoice Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Sales Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Sales Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Sales Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Employee Self Service"
+   },
+   {
+    "parent": "Sales Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Sales Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Purchase Invoice\",\"company\",\"=\",\"Ever Green\"]],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"docstatus\",\"Purchase Invoice\"],[\"title\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"company\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"grand_total\",\"Purchase Invoice\"],[\"status\",\"Purchase Invoice\"],[\"currency\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"base_grand_total\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"due_date\",\"Purchase Invoice\"],[\"is_return\",\"Purchase Invoice\"],[\"release_date\",\"Purchase Invoice\"],[\"on_hold\",\"Purchase Invoice\"],[\"represents_company\",\"Purchase Invoice\"],[\"is_internal_supplier\",\"Purchase Invoice\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"title\":120,\"supplier\":120,\"company\":120,\"posting_date\":120,\"grand_total\":120,\"status\":120,\"currency\":120,\"supplier_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"due_date\":120,\"is_return\":120,\"release_date\":120,\"on_hold\":120,\"represents_company\":120,\"is_internal_supplier\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-12-14 20:35:14.332457",
+  "module": "Accounts",
+  "name": "Purchase Invoice Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Purchase Invoice",
+  "reference_report": null,
+  "report_name": "Purchase Invoice Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Purchase Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Purchase Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Purchase Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Purchase Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Purchase Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Purchase Invoice Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Sales Invoice\",\"company\",\"=\",\"Ever Green\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"taxes_and_charges\",\"Sales Invoice\"],[\"base_total_taxes_and_charges\",\"Sales Invoice\"],[\"vehicle\",\"Sales Invoice\"],[\"no_of_trips\",\"Sales Invoice\"],[\"tax_category\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"taxes_and_charges\":120,\"base_total_taxes_and_charges\":120,\"vehicle\":120,\"no_of_trips\":120,\"tax_category\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-12-14 21:13:40.332769",
+  "module": "Accounts",
+  "name": "Tax report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "Tax report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Tax report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Tax report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Tax report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Employee Self Service"
+   },
+   {
+    "parent": "Tax report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Tax report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"bata_rate\",\"Trip Details\"],[\"bata_amount\",\"Trip Details\"],[\"bata_percentage\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":false,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:driver\":120,\"Trip Details:bata_rate\":120,\"Trip Details:bata_amount\":120,\"Trip Details:bata_percentage\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-12-14 20:50:57.798809",
+  "module": "Ev Gn",
+  "name": "Driver Bata Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Driver Bata Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Driver Bata Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "Driver Bata Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Payment Entry\"],[\"payment_type\",\"Payment Entry\"],[\"posting_date\",\"Payment Entry\"],[\"mode_of_payment\",\"Payment Entry\"],[\"party_type\",\"Payment Entry\"],[\"paid_amount\",\"Payment Entry\"],[\"outstanding_amount\",\"Payment Entry Reference\"],[\"total_amount\",\"Payment Entry Reference\"],[\"paid_from_account_currency\",\"Payment Entry\"]],\"order_by\":\"`tabPayment Entry`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"payment_type\":120,\"posting_date\":120,\"mode_of_payment\":120,\"party_type\":120,\"paid_amount\":120,\"Payment Entry Reference:outstanding_amount\":120,\"Payment Entry Reference:total_amount\":120,\"paid_from_account_currency\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-12-14 20:54:26.072085",
+  "module": "Accounts",
+  "name": "Payment Entry Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Payment Entry",
+  "reference_report": null,
+  "report_name": "Payment Entry Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Payment Entry Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Payment Entry Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Payment Entry Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"net_frc\",\"Trip Details\"],[\"frc\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:net_frc\":120,\"Trip Details:frc\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-12-14 20:56:07.025155",
+  "module": "Ev Gn",
+  "name": "Commision Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Commision Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Commision Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "Commision Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"gst\",\"Trip Details\"],[\"gst_amount\",\"Trip Details\"],[\"gst_percentage\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:gst\":120,\"Trip Details:gst_amount\":120,\"Trip Details:gst_percentage\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-12-14 20:57:16.898467",
+  "module": "Ev Gn",
+  "name": "GST Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "GST Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "GST Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "GST Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"total\",\"Trip Sheet\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"total\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-12-15 10:56:34.499833",
+  "module": "Ev Gn",
+  "name": "Vehicle Balance Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Vehicle Balance Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Vehicle Balance Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "Vehicle Balance Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Expense\"],[\"docstatus\",\"Expense\"],[\"vehicle\",\"Expense\"],[\"expense_type\",\"Expense\"],[\"amount\",\"Expense\"]],\"order_by\":\"`tabExpense`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"expense_type\":120,\"amount\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2021-12-15 10:59:54.155236",
+  "module": "Ev Gn",
+  "name": "Expense Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Expense",
+  "reference_report": null,
+  "report_name": "Expense Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Expense Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[[\"Sales Invoice\",\"customer\",\"=\",\"demo2 customer\"],[\"Sales Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"docstatus\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"posting_date\",\"Sales Invoice\"],[\"amount\",\"Sales Invoice Item\"],[\"due_date\",\"Sales Invoice\"],[\"status\",\"Sales Invoice\"],[\"due_date\",\"Payment Schedule\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"currency\":120,\"posting_date\":120,\"Sales Invoice Item:amount\":120,\"due_date\":120,\"status\":120,\"Payment Schedule:due_date\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"party_account_currency\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-11 19:40:14.968663",
+  "module": "Accounts",
+  "name": "Receivables Summary",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "Receivables Summary",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Receivables Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Receivables Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Receivables Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Employee Self Service"
+   },
+   {
+    "parent": "Receivables Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Receivables Summary",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"total\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"frc\",\"Trip Details\"],[\"net_frc\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"vehicle\":120,\"date\":120,\"total\":120,\"Trip Details:driver\":120,\"Trip Details:frc\":120,\"Trip Details:net_frc\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2022-01-12 22:24:58.483133",
+  "module": "Ev Gn",
+  "name": "FRC Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "FRC Report",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "FRC Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "FRC Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "FRC Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2022-01-20 11:16:15.838563",
+  "module": "Accounts",
+  "name": "Vehicle Expense Report (using purchase)",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": "Select    `tabPurchase Invoice`.total\nfrom `tabVehicle`\ninner join `tabPurchase Invoice` on  `tabVehicle`.license_plate = `tabPurchase Invoice`.vehicle \nwhere `tabPurchase Invoice`.is_vehicle_purchase = 1\n\n",
+  "ref_doctype": "Vehicle",
+  "reference_report": "",
+  "report_name": "Vehicle Expense Report (using purchase)",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "Vehicle Expense Report (using purchase)",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
+   },
+   {
+    "parent": "Vehicle Expense Report (using purchase)",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Purchase User"
+   },
+   {
+    "parent": "Vehicle Expense Report (using purchase)",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Vehicle Expense Report (using purchase)",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Auditor"
+   },
+   {
+    "parent": "Vehicle Expense Report (using purchase)",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Vehicle Expense Report (using purchase)",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2022-01-20 14:07:43.250846",
+  "module": "Ev Gn",
+  "name": "Vehicle Balance Report3",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": "SELECT \n    `tabTrip Details`.total AS \"Vehicle Rent\", `tabPurchase Invoice`.supplier, \n    SUM(`tabTrip Details`.net_total) AS \"Net Total\",\n    `tabTrip Details`.bata_amount AS \"Bata Amount\",\n    MONTHNAME(`tabTrip Sheet`.date) AS \"Month in tripsheet\", \n    YEAR(`tabTrip Sheet`.date) AS \"Year In Trip Sheet\" ,\n    SUM(`tabPurchase Invoice`.outstanding_amount) , `tabPurchase Invoice`.vehicle\nFROM \n    `tabTrip Sheet`\nINNER JOIN \n    `tabTrip Details` ON `tabTrip Sheet`.name = `tabTrip Details`.parent\nINNER JOIN\n    `tabPurchase Invoice` ON `tabPurchase Invoice`.vehicle = `tabTrip Sheet`.vehicle  \n where\n    `tabPurchase Invoice`.is_vehicle_purchase =1\n    group by `tabPurchase Invoice`.supplier\n    \n\n  \n\n\n\n",
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Vehicle Balance Report3",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "Vehicle Balance Report3",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "tripsheet"
+   },
+   {
+    "parent": "Vehicle Balance Report3",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "testrole"
+   },
+   {
+    "parent": "Vehicle Balance Report3",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
  },
  {
   "add_total_row": 0,
@@ -6263,52 +7017,6 @@
    },
    {
     "parent": "Balance Sheet",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": "{}",
-  "letter_head": null,
-  "modified": "2021-12-15 10:25:04.442840",
-  "module": "Accounts",
-  "name": "Profit and Loss Statement",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "GL Entry",
-  "reference_report": null,
-  "report_name": "Profit and Loss Statement",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "Profit and Loss Statement",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Profit and Loss Statement",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Profit and Loss Statement",
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "Auditor"
@@ -7300,52 +8008,6 @@
   "filters": [],
   "is_standard": "Yes",
   "javascript": null,
-  "json": "{\"add_total_row\": 0, \"sort_by\": \"Serial No.modified\", \"sort_order\": \"desc\", \"sort_by_next\": null, \"filters\": [[\"Serial No\", \"delivery_document_type\", \"in\", [\"Delivery Note\", \"Sales Invoice\"]], [\"Serial No\", \"warehouse\", \"=\", \"\"]], \"sort_order_next\": \"desc\", \"columns\": [[\"name\", \"Serial No\"], [\"item_code\", \"Serial No\"], [\"amc_expiry_date\", \"Serial No\"], [\"maintenance_status\", \"Serial No\"], [\"delivery_document_no\", \"Serial No\"], [\"customer\", \"Serial No\"], [\"customer_name\", \"Serial No\"], [\"item_name\", \"Serial No\"], [\"description\", \"Serial No\"], [\"item_group\", \"Serial No\"], [\"brand\", \"Serial No\"]]}",
-  "letter_head": null,
-  "modified": "2017-02-24 20:02:00.706889",
-  "module": "Stock",
-  "name": "Serial No Service Contract Expiry",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Serial No",
-  "reference_report": null,
-  "report_name": "Serial No Service Contract Expiry",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Serial No Service Contract Expiry",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Item Manager"
-   },
-   {
-    "parent": "Serial No Service Contract Expiry",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Stock Manager"
-   },
-   {
-    "parent": "Serial No Service Contract Expiry",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Stock User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
   "json": "{\"add_total_row\": 0, \"sort_by\": \"Serial No.modified\", \"sort_order\": \"desc\", \"sort_by_next\": null, \"filters\": [[\"Serial No\", \"delivery_document_type\", \"in\", [\"Delivery Note\", \"Sales Invoice\"]], [\"Serial No\", \"warehouse\", \"=\", \"\"]], \"sort_order_next\": \"desc\", \"columns\": [[\"name\", \"Serial No\"], [\"item_code\", \"Serial No\"], [\"warranty_expiry_date\", \"Serial No\"], [\"warranty_period\", \"Serial No\"], [\"maintenance_status\", \"Serial No\"], [\"purchase_document_no\", \"Serial No\"], [\"purchase_date\", \"Serial No\"], [\"supplier\", \"Serial No\"], [\"supplier_name\", \"Serial No\"], [\"delivery_document_no\", \"Serial No\"], [\"delivery_date\", \"Serial No\"], [\"customer\", \"Serial No\"], [\"customer_name\", \"Serial No\"], [\"item_name\", \"Serial No\"], [\"description\", \"Serial No\"], [\"item_group\", \"Serial No\"], [\"brand\", \"Serial No\"]]}",
   "letter_head": null,
   "modified": "2017-02-24 20:01:53.097456",
@@ -7376,6 +8038,52 @@
    },
    {
     "parent": "Serial No Warranty Expiry",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Stock User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": "{\"add_total_row\": 0, \"sort_by\": \"Serial No.modified\", \"sort_order\": \"desc\", \"sort_by_next\": null, \"filters\": [[\"Serial No\", \"delivery_document_type\", \"in\", [\"Delivery Note\", \"Sales Invoice\"]], [\"Serial No\", \"warehouse\", \"=\", \"\"]], \"sort_order_next\": \"desc\", \"columns\": [[\"name\", \"Serial No\"], [\"item_code\", \"Serial No\"], [\"amc_expiry_date\", \"Serial No\"], [\"maintenance_status\", \"Serial No\"], [\"delivery_document_no\", \"Serial No\"], [\"customer\", \"Serial No\"], [\"customer_name\", \"Serial No\"], [\"item_name\", \"Serial No\"], [\"description\", \"Serial No\"], [\"item_group\", \"Serial No\"], [\"brand\", \"Serial No\"]]}",
+  "letter_head": null,
+  "modified": "2017-02-24 20:02:00.706889",
+  "module": "Stock",
+  "name": "Serial No Service Contract Expiry",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Serial No",
+  "reference_report": null,
+  "report_name": "Serial No Service Contract Expiry",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Serial No Service Contract Expiry",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Item Manager"
+   },
+   {
+    "parent": "Serial No Service Contract Expiry",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Stock Manager"
+   },
+   {
+    "parent": "Serial No Service Contract Expiry",
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "Stock User"
@@ -7453,6 +8161,46 @@
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "System Manager"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2021-11-13 19:14:23.730198",
+  "module": "Accounts",
+  "name": "Gross Profit",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Sales Invoice",
+  "reference_report": null,
+  "report_name": "Gross Profit",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Gross Profit",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts Manager"
+   },
+   {
+    "parent": "Gross Profit",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Accounts User"
    }
   ]
  },
@@ -7888,14 +8636,14 @@
   "javascript": null,
   "json": null,
   "letter_head": null,
-  "modified": "2017-03-06 05:52:57.645281",
+  "modified": "2021-10-06 06:26:07.881340",
   "module": "Accounts",
   "name": "Sales Partners Commission",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
   "prepared_report": 0,
-  "query": "SELECT\n    sales_partner as \"Sales Partner:Link/Sales Partner:150\",\n\tsum(base_net_total) as \"Invoiced Amount (Exclusive Tax):Currency:210\",\n\tsum(total_commission) as \"Total Commission:Currency:150\",\n\tsum(total_commission)*100/sum(base_net_total) as \"Average Commission Rate:Currency:170\"\nFROM\n\t`tabSales Invoice`\nWHERE\n\tdocstatus = 1 and ifnull(base_net_total, 0) > 0 and ifnull(total_commission, 0) > 0\nGROUP BY\n\tsales_partner\nORDER BY\n\t\"Total Commission:Currency:120\"",
+  "query": "SELECT\n    sales_partner as \"Sales Partner:Link/Sales Partner:220\",\n\tsum(base_net_total) as \"Invoiced Amount (Excl. Tax):Currency:220\",\n\tsum(amount_eligible_for_commission) as \"Amount Eligible for Commission:Currency:220\",\n\tsum(total_commission) as \"Total Commission:Currency:170\",\n\tsum(total_commission)*100/sum(amount_eligible_for_commission) as \"Average Commission Rate:Percent:220\"\nFROM\n\t`tabSales Invoice`\nWHERE\n\tdocstatus = 1 and ifnull(base_net_total, 0) > 0 and ifnull(total_commission, 0) > 0\nGROUP BY\n\tsales_partner\nORDER BY\n\t\"Total Commission:Currency:120\"",
   "ref_doctype": "Sales Invoice",
   "reference_report": null,
   "report_name": "Sales Partners Commission",
@@ -8014,9 +8762,9 @@
   "javascript": null,
   "json": null,
   "letter_head": null,
-  "modified": "2020-06-24 17:16:13.307053",
+  "modified": "2020-06-24 17:16:40.251116",
   "module": "Education",
-  "name": "Student Monthly Attendance Sheet",
+  "name": "Absent Student Report",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
@@ -8024,7 +8772,7 @@
   "query": null,
   "ref_doctype": "Student Attendance",
   "reference_report": null,
-  "report_name": "Student Monthly Attendance Sheet",
+  "report_name": "Absent Student Report",
   "report_script": null,
   "report_type": "Script Report",
   "roles": []
@@ -8041,9 +8789,9 @@
   "javascript": null,
   "json": null,
   "letter_head": null,
-  "modified": "2020-06-24 17:16:40.251116",
+  "modified": "2020-06-24 17:16:13.307053",
   "module": "Education",
-  "name": "Absent Student Report",
+  "name": "Student Monthly Attendance Sheet",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
@@ -8051,7 +8799,7 @@
   "query": null,
   "ref_doctype": "Student Attendance",
   "reference_report": null,
-  "report_name": "Absent Student Report",
+  "report_name": "Student Monthly Attendance Sheet",
   "report_script": null,
   "report_type": "Script Report",
   "roles": []
@@ -9833,7 +10581,7 @@
   ]
  },
  {
-  "add_total_row": 0,
+  "add_total_row": 1,
   "columns": [],
   "disable_prepared_report": 0,
   "disabled": 0,
@@ -9851,7 +10599,7 @@
   "parentfield": null,
   "parenttype": null,
   "prepared_report": 0,
-  "query": "SELECT\n student as \"Student:Link/Student:200\",\n student_name as \"Student Name::200\",\n sum(grand_total) - sum(outstanding_amount) as \"Paid Amount:Currency:150\",\n sum(outstanding_amount) as \"Outstanding Amount:Currency:150\",\n sum(grand_total) as \"Grand Total:Currency:150\"\nFROM\n `tabFees` \nGROUP BY\n student",
+  "query": "SELECT\n student as \"Student:Link/Student:200\",\n student_name as \"Student Name::200\",\n sum(grand_total) - sum(outstanding_amount) as \"Paid Amount:Currency:150\",\n sum(outstanding_amount) as \"Outstanding Amount:Currency:150\",\n sum(grand_total) as \"Grand Total:Currency:150\"\nFROM\n `tabFees` \nWHERE\n docstatus=1 \nGROUP BY\n student",
   "ref_doctype": "Fees",
   "reference_report": null,
   "report_name": "Student Fee Collection",
@@ -9902,680 +10650,6 @@
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "Stock User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2021-08-19 18:57:07.468202",
-  "module": "Accounts",
-  "name": "Gross Profit",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Sales Invoice",
-  "reference_report": null,
-  "report_name": "Gross Profit",
-  "report_script": null,
-  "report_type": "Script Report",
-  "roles": [
-   {
-    "parent": "Gross Profit",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Gross Profit",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": "{\"filters\":[[\"Sales Invoice\",\"company\",\"=\",\"Ever Green\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"docstatus\",\"Sales Invoice\"],[\"title\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"company\",\"Sales Invoice\"],[\"grand_total\",\"Sales Invoice\"],[\"status\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"customer_name\",\"Sales Invoice\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"due_date\",\"Sales Invoice\"],[\"is_return\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"title\":120,\"customer\":120,\"company\":120,\"grand_total\":120,\"status\":120,\"currency\":120,\"customer_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"due_date\":120,\"is_return\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-12-14 21:04:40.940075",
-  "module": "Accounts",
-  "name": "Sales Invoice Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Sales Invoice",
-  "reference_report": null,
-  "report_name": "Sales Invoice Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Sales Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Sales Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Sales Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Employee Self Service"
-   },
-   {
-    "parent": "Sales Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Sales Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[[\"Purchase Invoice\",\"company\",\"=\",\"Ever Green\"]],\"fields\":[[\"name\",\"Purchase Invoice\"],[\"docstatus\",\"Purchase Invoice\"],[\"title\",\"Purchase Invoice\"],[\"supplier\",\"Purchase Invoice\"],[\"company\",\"Purchase Invoice\"],[\"posting_date\",\"Purchase Invoice\"],[\"grand_total\",\"Purchase Invoice\"],[\"status\",\"Purchase Invoice\"],[\"currency\",\"Purchase Invoice\"],[\"supplier_name\",\"Purchase Invoice\"],[\"base_grand_total\",\"Purchase Invoice\"],[\"outstanding_amount\",\"Purchase Invoice\"],[\"due_date\",\"Purchase Invoice\"],[\"is_return\",\"Purchase Invoice\"],[\"release_date\",\"Purchase Invoice\"],[\"on_hold\",\"Purchase Invoice\"],[\"represents_company\",\"Purchase Invoice\"],[\"is_internal_supplier\",\"Purchase Invoice\"]],\"order_by\":\"`tabPurchase Invoice`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"title\":120,\"supplier\":120,\"company\":120,\"posting_date\":120,\"grand_total\":120,\"status\":120,\"currency\":120,\"supplier_name\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"due_date\":120,\"is_return\":120,\"release_date\":120,\"on_hold\":120,\"represents_company\":120,\"is_internal_supplier\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-12-14 20:35:14.332457",
-  "module": "Accounts",
-  "name": "Purchase Invoice Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Purchase Invoice",
-  "reference_report": null,
-  "report_name": "Purchase Invoice Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Purchase Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Purchase Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Purchase User"
-   },
-   {
-    "parent": "Purchase Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Purchase Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   },
-   {
-    "parent": "Purchase Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Purchase Invoice Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[[\"Sales Invoice\",\"company\",\"=\",\"Ever Green\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"taxes_and_charges\",\"Sales Invoice\"],[\"base_total_taxes_and_charges\",\"Sales Invoice\"],[\"vehicle\",\"Sales Invoice\"],[\"no_of_trips\",\"Sales Invoice\"],[\"tax_category\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"taxes_and_charges\":120,\"base_total_taxes_and_charges\":120,\"vehicle\":120,\"no_of_trips\":120,\"tax_category\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-12-14 21:13:40.332769",
-  "module": "Accounts",
-  "name": "Tax report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Sales Invoice",
-  "reference_report": null,
-  "report_name": "Tax report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Tax report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Tax report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Tax report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Employee Self Service"
-   },
-   {
-    "parent": "Tax report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Tax report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"bata_rate\",\"Trip Details\"],[\"bata_amount\",\"Trip Details\"],[\"bata_percentage\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":false,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:driver\":120,\"Trip Details:bata_rate\":120,\"Trip Details:bata_amount\":120,\"Trip Details:bata_percentage\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-12-14 20:50:57.798809",
-  "module": "Ev Gn",
-  "name": "Driver Bata Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "Driver Bata Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Driver Bata Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "Driver Bata Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Payment Entry\"],[\"payment_type\",\"Payment Entry\"],[\"posting_date\",\"Payment Entry\"],[\"mode_of_payment\",\"Payment Entry\"],[\"party_type\",\"Payment Entry\"],[\"paid_amount\",\"Payment Entry\"],[\"outstanding_amount\",\"Payment Entry Reference\"],[\"total_amount\",\"Payment Entry Reference\"],[\"paid_from_account_currency\",\"Payment Entry\"]],\"order_by\":\"`tabPayment Entry`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"payment_type\":120,\"posting_date\":120,\"mode_of_payment\":120,\"party_type\":120,\"paid_amount\":120,\"Payment Entry Reference:outstanding_amount\":120,\"Payment Entry Reference:total_amount\":120,\"paid_from_account_currency\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-12-14 20:54:26.072085",
-  "module": "Accounts",
-  "name": "Payment Entry Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Payment Entry",
-  "reference_report": null,
-  "report_name": "Payment Entry Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Payment Entry Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Payment Entry Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Payment Entry Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"net_frc\",\"Trip Details\"],[\"frc\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:net_frc\":120,\"Trip Details:frc\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-12-14 20:56:07.025155",
-  "module": "Ev Gn",
-  "name": "Commision Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "Commision Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Commision Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "Commision Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"gst\",\"Trip Details\"],[\"gst_amount\",\"Trip Details\"],[\"gst_percentage\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"Trip Details:gst\":120,\"Trip Details:gst_amount\":120,\"Trip Details:gst_percentage\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-12-14 20:57:16.898467",
-  "module": "Ev Gn",
-  "name": "GST Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "GST Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "GST Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "GST Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"docstatus\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"total\",\"Trip Sheet\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"date\":120,\"total\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-12-15 10:56:34.499833",
-  "module": "Ev Gn",
-  "name": "Vehicle Balance Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "Vehicle Balance Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Vehicle Balance Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "Vehicle Balance Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Expense\"],[\"docstatus\",\"Expense\"],[\"vehicle\",\"Expense\"],[\"expense_type\",\"Expense\"],[\"amount\",\"Expense\"]],\"order_by\":\"`tabExpense`.`modified` desc\",\"add_totals_row\":0,\"page_length\":20,\"column_widths\":{\"name\":120,\"docstatus\":120,\"vehicle\":120,\"expense_type\":120,\"amount\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2021-12-15 10:59:54.155236",
-  "module": "Ev Gn",
-  "name": "Expense Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Expense",
-  "reference_report": null,
-  "report_name": "Expense Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Expense Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[[\"Sales Invoice\",\"customer\",\"=\",\"demo2 customer\"],[\"Sales Invoice\",\"company\",\"=\",\"Evergreen Pvt\"]],\"fields\":[[\"name\",\"Sales Invoice\"],[\"docstatus\",\"Sales Invoice\"],[\"customer\",\"Sales Invoice\"],[\"currency\",\"Sales Invoice\"],[\"posting_date\",\"Sales Invoice\"],[\"amount\",\"Sales Invoice Item\"],[\"due_date\",\"Sales Invoice\"],[\"status\",\"Sales Invoice\"],[\"due_date\",\"Payment Schedule\"],[\"base_grand_total\",\"Sales Invoice\"],[\"outstanding_amount\",\"Sales Invoice\"],[\"party_account_currency\",\"Sales Invoice\"]],\"order_by\":\"`tabSales Invoice`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"customer\":120,\"currency\":120,\"posting_date\":120,\"Sales Invoice Item:amount\":120,\"due_date\":120,\"status\":120,\"Payment Schedule:due_date\":120,\"base_grand_total\":120,\"outstanding_amount\":120,\"party_account_currency\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2022-01-11 19:40:14.968663",
-  "module": "Accounts",
-  "name": "Receivables Summary",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Sales Invoice",
-  "reference_report": null,
-  "report_name": "Receivables Summary",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "Receivables Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Receivables Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Receivables Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Employee Self Service"
-   },
-   {
-    "parent": "Receivables Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Receivables Summary",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": "{\"filters\":[],\"fields\":[[\"name\",\"Trip Sheet\"],[\"vehicle\",\"Trip Sheet\"],[\"date\",\"Trip Sheet\"],[\"total\",\"Trip Sheet\"],[\"driver\",\"Trip Details\"],[\"frc\",\"Trip Details\"],[\"net_frc\",\"Trip Details\"]],\"order_by\":\"`tabTrip Sheet`.`modified` desc\",\"add_totals_row\":true,\"page_length\":20,\"column_widths\":{\"name\":120,\"vehicle\":120,\"date\":120,\"total\":120,\"Trip Details:driver\":120,\"Trip Details:frc\":120,\"Trip Details:net_frc\":120},\"group_by\":null}",
-  "letter_head": null,
-  "modified": "2022-01-12 22:24:58.483133",
-  "module": "Ev Gn",
-  "name": "FRC Report",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": null,
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "FRC Report",
-  "report_script": null,
-  "report_type": "Report Builder",
-  "roles": [
-   {
-    "parent": "FRC Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "FRC Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "FRC Report",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2022-01-20 11:16:15.838563",
-  "module": "Accounts",
-  "name": "Vehicle Expense Report (using purchase)",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": "Select    `tabPurchase Invoice`.total\nfrom `tabVehicle`\ninner join `tabPurchase Invoice` on  `tabVehicle`.license_plate = `tabPurchase Invoice`.vehicle \nwhere `tabPurchase Invoice`.is_vehicle_purchase = 1\n\n",
-  "ref_doctype": "Vehicle",
-  "reference_report": "",
-  "report_name": "Vehicle Expense Report (using purchase)",
-  "report_script": null,
-  "report_type": "Query Report",
-  "roles": [
-   {
-    "parent": "Vehicle Expense Report (using purchase)",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts User"
-   },
-   {
-    "parent": "Vehicle Expense Report (using purchase)",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Purchase User"
-   },
-   {
-    "parent": "Vehicle Expense Report (using purchase)",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Accounts Manager"
-   },
-   {
-    "parent": "Vehicle Expense Report (using purchase)",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Auditor"
-   },
-   {
-    "parent": "Vehicle Expense Report (using purchase)",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Vehicle Expense Report (using purchase)",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
-  "is_standard": "No",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2022-01-20 14:07:43.250846",
-  "module": "Ev Gn",
-  "name": "Vehicle Balance Report3",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": "SELECT \n    `tabTrip Details`.total AS \"Vehicle Rent\", `tabPurchase Invoice`.supplier, \n    SUM(`tabTrip Details`.net_total) AS \"Net Total\",\n    `tabTrip Details`.bata_amount AS \"Bata Amount\",\n    MONTHNAME(`tabTrip Sheet`.date) AS \"Month in tripsheet\", \n    YEAR(`tabTrip Sheet`.date) AS \"Year In Trip Sheet\" ,\n    SUM(`tabPurchase Invoice`.outstanding_amount) , `tabPurchase Invoice`.vehicle\nFROM \n    `tabTrip Sheet`\nINNER JOIN \n    `tabTrip Details` ON `tabTrip Sheet`.name = `tabTrip Details`.parent\nINNER JOIN\n    `tabPurchase Invoice` ON `tabPurchase Invoice`.vehicle = `tabTrip Sheet`.vehicle  \n where\n    `tabPurchase Invoice`.is_vehicle_purchase =1\n    group by `tabPurchase Invoice`.supplier\n    \n\n  \n\n\n\n",
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "Vehicle Balance Report3",
-  "report_script": null,
-  "report_type": "Query Report",
-  "roles": [
-   {
-    "parent": "Vehicle Balance Report3",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "Vehicle Balance Report3",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Vehicle Balance Report3",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
    }
   ]
  }
