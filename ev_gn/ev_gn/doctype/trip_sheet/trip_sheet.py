@@ -60,26 +60,41 @@ def create_sales_invoice(self, data, gst_template):
 			"amount":data.trip * data.customer_amount,
 			})
 		sales_invoice.save()
+		for tax_data in sales_invoice.taxes:
+			if tax_data.account_head == "CGST - EJ":
+				cgst_amount = tax_data.tax_amount
+				cgst_rate = tax_data.rate
+				cgst_total = tax_data.total
+			if tax_data.account_head == "SGST - EJ":
+				sgst_amount = tax_data.tax_amount
+				sgst_rate = tax_data.rate
+				sgst_total = tax_data.total	
+			
 		delivery_challan = frappe.get_doc({
 		"doctype":"Delivery Challan",
+		"challan_date":sales_invoice.posting_date,
 		"customer":data.customer,
 		"tax_invoice_number":data.invoice_no,
 		"vehicle_number":self.vehicle,
 		"site":data.customer_site,
 		"total_amount":sales_invoice.base_total,
 		"total_tax":sales_invoice.base_total_taxes_and_charges,
-		"total_value":sales_invoice.base_grand_total,
+		"total_value":sales_invoice.base_rounded_total,
 		"sales_taxes_and_charges": [{
 				"charge_type": charge_type,
 				"account_head": account_head,
 				"description": description,
-				"rate": rate
+				"rate": rate,
+				"tax_amount":cgst_amount,
+				"total":cgst_total
 				},
 				{
 				"charge_type": charge_type_2,
 				"account_head": account_head_2,
 				"description": description_2,
-				"rate": rate_2
+				"rate": rate_2,
+				"tax_amount":sgst_amount,
+				"total":sgst_total
 				}],
 		"delivery_challan_item":[{
 			"item":data.item,
@@ -88,6 +103,8 @@ def create_sales_invoice(self, data, gst_template):
 			"taxable_value":data.trip * data.customer_amount,
 			}]		
 		})
+		delivery_challan.save()
+		
 		# delivery_challan.append("items_1",{
 		# 	"item_code":data.item,
 		# 	"qty": data.trip * data.customer_quantity,
