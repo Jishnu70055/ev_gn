@@ -6,22 +6,15 @@ import frappe
 from frappe.model.document import Document
 
 
-# def create_delivery_challan(sales_invoice_name):
-# 	sales_invoice_data = frappe.get_doc("Sales Invoice",sales_invoice_name)
-# 	delivery_challan = frappe.get_doc({
-# 		"doctype":"Delivery Challan"
-# 	})
-
-
 				
 def create_sales_invoice(self, data, gst_template):
-	if gst_template == 'GST 5% - EJ':
+	if gst_template == 'GST 5% - ET':
 		charge_type = "On Net Total"
-		account_head = "CGST - EJ"
+		account_head = "CGST - ET"
 		description = "CGST"
 		rate = 2.5
 		charge_type_2 = "On Net Total"
-		account_head_2 = "SGST - EJ"
+		account_head_2 = "SGST - ET"
 		description_2 = "SGST"
 		rate_2 = 2.5
 		sales_invoice = frappe.get_doc({
@@ -33,7 +26,7 @@ def create_sales_invoice(self, data, gst_template):
 			"no_of_trips": data.trip,
 			"vehicle_number": self.vehicle,
 			"vehicle": self.vehicle,
-			"cost_center": "Vehicle - EJ",
+			"cost_center": "Vehicle - ET",
 			"trip_id": self.name,
 			"taxes_and_charges": gst_template,
 			"bill_of_lading":data.bill_of_lading,
@@ -61,11 +54,11 @@ def create_sales_invoice(self, data, gst_template):
 			})
 		sales_invoice.save()
 		for tax_data in sales_invoice.taxes:
-			if tax_data.account_head == "CGST - EJ":
+			if tax_data.account_head == "CGST - ET":
 				cgst_amount = tax_data.tax_amount
 				cgst_rate = tax_data.rate
 				cgst_total = tax_data.total
-			if tax_data.account_head == "SGST - EJ":
+			if tax_data.account_head == "SGST - ET":
 				sgst_amount = tax_data.tax_amount
 				sgst_rate = tax_data.rate
 				sgst_total = tax_data.total	
@@ -142,7 +135,7 @@ def create_sales_invoice(self, data, gst_template):
 			"no_of_trips": data.trip,
 			"vehicle_number": self.vehicle,
 			"vehicle": self.vehicle,
-			"cost_center": "Vehicle - EJ",
+			"cost_center": "Vehicle - ET",
 			"trip_id": self.name,
 			})
 		sales_invoice.append("items",{
@@ -166,7 +159,7 @@ def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, 
 		"total": trip * amount,
 		"no_of_trips": trip,
 		"vehicle": vehicle,
-		"cost_center": "Vehicle - EJ",
+		"cost_center": "Vehicle - ET",
 		"paid_amount": trip * amount,
 		"trip_id": name
 		})
@@ -186,11 +179,11 @@ def create_payment_entry(self, data, sales_invoice, amount, mode):
 		"mode_of_payment": mode,
 		"party_type": "Customer",
 		"party": data.customer,
-		"paid_to": "Cash - EJ",
+		"paid_to": "Cash - ET",
 		"paid_amount": amount,
 		"received_amount": amount,
 		"vehicle": self.vehicle,
-		"cost_center": "Vehicle - EJ"
+		"cost_center": "Vehicle - ET"
 	})
 
 	payment_entry.append("references",{
@@ -209,16 +202,16 @@ def create_expense(data, self):
 			'posting_date': self.date,
 			"accounts":[
 			{
-				"account": "Cash - EJ",
+				"account": "Cash - ET",
 				"credit_in_account_currency": bata_amount,
 				"vehicle": self.vehicle,
-				"cost_center": "Vehicle - EJ"
+				"cost_center": "Vehicle - ET"
 			},
 			{
-				"account": "Driver Bata - EJ",
+				"account": "Driver Bata - ET",
 				"debit_in_account_currency": bata_amount,
 				"vehicle": self.vehicle,
-				"cost_center": "Vehicle - EJ"
+				"cost_center": "Vehicle - ET"
 			}
 		]
 		})
@@ -235,18 +228,18 @@ def calculate_net_balance(self, data):
 			'posting_date': self.date,
 			"accounts":[
 			{
-				"account": "Cost of Vehicle Rent - EJ",
+				"account": "Cost of Vehicle Rent - ET",
 				"debit_in_account_currency": share_amount,
 				"vehicle": self.vehicle,
-				"cost_center": "Vehicle - EJ"
+				"cost_center": "Vehicle - ET"
 			},
 			{
-				"account": "Vehicle Owners - EJ",
+				"account": "Vehicle Owners - ET",
 				"party_type": "Supplier",
 				"party": row.share_holder,
 				"credit_in_account_currency": share_amount,
 				"vehicle": self.vehicle,
-				"cost_center": "Vehicle - EJ"
+				"cost_center": "Vehicle - ET"
 			}
 		]
 		})
@@ -269,7 +262,7 @@ class TripSheet(Document):
 	def before_submit(self):
 		for data in self.trip_details:	
 			if data.gst_percentage == 5:
-				gst_template = "GST 5% - EJ"
+				gst_template = "GST 5% - ET"
 				sales_invoice = create_sales_invoice(self, data, gst_template)
 			else:
 				gst_template = None
