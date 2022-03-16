@@ -312,8 +312,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         if ($('#myTable').DataTable().cell(this).index().column == item_) {
 
 
-                                            let value = frappe.db.get_value('Item', 'ol-6767', 'stock_uom')
-                                            console.log("High end value", value)
+                                            // let value = frappe.db.get_value('Item', 'ol-6767', 'stock_uom')
+                                            // console.log("High end value", value)
 
                                             q = query + "%"
                                             frappe.call({
@@ -1025,8 +1025,12 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                 })
             )
     });
-
-    // Autoselect Data
+    $('#homePage').on('click', function() {
+            // console.log('homePage button clicked', window.location.hostname);
+            window.location = `${window.location.origin}/app`
+                // window.location.reload()
+        })
+        // Autoselect Data
 
 
     // Creating drop down list funtion
@@ -1185,7 +1189,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                         console.log("flag value is", flag)
                     ) :
                     (
-                        j == driver_ || j == item_ || j == uom_ ||
+                        j == driver_ || j == item_ || j == uom_ || j == sales__person ||
                         j == supplier_rate || j == supplier_qty || j == supplier_amt || j == supplier__site ||
                         j == coustomer_ || j == coustomer__site || j == coustomer__amt ||
                         j == coustomer__qty || j == coustomer__rate || j == coustomer__rate__type ||
