@@ -1215,7 +1215,6 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                 $(`#myTable tr:nth-child(${i}) td:nth-child(${j})`).removeClass('border border-danger bg-light')
             }
         }
-
         validation_array.length >= 1 ?
             (
                 validation_array.map(x => {
