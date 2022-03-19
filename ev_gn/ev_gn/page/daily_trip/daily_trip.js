@@ -26,6 +26,15 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
 
         // Decalre required variables
+        let myList = ''
+        let count = 0
+        let liSelected = ''
+        let a = ''
+
+        var ul = document.querySelector('ul');
+        var nodes = document.querySelectorAll('li');
+        var selected = 0;
+
         let validtion_point = false // 
         let validation_int_array = [] //array
         let current_date //set date 
@@ -168,11 +177,11 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         });
                                         //creating new row on entering press inside the table
                                         $("#myTable").keypress(function(event) {
-                                            if (event.keyCode === 13) {
-                                                row_add()
-                                                $("#body").find("td.active").show().focus();
+                                            // if (event.keyCode === 13) {
+                                            //     row_add()
+                                            //     $("#body").find("td.active").show().focus();
 
-                                            }
+                                            // }
                                             if (event.keyCode === 9) {
                                                 row_add()
                                                 $("#body").find("td.active").next().show().focus();
@@ -239,11 +248,11 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                             e.target.classList.add('active');
                                         })
 
-                                        $("#body").find("tbody").on(' keypress paste input ', '[contenteditable]', 'td', function(e) {
+                                        $("#body").find("tbody").on(' keypress paste input focus', '[contenteditable]', 'td', function(e) {
                                             totalrow = $('#myTable').DataTable().cell(this).index().row //find totalrow in table
-                                                //Get value of TD  
-
-                                            var query = e.target.innerHTML
+                                                //Get value of TD
+                                            e.target.innerHTML ? console.log('value found') : console.log('value not found')
+                                            var query = e.target.innerHTML ? e.target.innerHTML : "%" + e.target.innerHTML
                                                 //console.log(this.innerHTML)
                                             var pos = this.getBoundingClientRect();
                                             var layout_pos = document.querySelector(".layout-main").getBoundingClientRect()
@@ -266,15 +275,13 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                             if (e.which == 27) {
                                                 $(".suggestions").addClass("d-none")
                                             }
-                                            if (e.which == 38) {
-                                                console.log("keyup pressed")
-                                            }
 
-
-
-                                            if (e.which == 40) {
-                                                console.log("keydown pressed")
-                                            }
+                                            // if (e.which == 38) {
+                                            //     console.log("keyup pressed")
+                                            // }
+                                            // if (e.which == 40) {
+                                            //     console.log("keydown pressed")
+                                            // }
 
                                             //api fetch for suggestion part start
                                             if ($('#myTable').DataTable().cell(this).index().column == driver_) { //fetch data customer api 
@@ -296,16 +303,17 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         ]
                                                     },
                                                     callback: (e) => {
-                                                        let s_driver = array_alpha(e.message, 'name')
                                                         $('.suggestions li').remove();
-                                                        s_driver.map((x) => {
+                                                        array_alpha(e.message, 'name')
+                                                            // let s_driver = array_alpha(e.message, 'name')
+                                                            // s_driver.map((x) => {
 
 
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary pe-auto hover pe-auto nav-link list-group-item-action">${x}</li>`); //add value to suggestion part
+                                                        //     $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary pe-auto hover pe-auto nav-link list-group-item-action">${x}</li>`); //add value to suggestion part
 
 
-                                                        })
-                                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover pe-auto nav-link list-group-item-action select list-group-item ">Close</li>`); //close btn value selected
+                                                        // })
+                                                        // $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover pe-auto nav-link list-group-item-action select list-group-item ">Close</li>`); //close btn value selected
                                                     }
                                                 })
                                             }
@@ -328,14 +336,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     },
                                                     callback: (e) => {
                                                         // r = e.message
-                                                        let s_item = array_alpha(e.message, 'item_code')
-                                                        $('.suggestions li').remove();
-                                                        s_item.map((x) => {
-                                                            // console.log("current value are", x.item_code)
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
-
-                                                        })
-                                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
+                                                        array_alpha(e.message, 'item_code')
                                                     }
                                                 })
                                             }
@@ -353,12 +354,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         ]
                                                     },
                                                     callback: (e) => {
-                                                        let s_supplier_uom = array_alpha(e.message, 'uom_name')
-                                                        $('.suggestions li').remove();
-                                                        s_supplier_uom.map((x) => {
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
-                                                        })
-                                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
+                                                        array_alpha(e.message, 'uom_name')
                                                     }
                                                 })
                                             }
@@ -375,12 +371,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         ]
                                                     },
                                                     callback: (e) => {
-                                                        let s_sales_person = array_alpha(e.message, 'sales_person_name')
-                                                        $('.suggestions li').remove();
-                                                        s_sales_person.map((x) => {
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
-                                                        })
-                                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
+                                                        array_alpha(e.message, 'sales_person_name')
                                                     }
                                                 })
                                             }
@@ -398,14 +389,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     },
 
                                                     callback: (e) => {
-                                                        let s_supplier = array_alpha(e.message, 'supplier_name')
-                                                            // r = e.message
-                                                        $('.suggestions li').remove();
-                                                        s_supplier.map((x) => {
-                                                            // console.log("current value are", x.supplier_name)
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
-                                                        })
-                                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
+                                                        array_alpha(e.message, 'supplier_name')
                                                     }
                                                 })
                                             }
@@ -418,20 +402,11 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     .then(doc => {
                                                         let items = doc.supplier_site_list
                                                         console.log('items in the doc are', items)
-                                                        let s_supplier_site = array_alpha(doc.supplier_site_list, 'site')
-                                                        $('.suggestions li').remove();
-                                                        s_supplier_site.map((x) => {
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
-                                                        })
-                                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
-                                                        // }
+                                                        array_alpha(doc.supplier_site_list, 'site')
                                                     })
 
                                             }
                                             if ($('#myTable').DataTable().cell(this).index().column == supplier_partner) {
-                                                // cars.map((x) => {
-                                                //     $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`);
-                                                // })
 
                                                 q = "%" + query + "%"
                                                 frappe.call({
@@ -445,12 +420,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         ]
                                                     },
                                                     callback: (e) => {
-                                                        let s_supplier_partner = array_alpha(e.message, 'supplier_name')
-                                                        $('.suggestions li').remove();
-                                                        s_supplier_partner.map((x) => {
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
-                                                        })
-                                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
+                                                        array_alpha(e.message, 'supplier_name')
                                                     }
                                                 })
 
@@ -468,13 +438,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         ]
                                                     },
                                                     callback: (e) => {
-                                                        let s_coustomer = array_alpha(e.message, 'customer_name')
-                                                        $('.suggestions li').remove();
-                                                        s_coustomer.map((x) => {
-                                                            // console.log("current value are", x.customer_name)
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
-                                                        })
-                                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
+                                                        array_alpha(e.message, 'customer_name')
                                                     }
                                                 })
 
@@ -486,13 +450,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                 frappe.db.get_doc('Customer', table.cell({ row: r, column: coustomer_ }).data())
                                                     .then(doc => {
                                                         let items = doc.site_list
-                                                        let s_coustomer = array_alpha(doc.site_list, 'site')
-                                                        $('.suggestions li').remove();
-                                                        s_coustomer.map((x) => {
-                                                            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
-                                                        })
-                                                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
-                                                        // }
+                                                        array_alpha(doc.site_list, 'site')
                                                     })
                                             }
                                             if ($('#myTable').DataTable().cell(this).index().column == coustomer__rate__type) {
@@ -508,17 +466,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                 })
                                                 $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
                                             }
-
-                                            // if ($('#myTable').DataTable().cell(this).index().column == payment__method) {
-                                            //     payment_method.map((x) => {
-                                            //         $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`);
-                                            //     })
-                                            //     $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`); //close btn value selected
-
-                                            // }
                                             //api fetch for suggestion part end
-
-
 
                                         });
                                         //hide suggestion area 
@@ -527,30 +475,171 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         })
 
                                         // //CODE ADDING STACKOVERFLOW
-                                        // //check suggestion dropdown arrow key function working --start
-                                        // $("#body").find("tbody").on(' keyup keydown', '[contenteditable]', '#myTable', function (e) {
-                                        //     // var objCurrentLi, obj = $('.suggestions').find('.suggestions li'), objUl = $('.suggestions ul'), code = (e.keyCode ? e.keyCode : e.which);
-                                        //     // console.log('length if suggestion', obj)
-                                        //     // if (e.which == 40) {  //Up Arrow
-                                        //     //     console.log("suggestion arrow up working properley")
-                                        //     //     if ((obj.length === 0) || (objUl.find('.suggestions li:last').hasClass('bg-info') === true)) {
-                                        //     //         objCurrentLi = objUl.find('.suggestions li:first').addClass('bg-info');
-                                        //     //     }
-                                        //     //     else {
-                                        //     //         objCurrentLi = obj.next().addClass('bg-info');
-                                        //     //     }
-                                        //     //     obj.removeClass('bg-info');
-                                        //     // }
-                                        //     // else if (e.which == 38) {  //Down Arrow
-                                        //     //     console.log("suggestion arrow down working properley")
-                                        //     //     if ((obj.length === 0) || (objUl.find('.suggestions li:first').hasClass('bg-info') === true)) {
-                                        //     //         objCurrentLi = objUl.find('.suggestions li:last').addClass('bg-info');
-                                        //     //     }
-                                        //     //     else {
-                                        //     //         objCurrentLi = obj.prev().addClass('bg-info');
-                                        //     //     }
-                                        //     //     obj.removeClass('bg-info');
-                                        //     // }
+                                        $("#body").find("tbody").on('keydown', '[contenteditable]', '#myTable', function(e) {
+                                                console.log('keypressed')
+                                                if (e.which != 40 && e.which != 38 && e.which != 13) {
+                                                    myList = document.getElementById('suggestion_list');
+                                                    count = 0
+                                                    liSelected = document.querySelectorAll('#suggestion_list li')
+                                                    a = myList.firstElementChild
+                                                        // console.log('class list', myList)
+                                                        // a.classList.add("bg-selection");
+
+
+
+                                                }
+
+                                                if (e.which == 39) {
+                                                    myList = document.getElementById('suggestion_list');
+                                                    count = 0
+                                                    liSelected = document.querySelectorAll('#suggestion_list li')
+                                                    a = myList.firstElementChild
+                                                    a.classList.add("bg-selection");
+
+                                                }
+                                                if (e.which == 13) {
+                                                    var cell = $('#myTable').DataTable().cell("td.active")
+                                                    a ?
+                                                        a.innerHTML == "Close" ?
+                                                        cell.data('').draw() :
+                                                        cell.index().column == driver_ || cell.index().column == supplier_ || cell.index().column == supplier__site || cell.index().column == supplier_partner || cell.index().column == supplier_uom || cell.index().column == sales__person || cell.index().column == coustomer_ || cell.index().column == coustomer__site || cell.index().column == item_ || cell.index().column == uom_ || cell.index().column == coustomer__rate__type || cell.index().column == gst_p_ ?
+                                                        cell.data(a.innerHTML).draw() :
+                                                        '' :
+                                                        ''
+                                                    a = ''
+                                                    console.log('value entered in coloumn', e.target.innerHTML)
+                                                    $(".suggestions").addClass("d-none")
+                                                    $("#body").find("td.active").next().show().focus();
+
+                                                    if (e.target.innerHTML == "Close") {
+                                                        $(".suggestions").addClass("d-none")
+                                                    } else {
+                                                        // cell.data(e.target.innerText).draw()
+                                                        // cell.data('').draw()
+                                                        // $("#body").find("td.active").next().show().focus();
+                                                        let r = cell.index().row
+                                                        console.log("cell index column", cell.index().column)
+                                                        if (cell.index().column == sales__person || cell.index().column == item_) {
+                                                            console.log('sales__person and item are found')
+                                                            cell.index().column == sales__person ?
+                                                                $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${supplier_partner + 1})`).show().focus() :
+                                                                ''
+                                                            cell.index().column == item_ ? default_value(cell.index().row, cell.index().column, e.target.innerHTML) : ""
+                                                        } else {
+                                                            console.log('another show buton')
+                                                            $("#body").find("td.active").next().show().focus();
+                                                        }
+                                                        if (cell.index().column == bata__percentage || cell.index().column == bata__rate) {
+                                                            rows = [];
+                                                            counts = 0
+
+                                                            //Array for adding row
+                                                            for (i = 1; i <= col_count; i++) {
+                                                                rows.push("");
+
+                                                            }
+
+                                                            table.row.add(rows).draw(true);
+                                                            $("#body").find("td.active").next().show().focus();
+                                                        }
+                                                    }
+
+                                                }
+                                                if (e.which == 38) {
+                                                    console.log("up buttoon pressed")
+                                                    console.log('length of mylist', liSelected.length, 'count', count + 1)
+                                                    if (count + 1 <= liSelected.length + 1 && count > 1) {
+                                                        a = a.previousElementSibling
+                                                        a.classList.add("bg-selection");
+                                                        a.nextElementSibling.classList.remove("bg-selection")
+                                                        console.log("if condition true company kary ", a)
+                                                        count = count - 1;
+                                                        console.log('count value', count)
+
+                                                    } else if (count == 0) {
+                                                        console.log("company kary", a)
+                                                        console.log('count value is ', count)
+                                                            // a=a.previousElementSibling
+                                                            // count=count+1;
+
+                                                    }
+                                                    // if (count <= 4) {
+                                                    //     // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
+                                                    //     // a.focus();
+                                                    //     console.log('hai bro now count is four');
+                                                    //     var li = $('#suggestion_list > li');
+                                                    //     console.log('suggestion ul li', li)
+                                                    //     a.classList.add("scrolltome");
+                                                    //     li.eq(1).addClass('btwin');
+                                                    //     $('ul').animate({ scrollBottom: $('.btwin').offset().bottom }, "slow");
+                                                    // }
+
+                                                }
+                                                if (e.which == 40) {
+                                                    console.log("down buttoon pressed COUNT value", count)
+
+
+                                                    console.log('length of mylist', liSelected.length, 'count', count + 1)
+                                                    if (count + 1 <= liSelected.length && count > 0) {
+                                                        console.log('if condition true and value of a', a)
+                                                        a = a.nextElementSibling
+                                                        a.classList.add("bg-selection");
+                                                        a.previousElementSibling.classList.remove("bg-selection")
+                                                        console.log("if condition true company kary", a)
+                                                        count = count + 1;
+
+                                                    } else if (count == 0) {
+                                                        a = myList.firstElementChild
+                                                        console.log("company kary", a)
+                                                        a.classList.add("bg-selection");
+                                                        myList = document.getElementById('suggestion_list');
+                                                        liSelected = document.querySelectorAll('#suggestion_list li')
+
+                                                        // a=a.nextElementSibling
+                                                        count = count + 1;
+
+                                                    } else {
+                                                        console.log("yeah ", a)
+                                                    }
+
+                                                    if (count >= 7) {
+                                                        // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
+                                                        // a.focus();
+                                                        console.log('hai bro now count is four');
+                                                        var li = $('#suggestion_list > li');
+                                                        console.log('suggestion ul li', li)
+                                                        a.classList.add("scrolltome");
+                                                        li.eq(1).addClass('btwin');
+                                                        $('ul').animate({ scrollTop: $('.btwin').offset().top }, "slow");
+                                                    }
+
+
+                                                }
+                                            })
+                                            // //check suggestion dropdown arrow key function working --start
+                                            // $("#body").find("tbody").on(' keyup keydown', '[contenteditable]', '#myTable', function (e) {
+                                            //     // var objCurrentLi, obj = $('.suggestions').find('.suggestions li'), objUl = $('.suggestions ul'), code = (e.keyCode ? e.keyCode : e.which);
+                                            //     // console.log('length if suggestion', obj)
+                                            //     // if (e.which == 40) {  //Up Arrow
+                                            //     //     console.log("suggestion arrow up working properley")
+                                            //     //     if ((obj.length === 0) || (objUl.find('.suggestions li:last').hasClass('bg-selection') === true)) {
+                                            //     //         objCurrentLi = objUl.find('.suggestions li:first').addClass('bg-selection');
+                                            //     //     }
+                                            //     //     else {
+                                            //     //         objCurrentLi = obj.next().addClass('bg-selection');
+                                            //     //     }
+                                            //     //     obj.removeClass('bg-selection');
+                                            //     // }
+                                            //     // else if (e.which == 38) {  //Down Arrow
+                                            //     //     console.log("suggestion arrow down working properley")
+                                            //     //     if ((obj.length === 0) || (objUl.find('.suggestions li:first').hasClass('bg-selection') === true)) {
+                                            //     //         objCurrentLi = objUl.find('.suggestions li:last').addClass('bg-selection');
+                                            //     //     }
+                                            //     //     else {
+                                            //     //         objCurrentLi = obj.prev().addClass('bg-selection');
+                                            //     //     }
+                                            //     //     obj.removeClass('bg-selection');
+                                            //     // }
 
                                         //     var li = $('.suggestions > li');
                                         //     var liSelected = $('.suggestions li');
@@ -582,7 +671,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         //                 liSelected.removeClass('bg-light');
                                         //                 next = liSelected.prev();
                                         //                 if (next.length > 0) {
-                                        //                     liSelected = next.addClass('bg-info');
+                                        //                     liSelected = next.addClass('bg-selection');
                                         //                     selected = next.text();
 
                                         //                 } else {
@@ -626,8 +715,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                             else if ($(e.target).is('li')) {
                                                 $(".suggestions").addClass("d-none")
                                                     // $("td.active").html(e.target.innerText)
-
-
+                                                console.log('heelp please mister', $('#myTable').DataTable().cell("td.active"))
                                                 var cell = $('#myTable').DataTable().cell("td.active")
                                                 cell.data(e.target.innerText).draw()
                                                 $("#body").find("td.active").next().show().focus();
@@ -639,18 +727,6 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     // cell.index().column == coustomer_ ? default_customerlist(cell.index().row, cell.index().column, e.target.innerHTML) : ""
 
 
-
-                                                // // gst claculation done while select 5% --start
-                                                // let r = cell.index().row
-                                                // let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
-                                                // let gst_calc = parseFloat(customer_amount * .05).toFixed(2)
-                                                // console.log("gst claac", gst_calc)
-                                                // e.target.innerText == 5 ?
-                                                //     (table.cell({ row: r, column: gst_amount }).data(gst_calc))
-                                                //     :
-                                                //     (table.cell({ row: r, column: gst_amount }).data(1))
-                                                // // gst claculation done while select 5% --end
-                                                //
                                             }
 
 
@@ -672,14 +748,36 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                 cell.index().column == frc_ || cell.index().column == no__of__tips
 
                                             ) {
-                                                check_integer() ? cell_border_error_remove(row, cell.index().column) :
-                                                    ($('#alertdata').empty(),
-                                                        $('#alertdata').append("Please Enter a valid Number"),
-                                                        $("#alert_card").fadeIn(),
-                                                        validtion_point = true,
-                                                        closeSnoAlertBox(),
-                                                        cell_border_error(row, cell.index().column))
+                                                if (cell.index().column == partner__rate) {
+                                                    let r = cell.index().row
+                                                    table.cell({ row: r, column: supplier_partner }).data() ?
+                                                        console.log("supplier partner data found", table.cell({ row: r, column: supplier_partner }).data()) :
+                                                        console.log('supplier partner data not found')
 
+
+                                                    table.cell({ row: r, column: supplier_partner }).data() ?
+                                                        (
+                                                            check_integer() ? cell_border_error_remove(row, cell.index().column) :
+                                                            ($('#alertdata').empty(),
+                                                                $('#alertdata').append("Please Enter a valid Number"),
+                                                                $("#alert_card").fadeIn(),
+                                                                validtion_point = true,
+                                                                closeSnoAlertBox(),
+                                                                cell_border_error(row, cell.index().column))
+                                                        ) :
+                                                        console.log('supplier partner data not found')
+
+
+
+                                                } else {
+                                                    check_integer() ? cell_border_error_remove(row, cell.index().column) :
+                                                        ($('#alertdata').empty(),
+                                                            $('#alertdata').append("Please Enter a valid Number"),
+                                                            $("#alert_card").fadeIn(),
+                                                            validtion_point = true,
+                                                            closeSnoAlertBox(),
+                                                            cell_border_error(row, cell.index().column))
+                                                }
                                             }
                                             if (cell.index().column == gst_p_) {
                                                 table.cell({ row: row, column: gst_p_ }).data() == "5" || table.cell({ row: row, column: gst_p_ }).data() == "0" ?
@@ -705,17 +803,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         console.log('changes added in conteneditable false,now its done')
                                                     )
                                             }
-                                            // if(cell.index().column == bata__rate || cell.index().column == bata__amount){
-                                            //     table.cell({ row: row, column: bata__rate }).data()=="" || table.cell({ row: row, column: bata__percentage }).data()==""?"":(
-                                            //         check_integer() ? cell_border_error_remove(row, cell.index().column) :
-                                            //         ($('#alertdata').empty(),
-                                            //             $('#alertdata').append("Please Enter a valid Number"),
-                                            //             $("#alert_card").fadeIn(),
-                                            //             validtion_point=true,
-                                            //             closeSnoAlertBox(),
-                                            //             cell_border_error(row, cell.index().column))
-                                            //     )
-                                            // }
+
                                             if (cell.index().column == supplier_qty) {
                                                 value_a = table.cell({ row: row, column: supplier_qty }).data()
                                                 table.cell({ row: row, column: partner__qty }).data(parseInt(value_a)) //add calculation 
@@ -1025,7 +1113,9 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         });
         $('#homePage').on('click', function() {
                 // console.log('homePage button clicked', window.location.hostname);
-                window.location = `${window.location.origin}/app`
+                window.history.pushState({}, '', `${window.location.origin}/app`)
+                window.location.reload()
+                    // window.location = `${window.location.origin}/app`
                     // window.location.reload()
             })
             // Autoselect Data
@@ -1047,24 +1137,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
             selected_vehicle = this.value
             console.log('selected vehicle', selected_vehicle)
             default_driver()
-                // frappe.db.get_value('Vehicle', selected_vehicle, ['driver_bata', 'vehicle_owner'])
-                //     .then(r => {
-
-            //         console.log("vehicle with driver ", r.message.vehicle_ownner);
-            //         r.message.vehicle_ownner ?
-            //             (console.log('pass'),
-            //                 table.cell({ column: driver_ }).data(r.message.vehicle_ownner),
-            //                 table.cell({ column: bata__percentage }).data(r.message.driver_bata))
-            //             :
-            //             (
-            //                 console.log('fail'),
-            //                 table.cell({ row: 0, column: bata__percentage }).data(r.message.driver_bata)
-            //             )
-
-            //         // table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add calculation 
-            //     })
-            //     .catch(e => console.log("error", e))
         });
+
         // });
         $('#date').on('change', function() {
             var date = new Date($('#date').val());
@@ -1102,6 +1176,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
             }
         });
 
+        // <-- dependency function are begin -->   
         function muliple_calutlation(row, column_a, column_b, calc) { // multiplication calucultation
 
             value_a = table.cell({ row: row, column: column_a }).data() ? parseInt(table.cell({ row: row, column: column_a }).data()) : 0; //column_A is rate  
@@ -1127,6 +1202,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                     console.log("Item date and stock_uom", r.message.stock_uom);
                     table.cell({ row: row, column: uom_ }).data(r.message.stock_uom); //add default value in uom 
+                    $(`#myTable tr:nth-child(${row + 1}) td:nth-child(${uom_ + 1})`).show().focus()
                 })
                 .catch(e => console.log("error", e))
         }
@@ -1143,16 +1219,17 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
             //     .catch(e => console.log("error", e))
             frappe.db.get_doc('Customer', value)
                 .then(doc => {
-                    let s_coustomer = array_alpha(doc.doc.site_list, 'site')
+                    // let s_coustomer =
+                    array_alpha(doc.doc.site_list, 'site')
 
-                    let items = doc.site_list
-                    console.log('items in the doc are', items)
-                    $('.suggestions li').remove();
-                    s_coustomer.map((x) => {
-                        // console.log("current value are", x.site_name)
-                        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
-                    })
-                    $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`);
+                    // let items = doc.site_list
+                    // console.log('items in the doc are', items)
+                    // $('.suggestions li').remove();
+                    // s_coustomer.map((x) => {
+                    //     // console.log("current value are", x.site_name)
+                    //     $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary hover  list-group-item list-group-item-action">${x}</li>`); //add value to suggestion part
+                    // })
+                    // $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover ">Close</li>`);
 
                 })
         }
@@ -1250,7 +1327,56 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
             value.filter(m => {
                         array_space = [...array_space, `${m[`${attr}`].toLowerCase()}`]
         })
+        $('.suggestions li').remove();
         array_space = array_space.sort()
-        return array_space
+        $('.suggestions li').remove();
+        array_space.map((x) => {
+            $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary pe-auto hover pe-auto nav-link list-group-item-action">${x}</li>`); //add value to suggestion part
+        })
+        $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover pe-auto nav-link list-group-item-action select list-group-item ">Close</li>`); //close btn value selected
+        myList = document.getElementById('suggestion_list');
+        count = 0
+        liSelected = document.querySelectorAll('#suggestion_list li')
+        // a = myList.firstElementChild
+
+        // return array_space
     }
+    // [].forEach.call(nodes, function (el) {
+    //     el.addEventListener('click', function () {
+    //         select_edArea(this);
+    //     })
+    // });
+
+    // document.addEventListener('keydown', function (e) {
+    //     if (e.keyCode === 38) { // up
+    //         select_edArea(nodes[selected - 1]);
+    //     }
+    //     if (e.keyCode === 40) { // down
+    //         select_edArea(nodes[selected + 1]);
+    //     }
+    // });
+
+    // function select_edArea(el) {
+    //     console.log('el element ', el)
+    //     var s = [].indexOf.call(nodes, el);
+    //     if (s === -1) return;
+
+    //     selected = s;
+
+    //     var elHeight = $(el).height();
+    //     var scrollTop = $(ul).scrollTop();
+    //     var viewport = scrollTop + $(ul).height();
+    //     var elOffset = elHeight * selected;
+
+    //     console.log('select', selected, ' viewport', viewport, ' elOffset', elOffset);
+    //     if (elOffset < scrollTop || (elOffset + elHeight) > viewport)
+    //         $(ul).scrollTop(elOffset);
+
+    //     document.querySelector('li.bg-selection').classList.remove('bg-selection');
+    //     el.classList.add('bg-selection');
+    // }
+
+    // <-- dependency function are END -->
+
+
 }
