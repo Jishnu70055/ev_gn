@@ -251,8 +251,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         $("#body").find("tbody").on(' keypress paste input focus', '[contenteditable]', 'td', function(e) {
                                             totalrow = $('#myTable').DataTable().cell(this).index().row //find totalrow in table
                                                 //Get value of TD
-                                            e.target.innerHTML ? console.log('value found') : console.log('value not found')
-                                            var query = e.target.innerHTML ? e.target.innerHTML : "%" + e.target.innerHTML
+                                            var query = e.target.innerHTML == "<br><br>" ? '' : e.target.innerHTML.trim()
+                                            e.target.innerHTML == "<br><br>" ? console.log("value found", e.target.innerHTML) : console.log('value not found', e.target.innerHTML)
                                                 //console.log(this.innerHTML)
                                             var pos = this.getBoundingClientRect();
                                             var layout_pos = document.querySelector(".layout-main").getBoundingClientRect()
@@ -509,7 +509,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     a = ''
                                                     console.log('value entered in coloumn', e.target.innerHTML)
                                                     $(".suggestions").addClass("d-none")
-                                                    $("#body").find("td.active").next().show().focus();
+                                                        // $("#body").find("td.active").next().show().focus();
 
                                                     if (e.target.innerHTML == "Close") {
                                                         $(".suggestions").addClass("d-none")
@@ -521,9 +521,12 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         console.log("cell index column", cell.index().column)
                                                         if (cell.index().column == sales__person || cell.index().column == item_) {
                                                             console.log('sales__person and item are found')
-                                                            cell.index().column == sales__person ?
-                                                                $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${supplier_partner + 1})`).show().focus() :
-                                                                ''
+                                                                // cell.index().column == sales__person ?
+                                                                //     $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${supplier_partner + 1})`).show().focus() :
+                                                                //     ''
+                                                            if (cell.index().column == sales__person) {
+                                                                $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${supplier_partner + 1})`).show().focus()
+                                                            }
                                                             cell.index().column == item_ ? default_value(cell.index().row, cell.index().column, e.target.innerHTML) : ""
                                                         } else {
                                                             console.log('another show buton')
@@ -541,6 +544,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                                             table.row.add(rows).draw(true);
                                                             $("#body").find("td.active").next().show().focus();
+                                                            $(`#myTable tr:nth-child(${r + 2}) td:nth-child(${supplier_ + 1})`).show().focus()
+                                                            default_driver()
                                                         }
                                                     }
 
