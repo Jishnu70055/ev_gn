@@ -11,6 +11,7 @@
   "vehicle",
   "paid_by",
   "supplier",
+  "description",
   "column_break_5",
   "company",
   "paid",
@@ -120,12 +121,17 @@
    "label": "Supplier",
    "mandatory_depends_on": "eval: doc.paid == 0 & doc.vehicle == null;",
    "options": "Supplier"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-03-20 21:41:04.200907",
+ "modified": "2022-03-21 00:01:30.204553",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Expense",
