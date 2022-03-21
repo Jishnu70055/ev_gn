@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Sales & Purchase",
  "links": [],
- "modified": "2022-03-20 16:24:32.066422",
+ "modified": "2022-03-21 11:21:20.342409",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Sales & Purchase",
@@ -44,12 +44,6 @@
    "doc_view": "List",
    "label": "Sales Invoice",
    "link_to": "Sales Invoice",
-   "type": "DocType"
-  },
-  {
-   "doc_view": "List",
-   "label": "Payments",
-   "link_to": "Payment Entry",
    "type": "DocType"
   },
   {
