@@ -34,10 +34,6 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         var li_nodes = ''
         var selected_ul = 0;
 
-        // var ul = document.querySelector('ul');
-        // var nodes = document.querySelectorAll('li');
-        // var selected = 0;
-
         let validtion_point = false // 
         let validation_int_array = [] //array
         let current_date //set date 
@@ -162,7 +158,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                             table.row.add(rows).draw(true);
                                         };
-                                        $("#home-page-tag").attr('href', `${window.location.origin}/app`)
+                                        $('#home-page-tag').attr('href', `${window.location.origin}/app`)
                                         today_date(); //onload  set date
                                         default_driver() //default driver
                                         $(".suggestions").addClass("d-none"); // onload to remove suggestion box
@@ -1011,7 +1007,6 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                     })
                 )
         });
-
         // Autoselect Data
 
 
