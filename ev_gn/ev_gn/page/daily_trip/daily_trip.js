@@ -30,10 +30,13 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         let count = 0
         let liSelected = ''
         let a = ''
+        var ul_value = ''
+        var li_nodes = ''
+        var selected_ul = 0;
 
-        var ul = document.querySelector('ul');
-        var nodes = document.querySelectorAll('li');
-        var selected = 0;
+        // var ul = document.querySelector('ul');
+        // var nodes = document.querySelectorAll('li');
+        // var selected = 0;
 
         let validtion_point = false // 
         let validation_int_array = [] //array
@@ -464,6 +467,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         // //CODE ADDING STACKOVERFLOW
                                         $("#body").find("tbody").on('keydown', '[contenteditable]', '#myTable', function(e) {
                                             // console.log('keypressed')
+                                            var pos = this.getBoundingClientRect();
                                             if (e.which != 40 && e.which != 38 && e.which != 13) {
                                                 myList = document.getElementById('suggestion_list');
                                                 count = 0
@@ -521,6 +525,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                             }
                                             if (e.which == 38) {
+
                                                 var li = $('#suggestion_list > li');
                                                 if (count + 1 <= liSelected.length + 1 && count > 1) {
                                                     a = a.previousElementSibling
@@ -529,30 +534,25 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     a.nextElementSibling.classList.remove("bg-selection")
                                                     a.nextElementSibling.classList.remove("scrolltome")
                                                     count = count - 1;
-                                                    $('ul').animate({ scrollTop: 0 }, "slow");
                                                 }
-                                                var pos = this.getBoundingClientRect();
 
-                                                console.log($('ul').height(), $(".bg-selection").height(), pos.height())
+                                                if (count <= li.length - 9) {
+                                                    var s = [].indexOf.call(li, a);
+                                                    if (s === -1) return;
 
-                                                // console.log('up button count value', count, li.length - 9)
-                                                // if (count <= li.length - 9) {
-                                                //     console.log('up button count value', count, li.length - 9)
-                                                //         // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
-                                                //         // a.focus();
-                                                //     console.log('li value', li.length)
-                                                //     if (count <= li.lenght - 10) {
-                                                //         console.log('Bhooom', count, li.lenght - 9)
-                                                //         a.nextElementSibling.classList.remove("scrolltome")
+                                                    selected = s;
 
-                                                //         console.log('count value is 8', count - 7)
-                                                //     }
-                                                //     a.classList.add("scrolltome");
-                                                //     console.log('count value is 8', li.length - 6)
-                                                // }
+                                                    var elHeight = $(a).height();
+                                                    var scrollTop = $(li).scrollTop();
+                                                    var viewport = scrollTop + $(ul_value).height();
+                                                    var elOffset = elHeight * selected + 10;
+                                                    $('ul').animate({ scrollTop: elOffset }, "slow")
+                                                }
 
                                             }
                                             if (e.which == 40) {
+                                                console.log('node', li_nodes, 'node selected value', li_nodes[selected_ul + 1])
+                                                    // select_ul(li_nodes[count])
                                                 var li = $('#suggestion_list > li');
                                                 if (count + 1 <= liSelected.length && count > 0) {
                                                     a = a.nextElementSibling
@@ -572,10 +572,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                 }
 
                                                 if (count >= 9) {
-                                                    // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
-                                                    // a.focus();
                                                     var li = $('#suggestion_list > li');
-                                                    console.log('li value', li.length)
                                                     if (count >= 10) {
                                                         a.previousElementSibling.classList.remove("scrolltome")
                                                         li.eq(count - 9).removeClass('btwin');
@@ -583,8 +580,17 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     }
                                                     a.classList.add("scrolltome");
                                                     console.log('count value is 8', count - 6)
+                                                        // $('.scrolltome').offset().top > 0 ?
+                                                    var s = [].indexOf.call(li, a);
+                                                    if (s === -1) return;
 
-                                                    $('ul').animate({ scrollTop: $('.scrolltome').offset().top }, "slow");
+                                                    selected = s;
+
+                                                    var elHeight = $(a).height();
+                                                    var scrollTop = $(li).scrollTop();
+                                                    var viewport = scrollTop + $(ul_value).height();
+                                                    var elOffset = elHeight * selected + 10;
+                                                    $('ul').animate({ scrollTop: elOffset }, "slow")
                                                 }
                                             }
                                         })
@@ -1005,14 +1011,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                     })
                 )
         });
-        // $('#homePage').on('click', function() {
-        //         // console.log('homePage button clicked', window.location.hostname);
-        //         // history.pushState({ id: 1 }, '', `${window.location.origin}/app`)
-        //         location.href = `${window.location.origin}/app`;
-        //         // window.location.reload()
-        //         // window.location = `${window.location.origin}/app`
-        //         // window.location.reload()
-        //     })
+
         // Autoselect Data
 
 
@@ -1072,6 +1071,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         });
 
         // <-- dependency function are begin -->   
+
+
         function muliple_calutlation(row, column_a, column_b, calc) { // multiplication calucultation
 
             value_a = table.cell({ row: row, column: column_a }).data() ? parseInt(table.cell({ row: row, column: column_a }).data()) : 0; //column_A is rate  
@@ -1232,45 +1233,13 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         myList = document.getElementById('suggestion_list');
         count = 0
         liSelected = document.querySelectorAll('#suggestion_list li')
-        // a = myList.firstElementChild
+        ul_value = document.querySelector('#suggestion_list');
+        li_nodes = document.querySelectorAll('#suggestion_list > li');
+        console.log('ul-value', ul_value, 'li-node', li_nodes)
 
         // return array_space
     }
-    // [].forEach.call(nodes, function (el) {
-    //     el.addEventListener('click', function () {
-    //         select_edArea(this);
-    //     })
-    // });
-
-    // document.addEventListener('keydown', function (e) {
-    //     if (e.keyCode === 38) { // up
-    //         select_edArea(nodes[selected - 1]);
-    //     }
-    //     if (e.keyCode === 40) { // down
-    //         select_edArea(nodes[selected + 1]);
-    //     }
-    // });
-
-    // function select_edArea(el) {
-    //     console.log('el element ', el)
-    //     var s = [].indexOf.call(nodes, el);
-    //     if (s === -1) return;
-
-    //     selected = s;
-
-    //     var elHeight = $(el).height();
-    //     var scrollTop = $(ul).scrollTop();
-    //     var viewport = scrollTop + $(ul).height();
-    //     var elOffset = elHeight * selected;
-
-    //     console.log('select', selected, ' viewport', viewport, ' elOffset', elOffset);
-    //     if (elOffset < scrollTop || (elOffset + elHeight) > viewport)
-    //         $(ul).scrollTop(elOffset);
-
-    //     document.querySelector('li.bg-selection').classList.remove('bg-selection');
-    //     el.classList.add('bg-selection');
-    // }
-
+ 
     // <-- dependency function are END -->
 
 
