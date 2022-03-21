@@ -159,6 +159,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                             table.row.add(rows).draw(true);
                                         };
+                                        $('#home-page-tag').attr('href', `${window.location.origin}/app`)
                                         today_date(); //onload  set date
                                         default_driver() //default driver
                                         $(".suggestions").addClass("d-none"); // onload to remove suggestion box
@@ -305,24 +306,10 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     callback: (e) => {
                                                         $('.suggestions li').remove();
                                                         array_alpha(e.message, 'name')
-                                                            // let s_driver = array_alpha(e.message, 'name')
-                                                            // s_driver.map((x) => {
-
-
-                                                        //     $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-primary pe-auto hover pe-auto nav-link list-group-item-action">${x}</li>`); //add value to suggestion part
-
-
-                                                        // })
-                                                        // $('.suggestions ul').append(`<li class="py-2 px-2  border border-bottom border-1 border-black text-danger pe-auto hover pe-auto nav-link list-group-item-action select list-group-item ">Close</li>`); //close btn value selected
                                                     }
                                                 })
                                             }
                                             if ($('#myTable').DataTable().cell(this).index().column == item_) {
-
-
-                                                // let value = frappe.db.get_value('Item', 'ol-6767', 'stock_uom')
-                                                // console.log("High end value", value)
-
                                                 q = "%" + query + "%"
                                                 frappe.call({
                                                     method: 'frappe.client.get_list',
@@ -476,230 +463,114 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                         // //CODE ADDING STACKOVERFLOW
                                         $("#body").find("tbody").on('keydown', '[contenteditable]', '#myTable', function(e) {
-                                                console.log('keypressed')
-                                                if (e.which != 40 && e.which != 38 && e.which != 13) {
-                                                    myList = document.getElementById('suggestion_list');
-                                                    count = 0
-                                                    liSelected = document.querySelectorAll('#suggestion_list li')
-                                                    a = myList.firstElementChild
-                                                        // console.log('class list', myList)
-                                                        // a.classList.add("bg-selection");
+                                            // console.log('keypressed')
+                                            if (e.which != 40 && e.which != 38 && e.which != 13) {
+                                                myList = document.getElementById('suggestion_list');
+                                                count = 0
+                                                liSelected = document.querySelectorAll('#suggestion_list li')
+                                                a = myList.firstElementChild
+                                                    // console.log('class list', myList)
+                                                    // a.classList.add("bg-selection");
+                                            }
+                                            if (e.which == 39) {
+                                                myList = document.getElementById('suggestion_list');
+                                                count = 0
+                                                liSelected = document.querySelectorAll('#suggestion_list li')
+                                                a = myList.firstElementChild
+                                                a.classList.add("bg-selection");
+                                            }
+                                            if (e.which == 13) {
+                                                var cell = $('#myTable').DataTable().cell("td.active")
+                                                a ?
+                                                    a.innerHTML == "Close" ?
+                                                    cell.data('').draw() :
+                                                    cell.index().column == driver_ || cell.index().column == supplier_ || cell.index().column == supplier__site || cell.index().column == supplier_partner || cell.index().column == supplier_uom || cell.index().column == sales__person || cell.index().column == coustomer_ || cell.index().column == coustomer__site || cell.index().column == item_ || cell.index().column == uom_ || cell.index().column == coustomer__rate__type || cell.index().column == gst_p_ ?
+                                                    cell.data(a.innerHTML).draw() :
+                                                    '' :
+                                                    ''
+                                                a = ''
+                                                $(".suggestions").addClass("d-none")
+                                                    // $("#body").find("td.active").next().show().focus();
 
+                                                if (e.target.innerHTML == "Close") {
+                                                    $(".suggestions").addClass("d-none")
+                                                } else {
+                                                    let r = cell.index().row
+                                                    if (cell.index().column == sales__person || cell.index().column == item_) {
+                                                        cell.index().column == sales__person ?
+                                                            $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${supplier_partner + 1})`).show().focus() :
+                                                            ''
+                                                        cell.index().column == item_ ? default_value(cell.index().row, cell.index().column, e.target.innerHTML) : ""
+                                                    } else {
+                                                        $("#body").find("td.active").next().show().focus();
+                                                    }
+                                                    if (cell.index().column == bata__percentage || cell.index().column == bata__rate) {
+                                                        rows = [];
+                                                        counts = 0
+                                                            //Array for adding row
+                                                        for (i = 1; i <= col_count; i++) {
+                                                            rows.push("");
 
-
+                                                        }
+                                                        table.row.add(rows).draw(true);
+                                                        $("#body").find("td.active").next().show().focus();
+                                                        $(`#myTable tr:nth-child(${r + 2}) td:nth-child(${supplier_ + 1})`).show().focus()
+                                                        default_driver()
+                                                    }
                                                 }
 
-                                                if (e.which == 39) {
-                                                    myList = document.getElementById('suggestion_list');
-                                                    count = 0
-                                                    liSelected = document.querySelectorAll('#suggestion_list li')
+                                            }
+                                            if (e.which == 38) {
+                                                if (count + 1 <= liSelected.length + 1 && count > 1) {
+                                                    a = a.previousElementSibling
+                                                    a.classList.add("bg-selection");
+                                                    a.nextElementSibling.classList.remove("bg-selection")
+                                                    count = count - 1;
+                                                }
+                                                // if (count <= 4) {
+                                                //     // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
+                                                //     // a.focus();
+                                                //     var li = $('#suggestion_list > li');
+                                                //     a.classList.add("scrolltome");
+                                                //     li.eq(1).addClass('btwin');
+                                                //     $('ul').animate({ scrollBottom: $('.btwin').offset().bottom }, "slow");
+                                                // }
+
+                                            }
+                                            if (e.which == 40) {
+                                                if (count + 1 <= liSelected.length && count > 0) {
+                                                    a = a.nextElementSibling
+                                                    a.classList.add("bg-selection");
+                                                    a.previousElementSibling.classList.remove("bg-selection")
+                                                    count = count + 1;
+
+                                                } else if (count == 0) {
                                                     a = myList.firstElementChild
                                                     a.classList.add("bg-selection");
+                                                    myList = document.getElementById('suggestion_list');
+                                                    liSelected = document.querySelectorAll('#suggestion_list li')
+
+                                                    // a=a.nextElementSibling
+                                                    count = count + 1;
 
                                                 }
-                                                if (e.which == 13) {
-                                                    var cell = $('#myTable').DataTable().cell("td.active")
-                                                    a ?
-                                                        a.innerHTML == "Close" ?
-                                                        cell.data('').draw() :
-                                                        cell.index().column == driver_ || cell.index().column == supplier_ || cell.index().column == supplier__site || cell.index().column == supplier_partner || cell.index().column == supplier_uom || cell.index().column == sales__person || cell.index().column == coustomer_ || cell.index().column == coustomer__site || cell.index().column == item_ || cell.index().column == uom_ || cell.index().column == coustomer__rate__type || cell.index().column == gst_p_ ?
-                                                        cell.data(a.innerHTML).draw() :
-                                                        '' :
-                                                        ''
-                                                    a = ''
-                                                    console.log('value entered in coloumn', e.target.innerHTML)
-                                                    $(".suggestions").addClass("d-none")
-                                                        // $("#body").find("td.active").next().show().focus();
 
-                                                    if (e.target.innerHTML == "Close") {
-                                                        $(".suggestions").addClass("d-none")
-                                                    } else {
-                                                        // cell.data(e.target.innerText).draw()
-                                                        // cell.data('').draw()
-                                                        // $("#body").find("td.active").next().show().focus();
-                                                        let r = cell.index().row
-                                                        console.log("cell index column", cell.index().column)
-                                                        if (cell.index().column == sales__person || cell.index().column == item_) {
-                                                            console.log('sales__person and item are found')
-                                                                // cell.index().column == sales__person ?
-                                                                //     $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${supplier_partner + 1})`).show().focus() :
-                                                                //     ''
-                                                            if (cell.index().column == sales__person) {
-                                                                $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${supplier_partner + 1})`).show().focus()
-                                                            }
-                                                            cell.index().column == item_ ? default_value(cell.index().row, cell.index().column, e.target.innerHTML) : ""
-                                                        } else {
-                                                            console.log('another show buton')
-                                                            $("#body").find("td.active").next().show().focus();
-                                                        }
-                                                        if (cell.index().column == bata__percentage || cell.index().column == bata__rate) {
-                                                            rows = [];
-                                                            counts = 0
-
-                                                            //Array for adding row
-                                                            for (i = 1; i <= col_count; i++) {
-                                                                rows.push("");
-
-                                                            }
-
-                                                            table.row.add(rows).draw(true);
-                                                            $("#body").find("td.active").next().show().focus();
-                                                            $(`#myTable tr:nth-child(${r + 2}) td:nth-child(${supplier_ + 1})`).show().focus()
-                                                            default_driver()
-                                                        }
-                                                    }
-
-                                                }
-                                                if (e.which == 38) {
-                                                    console.log("up buttoon pressed")
-                                                    console.log('length of mylist', liSelected.length, 'count', count + 1)
-                                                    if (count + 1 <= liSelected.length + 1 && count > 1) {
-                                                        a = a.previousElementSibling
-                                                        a.classList.add("bg-selection");
-                                                        a.nextElementSibling.classList.remove("bg-selection")
-                                                        console.log("if condition true company kary ", a)
-                                                        count = count - 1;
-                                                        console.log('count value', count)
-
-                                                    } else if (count == 0) {
-                                                        console.log("company kary", a)
-                                                        console.log('count value is ', count)
-                                                            // a=a.previousElementSibling
-                                                            // count=count+1;
-
-                                                    }
-                                                    // if (count <= 4) {
-                                                    //     // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
-                                                    //     // a.focus();
-                                                    //     console.log('hai bro now count is four');
-                                                    //     var li = $('#suggestion_list > li');
-                                                    //     console.log('suggestion ul li', li)
-                                                    //     a.classList.add("scrolltome");
-                                                    //     li.eq(1).addClass('btwin');
-                                                    //     $('ul').animate({ scrollBottom: $('.btwin').offset().bottom }, "slow");
-                                                    // }
-
-                                                }
-                                                if (e.which == 40) {
-                                                    console.log("down buttoon pressed COUNT value", count)
-
-
-                                                    console.log('length of mylist', liSelected.length, 'count', count + 1)
-                                                    if (count + 1 <= liSelected.length && count > 0) {
-                                                        console.log('if condition true and value of a', a)
-                                                        a = a.nextElementSibling
-                                                        a.classList.add("bg-selection");
-                                                        a.previousElementSibling.classList.remove("bg-selection")
-                                                        console.log("if condition true company kary", a)
-                                                        count = count + 1;
-
-                                                    } else if (count == 0) {
-                                                        a = myList.firstElementChild
-                                                        console.log("company kary", a)
-                                                        a.classList.add("bg-selection");
-                                                        myList = document.getElementById('suggestion_list');
-                                                        liSelected = document.querySelectorAll('#suggestion_list li')
-
-                                                        // a=a.nextElementSibling
-                                                        count = count + 1;
-
-                                                    } else {
-                                                        console.log("yeah ", a)
-                                                    }
-
-                                                    if (count >= 7) {
-                                                        // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
-                                                        // a.focus();
-                                                        console.log('hai bro now count is four');
-                                                        var li = $('#suggestion_list > li');
-                                                        console.log('suggestion ul li', li)
-                                                        a.classList.add("scrolltome");
-                                                        li.eq(1).addClass('btwin');
-                                                        $('ul').animate({ scrollTop: $('.btwin').offset().top }, "slow");
-                                                    }
-
-
-                                                }
-                                            })
-                                            // //check suggestion dropdown arrow key function working --start
-                                            // $("#body").find("tbody").on(' keyup keydown', '[contenteditable]', '#myTable', function (e) {
-                                            //     // var objCurrentLi, obj = $('.suggestions').find('.suggestions li'), objUl = $('.suggestions ul'), code = (e.keyCode ? e.keyCode : e.which);
-                                            //     // console.log('length if suggestion', obj)
-                                            //     // if (e.which == 40) {  //Up Arrow
-                                            //     //     console.log("suggestion arrow up working properley")
-                                            //     //     if ((obj.length === 0) || (objUl.find('.suggestions li:last').hasClass('bg-selection') === true)) {
-                                            //     //         objCurrentLi = objUl.find('.suggestions li:first').addClass('bg-selection');
-                                            //     //     }
-                                            //     //     else {
-                                            //     //         objCurrentLi = obj.next().addClass('bg-selection');
-                                            //     //     }
-                                            //     //     obj.removeClass('bg-selection');
-                                            //     // }
-                                            //     // else if (e.which == 38) {  //Down Arrow
-                                            //     //     console.log("suggestion arrow down working properley")
-                                            //     //     if ((obj.length === 0) || (objUl.find('.suggestions li:first').hasClass('bg-selection') === true)) {
-                                            //     //         objCurrentLi = objUl.find('.suggestions li:last').addClass('bg-selection');
-                                            //     //     }
-                                            //     //     else {
-                                            //     //         objCurrentLi = obj.prev().addClass('bg-selection');
-                                            //     //     }
-                                            //     //     obj.removeClass('bg-selection');
-                                            //     // }
-
-                                        //     var li = $('.suggestions > li');
-                                        //     var liSelected = $('.suggestions li');
-                                        //     $(window).on('keydown', function (e) {
-                                        //         var selected;
-                                        //         if (e.which === 40) {
-                                        //             console.log("key press down")
-                                        //             console.log('sugggestion li if condtion true', liSelected[0].add("bg-danger"))
-                                        //             if (liSelected) {
-                                        //                 console.log("li selected value",liSelected)
-                                        //                 liSelected.removeClass('bg-danger');
-                                        //                 next = liSelected.next();
-                                        //                 if (next.length > 0) {
-                                        //                     liSelected = next.addClass('bg-light');
-                                        //                     selected = next.text();
-
-                                        //                 } else {
-
-                                        //                     liSelected = li.eq(0).addClass('bg-warning');
-                                        //                     selected = li.eq(0).text();
-                                        //                 }
-                                        //             } else {
-                                        //                 liSelected = li.eq(0).addClass('bg-warning');
-                                        //                 selected = li.eq(0).text();
-                                        //             }
-                                        //         } else if (e.which === 38) {
-                                        //             ("key press up")
-                                        //             if (liSelected) {
-                                        //                 liSelected.removeClass('bg-light');
-                                        //                 next = liSelected.prev();
-                                        //                 if (next.length > 0) {
-                                        //                     liSelected = next.addClass('bg-selection');
-                                        //                     selected = next.text();
-
-                                        //                 } else {
-
-                                        //                     liSelected = li.last().addClass('bg-secondary');
-                                        //                     selected = li.last().text()
-                                        //                 }
-                                        //             } else {
-
-                                        //                 liSelected = li.last().addClass('bg-secondary');
-                                        //                 selected = li.last().text()
-                                        //             }
-                                        //         }
-                                        //     })
-                                        //     //check suggestion dropdown arrow key function working --end
-                                        //     //CODE ADDING STACKOVERFLOW
-                                        // })
-
-
+                                                // if (count >= 7) {
+                                                //     // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
+                                                //     // a.focus();
+                                                //     if (count >= 8) {
+                                                //         li.eq(count - 7).removeClass('btwin');
+                                                //     }
+                                                //     var li = $('#suggestion_list > li');
+                                                //     a.classList.add("scrolltome");
+                                                //     li.eq(count - 6).addClass('btwin');
+                                                //     $('ul').animate({ scrollTop: $('.scrolltome').offset().top }, "slow");
+                                                // }
+                                            }
+                                        })
 
                                         // add data into a cell
                                         $("#body").find("tbody").on('click', '[contenteditable]', '#myTable', function(e) {
-                                            // console.log("on clicked on td cell")
                                             $('td.active').removeClass('active');
                                             $('td.active').add('active');
 
@@ -713,14 +584,12 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                             //check close value is selected 
                                             if (e.target.innerHTML == "Close") {
-                                                // console.log("close btn clicked")
                                                 $(".suggestions").addClass("d-none")
                                             }
                                             //Ensure only click on li triggers adding data to td
                                             else if ($(e.target).is('li')) {
                                                 $(".suggestions").addClass("d-none")
                                                     // $("td.active").html(e.target.innerText)
-                                                console.log('heelp please mister', $('#myTable').DataTable().cell("td.active"))
                                                 var cell = $('#myTable').DataTable().cell("td.active")
                                                 cell.data(e.target.innerText).draw()
                                                 $("#body").find("td.active").next().show().focus();
@@ -1116,14 +985,14 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                     })
                 )
         });
-        $('#homePage').on('click', function() {
-                // console.log('homePage button clicked', window.location.hostname);
-                window.history.pushState({}, '', `${window.location.origin}/app`)
-                window.location.reload()
-                    // window.location = `${window.location.origin}/app`
-                    // window.location.reload()
-            })
-            // Autoselect Data
+        // $('#homePage').on('click', function () {
+        //     // console.log('homePage button clicked', window.location.hostname);
+        //     window.history.pushState({}, '', `${window.location.origin}/app`)
+        //     window.location.reload()
+        //     // window.location = `${window.location.origin}/app`
+        //     // window.location.reload()
+        // })
+        // Autoselect Data
 
 
         // Creating drop down list funtion
