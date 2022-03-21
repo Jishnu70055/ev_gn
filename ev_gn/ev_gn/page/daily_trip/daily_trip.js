@@ -159,7 +159,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                             table.row.add(rows).draw(true);
                                         };
-                                        $('#home-page-tag').attr('href', `${window.location.origin}/app`)
+                                        $("#home-page-tag").attr('href', `${window.location.origin}/app`)
                                         today_date(); //onload  set date
                                         default_driver() //default driver
                                         $(".suggestions").addClass("d-none"); // onload to remove suggestion box
@@ -521,23 +521,39 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                             }
                                             if (e.which == 38) {
+                                                var li = $('#suggestion_list > li');
                                                 if (count + 1 <= liSelected.length + 1 && count > 1) {
                                                     a = a.previousElementSibling
                                                     a.classList.add("bg-selection");
+                                                    a.classList.add("scrolltome");
                                                     a.nextElementSibling.classList.remove("bg-selection")
+                                                    a.nextElementSibling.classList.remove("scrolltome")
                                                     count = count - 1;
+                                                    $('ul').animate({ scrollTop: 0 }, "slow");
                                                 }
-                                                // if (count <= 4) {
-                                                //     // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
-                                                //     // a.focus();
-                                                //     var li = $('#suggestion_list > li');
+                                                var pos = this.getBoundingClientRect();
+
+                                                console.log($('ul').height(), $(".bg-selection").height(), pos.height())
+
+                                                // console.log('up button count value', count, li.length - 9)
+                                                // if (count <= li.length - 9) {
+                                                //     console.log('up button count value', count, li.length - 9)
+                                                //         // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
+                                                //         // a.focus();
+                                                //     console.log('li value', li.length)
+                                                //     if (count <= li.lenght - 10) {
+                                                //         console.log('Bhooom', count, li.lenght - 9)
+                                                //         a.nextElementSibling.classList.remove("scrolltome")
+
+                                                //         console.log('count value is 8', count - 7)
+                                                //     }
                                                 //     a.classList.add("scrolltome");
-                                                //     li.eq(1).addClass('btwin');
-                                                //     $('ul').animate({ scrollBottom: $('.btwin').offset().bottom }, "slow");
+                                                //     console.log('count value is 8', li.length - 6)
                                                 // }
 
                                             }
                                             if (e.which == 40) {
+                                                var li = $('#suggestion_list > li');
                                                 if (count + 1 <= liSelected.length && count > 0) {
                                                     a = a.nextElementSibling
                                                     a.classList.add("bg-selection");
@@ -555,17 +571,21 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                                 }
 
-                                                // if (count >= 7) {
-                                                //     // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
-                                                //     // a.focus();
-                                                //     if (count >= 8) {
-                                                //         li.eq(count - 7).removeClass('btwin');
-                                                //     }
-                                                //     var li = $('#suggestion_list > li');
-                                                //     a.classList.add("scrolltome");
-                                                //     li.eq(count - 6).addClass('btwin');
-                                                //     $('ul').animate({ scrollTop: $('.scrolltome').offset().top }, "slow");
-                                                // }
+                                                if (count >= 9) {
+                                                    // $(document.activeElement).element.closest("#suggestion_list").find(".bg-selection").focus()
+                                                    // a.focus();
+                                                    var li = $('#suggestion_list > li');
+                                                    console.log('li value', li.length)
+                                                    if (count >= 10) {
+                                                        a.previousElementSibling.classList.remove("scrolltome")
+                                                        li.eq(count - 9).removeClass('btwin');
+                                                        console.log('count value is 8', count - 7)
+                                                    }
+                                                    a.classList.add("scrolltome");
+                                                    console.log('count value is 8', count - 6)
+
+                                                    $('ul').animate({ scrollTop: $('.scrolltome').offset().top }, "slow");
+                                                }
                                             }
                                         })
 
@@ -985,13 +1005,14 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                     })
                 )
         });
-        // $('#homePage').on('click', function () {
-        //     // console.log('homePage button clicked', window.location.hostname);
-        //     window.history.pushState({}, '', `${window.location.origin}/app`)
-        //     window.location.reload()
-        //     // window.location = `${window.location.origin}/app`
-        //     // window.location.reload()
-        // })
+        // $('#homePage').on('click', function() {
+        //         // console.log('homePage button clicked', window.location.hostname);
+        //         // history.pushState({ id: 1 }, '', `${window.location.origin}/app`)
+        //         location.href = `${window.location.origin}/app`;
+        //         // window.location.reload()
+        //         // window.location = `${window.location.origin}/app`
+        //         // window.location.reload()
+        //     })
         // Autoselect Data
 
 
