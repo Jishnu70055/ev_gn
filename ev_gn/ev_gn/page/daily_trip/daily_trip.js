@@ -155,6 +155,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                 rows.push("");
 
                                             }
+
                                             table.row.add(rows).draw(true);
                                         };
                                         $('#home-page-tag').attr('href', `${window.location.origin}/app`)
@@ -239,7 +240,6 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                             rows.push("");
 
                                         }
-
                                         $('#myTable').DataTable().row.add(rows).draw(true)
                                         $("#body").find("tbody").on('click', '#myTable', function(e) {
                                             console.log('td working and add active tag')
@@ -250,7 +250,9 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         $("#body").find("tbody").on(' keypress paste input focus', '[contenteditable]', 'td', function(e) {
                                             totalrow = $('#myTable').DataTable().cell(this).index().row //find totalrow in table
                                                 //Get value of TD
-                                            var query = e.target.innerHTML == "<br><br>" ? '' : e.target.innerHTML.trim()
+                                            var query = e.target.innerHTML == "<br><br>" ? '' : e.target.innerHTML.replace(/<br>/g," ").trim()
+                                            query=query.replace(/&nbsp;/g," ").trim()
+                                            console.log('query__',query)
                                             e.target.innerHTML == "<br><br>" ? console.log("value found", e.target.innerHTML) : console.log('value not found', e.target.innerHTML)
                                                 //console.log(this.innerHTML)
                                             var pos = this.getBoundingClientRect();
@@ -1229,7 +1231,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         liSelected = document.querySelectorAll('#suggestion_list li')
         ul_value = document.querySelector('#suggestion_list');
         li_nodes = document.querySelectorAll('#suggestion_list > li');
-        console.log('ul-value', ul_value, 'li-node', li_nodes)
+        // console.log('ul-value', ul_value, 'li-node', li_nodes)
 
         // return array_space
     }
