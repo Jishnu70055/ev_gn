@@ -155,7 +155,6 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                 rows.push("");
 
                                             }
-
                                             table.row.add(rows).draw(true);
                                         };
                                         $('#home-page-tag').attr('href', `${window.location.origin}/app`)
