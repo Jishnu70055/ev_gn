@@ -94,6 +94,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
             // Done is a chained with multiple function called
             // one after the other.
             .done(function(script, textStatus) {
+                $('#home-page-tag').attr('href', `${window.location.origin}/app`)
                 $.getScript(js_libs.jquery_loading_overlay)
                     .done(function(script, textStatus) {
                         console.log("ui loaded")
@@ -158,7 +159,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                             table.row.add(rows).draw(true);
                                         };
-                                        $('#home-page-tag').attr('href', `${window.location.origin}/app`)
+
+
                                         today_date(); //onload  set date
                                         default_driver() //default driver
                                         $(".suggestions").addClass("d-none"); // onload to remove suggestion box
@@ -250,9 +252,9 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         $("#body").find("tbody").on(' keypress paste input focus', '[contenteditable]', 'td', function(e) {
                                             totalrow = $('#myTable').DataTable().cell(this).index().row //find totalrow in table
                                                 //Get value of TD
-                                            var query = e.target.innerHTML == "<br><br>" ? '' : e.target.innerHTML.replace(/<br>/g," ").trim()
-                                            query=query.replace(/&nbsp;/g," ").trim()
-                                            console.log('query__',query)
+                                            var query = e.target.innerHTML == "<br><br>" ? '' : e.target.innerHTML.replace(/<br>/g, " ").trim()
+                                            query = query.replace(/&nbsp;/g, " ").trim()
+                                            console.log('query__', query)
                                             e.target.innerHTML == "<br><br>" ? console.log("value found", e.target.innerHTML) : console.log('value not found', e.target.innerHTML)
                                                 //console.log(this.innerHTML)
                                             var pos = this.getBoundingClientRect();
