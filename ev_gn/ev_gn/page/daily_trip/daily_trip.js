@@ -94,6 +94,12 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         // Done is a chained with multiple function called
         // one after the other.
         .done(function (script, textStatus) {
+            let session = sessionStorage.getItem('register');
+            console.log('session vallue is', session)
+            if (session == null) {
+                sessionStorage.setItem('register', 1);
+                window.location.reload();
+            }
             $.getScript(js_libs.jquery_loading_overlay)
                 .done(function (script, textStatus) {
                     // console.log("ui loaded")
@@ -642,8 +648,8 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             let cell = table.cell(this)
                                             let row = cell.index().row
                                             let column = cell.index().column
-                                            cell_data=this.innerText.replace(/<br>/g, " ").trim()
-                                            cell_data=cell_data.replace(/&nbsp;/g, " ").trim()
+                                            cell_data = this.innerText.replace(/<br>/g, " ").trim()
+                                            cell_data = cell_data.replace(/&nbsp;/g, " ").trim()
                                             cell.data(cell_data).draw()
                                             if (
                                                 cell.index().column == supplier_rate || cell.index().column == supplier_qty ||
