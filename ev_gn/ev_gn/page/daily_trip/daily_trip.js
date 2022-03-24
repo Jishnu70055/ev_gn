@@ -816,7 +816,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             ) {
                                                 let r = cell.index().row
                                                 let total = table.cell({ row: r, column: total_vehicle_rent }).data() ? parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
-                                                let bata_amt = table.cell({ row: r, column: bata__amount }).data() ? parseInt(table.cell({ row: r, column: bata__amount }).data()) : 0;
+                                                let bata_amt = table.cell({ row: r, column: bata__amount }).data() ? parseFloat(table.cell({ row: r, column: bata__amount }).data()) : 0;
                                                 // console.log("total",total,"bata_amt",bata_amt)
                                                 let net_total = total - bata_amt
                                                 // console.log("net_total",net_total)

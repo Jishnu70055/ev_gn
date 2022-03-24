@@ -76,7 +76,7 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
             gst_amount = float(trip[21])
         net_frc = float(trip[30])
         net_total = float(trip[34])
-        bata_amount = trip[33]
+        bata_amount = float(trip[33])
         if trip[16]:
             gst_percentage = float(trip[16])
         else:
