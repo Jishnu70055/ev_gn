@@ -9,6 +9,7 @@
   "column_break_2",
   "item",
   "uom",
+  "purchase_gst_percentage",
   "section_break_3",
   "supplier",
   "supplier_rate",
@@ -18,16 +19,18 @@
   "supplier_quantity",
   "sales_person",
   "supplier_amount",
+  "supplier_gst_amount",
   "purchase_invoice_id",
   "data_11",
+  "supplier_purchase_invoice_id",
   "multiple_supplier",
   "supplier_partner",
   "supplier_partner_quantity",
   "column_break_11",
   "supplier_partner_rate",
   "supplier_partner_amount",
+  "supplier_partner_gst_amount",
   "total_supplier_amount",
-  "supplier_purchase_invoice_id",
   "section_break_9",
   "customer",
   "customer_rate_type",
@@ -56,7 +59,10 @@
   "bill_of_lading",
   "invoice_no",
   "dispatch_doc_no",
-  "challan_no"
+  "challan_no",
+  "customer_payment_term",
+  "supplier_payment_term",
+  "partner_payment_partner"
  ],
  "fields": [
   {
@@ -352,12 +358,45 @@
    "fieldname": "supplier_uom",
    "fieldtype": "Data",
    "label": "Supplier UOM"
+  },
+  {
+   "fieldname": "purchase_gst_percentage",
+   "fieldtype": "Float",
+   "label": "Purchase GST Percentage"
+  },
+  {
+   "fieldname": "supplier_gst_amount",
+   "fieldtype": "Currency",
+   "label": "Supplier GST Amount"
+  },
+  {
+   "fieldname": "supplier_partner_gst_amount",
+   "fieldtype": "Data",
+   "label": "Supplier Partner GST Amount"
+  },
+  {
+   "fetch_from": "customer.payment_term",
+   "fieldname": "customer_payment_term",
+   "fieldtype": "Small Text",
+   "label": "Customer Payment Term"
+  },
+  {
+   "fetch_from": "supplier.payment_term_",
+   "fieldname": "supplier_payment_term",
+   "fieldtype": "Small Text",
+   "label": "Supplier Payment Term"
+  },
+  {
+   "fetch_from": "supplier_partner.payment_term_",
+   "fieldname": "partner_payment_partner",
+   "fieldtype": "Small Text",
+   "label": "Supplier Partner Payment Term"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-01-23 23:12:05.526847",
+ "modified": "2022-03-24 13:09:36.450173",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Trip Details",
