@@ -106,7 +106,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                         $.getScript(js_libs.jquery_chosen)
                             .done(
                                 function(e) {
-                                    frappe.db.get_list('Vehicle', { fields: ['license_plate'] })
+                                    frappe.db.get_list('Vehicle', { fields: ['license_plate'], limit: '*' })
                                         .then(
                                             r => {
                                                 // console.log("value are ", r)
