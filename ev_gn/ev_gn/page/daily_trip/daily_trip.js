@@ -41,7 +41,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         let table //used for creating datatable 
         let counts = 0
         let rows //used for storing rows empty array
-        let col_count = 35 //The count of empty arrays to be created
+        let col_count = 36 //The count of empty arrays to be created
         let partner_amount_array
         let Options = ['Rent', 'Rate'];
         let payment_method = ['Cash', 'Bank']
@@ -83,7 +83,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         let bata__rate = 31
         let bata__percentage = 32
         let bata__amount = 33
-        let net_vehicle_balance = 34
+        let driver_bata__amount = 34
+        let net_vehicle_balance = 35
 
 
 
@@ -201,13 +202,16 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         const createdCell = function(cell) {
                                             let original
                                                 //condition for contenteditable true or false --start
-                                            counts == supplier_amt || counts == partner__amt || counts == net_vehicle_balance || counts == coustomer__amt || counts == partner__qty || counts == frc_gst || counts == total_vehicle_rent || counts == bata__amount ?
+                                            counts == supplier_amt || counts == partner__amt || counts == net_vehicle_balance || counts == coustomer__amt || counts == partner__qty || counts == frc_gst || counts == total_vehicle_rent || counts == bata__amount || counts == driver_bata__amount ?
                                                 cell.setAttribute('contenteditable', false) //set read only data
                                                 :
                                                 cell.setAttribute('contenteditable', true)
                                                 //condition for contenteditable true or false --end
                                             counts == gst_p_ ? table.cell({ row: table.rows().count() - 1, column: gst_p_ }).data(5) : ""
                                             counts == coustomer__rate__type ? table.cell({ row: table.rows().count() - 1, column: coustomer__rate__type }).data("Rate") : ""
+                                            counts == supplier_uom ? table.cell({ row: table.rows().count() - 1, column: supplier_uom }).data("cubic foot") : ""
+                                            counts == no__of__tips ? table.cell({ row: table.rows().count() - 1, column: no__of__tips }).data(1) : ""
+
 
 
                                             cell.setAttribute('spellcheck', false)
@@ -307,7 +311,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         filters: [
                                                             ['name', 'like', q],
 
-                                                        ]
+                                                        ],
+                                                        limit: '*'
                                                     },
                                                     callback: (e) => {
                                                         $('.suggestions li').remove();
@@ -325,7 +330,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         filters: [
                                                             ['item_code', 'like', q],
 
-                                                        ]
+                                                        ],
+                                                        limit: '*'
                                                     },
                                                     callback: (e) => {
                                                         // r = e.message
@@ -344,7 +350,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         filters: [
                                                             ['uom_name', 'like', q],
 
-                                                        ]
+                                                        ],
+                                                        limit: '*'
                                                     },
                                                     callback: (e) => {
                                                         array_alpha(e.message, 'uom_name')
@@ -361,7 +368,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         filters: [
                                                             ['sales_person_name', 'like', q],
 
-                                                        ]
+                                                        ],
+                                                        limit: '*'
                                                     },
                                                     callback: (e) => {
                                                         array_alpha(e.message, 'sales_person_name')
@@ -378,7 +386,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         filters: [
                                                             ['supplier_name', 'like', q],
 
-                                                        ]
+                                                        ],
+                                                        limit: '*'
                                                     },
 
                                                     callback: (e) => {
@@ -410,7 +419,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         filters: [
                                                             ['supplier_name', 'like', q],
 
-                                                        ]
+                                                        ],
+                                                        limit: '*'
                                                     },
                                                     callback: (e) => {
                                                         array_alpha(e.message, 'supplier_name')
@@ -428,7 +438,8 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                         filters: [
                                                             ['customer_name', 'like', q],
 
-                                                        ]
+                                                        ],
+                                                        limit: '*'
                                                     },
                                                     callback: (e) => {
                                                         array_alpha(e.message, 'customer_name')
@@ -775,8 +786,10 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${bata__percentage + 1})`).attr('contenteditable', false)
                                                     // table.cell({ row: r, column: bata__percentage }).setAttribute('contenteditable', false)
                                                 let bata_rate = table.cell({ row: r, column: bata__rate }).data() ? parseFloat(table.cell({ row: r, column: bata__rate }).data()) : 0;
+                                                let Trip_no = table.cell({ row: r, column: no__of__tips }).data() ? parseInt(table.cell({ row: r, column: no__of__tips }).data()) : 1;
                                                 table.cell({ row: r, column: bata__percentage }).data("");
                                                 table.cell({ row: r, column: bata__amount }).data(bata_rate);
+                                                table.cell({ row: r, column: driver_bata__amount }).data(Trip_no * bata_rate);
                                             }
                                             // BATA TOTAL = BATA PERCENTAGE * TOTAL VEHICLE RENT
                                             if (cell.index().column == bata__percentage) {
@@ -788,7 +801,15 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                 console.log(table.cell({ row: r, column: bata__percentage }).data())
                                                 table.cell({ row: r, column: bata__percentage }).data() ? table.cell({ row: r, column: bata__rate }).data("") : ""
                                                 let bata_percentage = table.cell({ row: r, column: bata__percentage }).data() ? (parseInt(table.cell({ row: r, column: bata__percentage }).data()) / 100) * parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
-                                                table.cell({ row: r, column: bata__percentage }).data() != "" && table.cell({ row: r, column: bata__percentage }).data() >= 0 ? table.cell({ row: r, column: bata__amount }).data(bata_percentage.toFixed(2)) : ""
+                                                let Trip_no = table.cell({ row: r, column: no__of__tips }).data() ? parseInt(table.cell({ row: r, column: no__of__tips }).data()) : 1;
+                                                table.cell({ row: r, column: bata__percentage }).data() != "" && table.cell({ row: r, column: bata__percentage }).data() >= 0 ? table.cell({ row: r, column: bata__amount }).data(bata_percentage.toFixed(2)) : table.cell({ row: r, column: bata__amount }).data(0)
+                                                table.cell({ row: r, column: driver_bata__amount }).data((Trip_no * bata_percentage).toFixed(2));
+                                            }
+                                            if (cell.index().column == no__of__tips) {
+                                                let r = cell.index().row;
+                                                let Trip_no = table.cell({ row: r, column: no__of__tips }).data() && table.cell({ row: r, column: no__of__tips }).data() != 0 ? parseInt(table.cell({ row: r, column: no__of__tips }).data()) : 1;
+                                                let bata_amount = table.cell({ row: r, column: bata__amount }).data() ? parseFloat(table.cell({ row: r, column: bata__amount }).data()) : 0;
+                                                table.cell({ row: r, column: driver_bata__amount }).data((Trip_no * bata_amount).toFixed(2));
                                             }
 
                                             //TOTAL = CUSTOMER_AMOUNT - PARTNER_AMOUNT-SUPPLIER_AMOUNT-NETFRC
@@ -818,16 +839,17 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                 cell.index().column == frc_ || cell.index().column == gst_amount ||
                                                 cell.index().column == frc_gst || cell.index().column == coustomer__amt ||
                                                 cell.index().column == total_vehicle_rent || cell.index().column == bata__rate ||
-                                                cell.index().column == bata__percentage || cell.index().column == bata__amount
+                                                cell.index().column == bata__percentage || cell.index().column == bata__amount ||
+                                                cell.index().column == no__of__tips
 
                                             ) {
                                                 let r = cell.index().row
                                                 let total = table.cell({ row: r, column: total_vehicle_rent }).data() ? parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
-                                                let bata_amt = table.cell({ row: r, column: bata__amount }).data() ? parseFloat(table.cell({ row: r, column: bata__amount }).data()) : 0;
-                                                // console.log("total",total,"bata_amt",bata_amt)
-                                                let net_total = total - bata_amt
+                                                let driver_bata_amt = table.cell({ row: r, column: driver_bata__amount }).data() ? parseFloat(table.cell({ row: r, column: driver_bata__amount }).data()) : 0;
+                                                // console.log("total",total,"driver_bata_amt",driver_bata_amt)
+                                                let net_total = total - driver_bata_amt
                                                     // console.log("net_total",net_total)
-                                                table.cell({ row: r, column: net_vehicle_balance }).data(net_total) //net_total
+                                                table.cell({ row: r, column: net_vehicle_balance }).data(net_total.toFixed(2)) //net_total
                                             }
 
                                         })
@@ -1216,7 +1238,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
             let tdvalue = parseInt($('#myTable').DataTable().cell("td.active").data())
                 // console.log("td value is ", tdvalue)
                 // Number.isInteger(tdvalue)&&tdvalue>0?true:false
-            if (Number.isInteger(tdvalue) && tdvalue > 0) {
+            if (Number.isInteger(tdvalue) && tdvalue >= 0) {
                 return true
             }
         }
