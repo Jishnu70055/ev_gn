@@ -75,7 +75,8 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         else:
             gst_amount = float(trip[21])
         net_frc = float(trip[30])
-        net_total = float(trip[34])
+        driver_bata_amount = float(trip[34])
+        net_total = float(trip[35])
         bata_amount = float(trip[33])
         if trip[16]:
             gst_percentage = float(trip[16])
@@ -123,7 +124,8 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
                     "bill_of_lading" : bill_of_lading ,              
                     "invoice_no" : invoice_number,
                     "dispatch_doc_no" : dispatch_doc_no,
-                    "supplier_uom" : supplier_uom
+                    "supplier_uom" : supplier_uom,
+                    "driver_bata_amount" : driver_bata_amount
                 })
         
     if arg4 == 'hold':
@@ -137,7 +139,7 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
 def vehicle_share_validation(doc,event):
     total_percentage = 0
     for individual_share in doc.vehicle_owner:
-        total_percentage = total_percentage + int(individual_share.share_percentage)
+        total_percentage = total_percentage + float(individual_share.share_percentage)
     if total_percentage == 100:
         pass
     else:
