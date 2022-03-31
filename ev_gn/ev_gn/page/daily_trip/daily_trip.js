@@ -34,6 +34,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         var li_nodes = ''
         var selected_ul = 0;
 
+        
         let validtion_point = false // 
         let validation_int_array = [] //array
         let current_date //set date 
