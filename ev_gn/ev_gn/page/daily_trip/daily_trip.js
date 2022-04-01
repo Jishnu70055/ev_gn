@@ -34,7 +34,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         var li_nodes = ''
         var selected_ul = 0;
 
-        
+
         let validtion_point = false // 
         let validation_int_array = [] //array
         let current_date //set date 
@@ -92,7 +92,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
 
         // Load Jquery UI using Jquery getScript function.
-        $.getScript(js_libs.jquery_ui)
+        $.getScript(js_libs.jquery_loading_overlay)
             // Done is a chained with multiple function called
             // one after the other.
             .done(function(script, textStatus) {
@@ -102,12 +102,19 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                     sessionStorage.setItem('register', 1);
                     window.location.reload();
                 }
-                $.getScript(js_libs.jquery_loading_overlay)
+                $.getScript(js_libs.jquery_ui)
                     .done(function(script, textStatus) {
                         // console.log("ui loaded")
                         $.getScript(js_libs.jquery_chosen)
                             .done(
                                 function(e) {
+                                    $('body').LoadingOverlay("show", {
+                                        image: "",
+                                        text: "Please Wait"
+                                    });
+
+
+
                                     frappe.db.get_list('Vehicle', { fields: ['license_plate'], limit: '*' })
                                         .then(
                                             r => {
@@ -260,7 +267,9 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                             $("td").removeClass("active")
                                             e.target.classList.add('active');
                                         })
-
+                                        if (session !== null) {
+                                            $('body').LoadingOverlay("hide")
+                                        }
                                         $("#body").find("tbody").on(' keypress paste input focus', '[contenteditable]', 'td', function(e) {
                                             totalrow = $('#myTable').DataTable().cell(this).index().row //find totalrow in table
                                                 //Get value of TD
@@ -760,12 +769,12 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                 // customer type='rent' => coustomer amt / coustomer qty
                                                 table.cell({ row: r, column: coustomer__rate__type }).data() == "Rent" ? (
 
-                                                    value_a = table.cell({ row: row, column: coustomer__rate }).data() ? parseInt(table.cell({ row: row, column: coustomer__rate }).data()) : 0, //column_A is rate  
+                                                    value_a = table.cell({ row: row, column: coustomer__rate }).data() ? parseFloat(table.cell({ row: row, column: coustomer__rate }).data()) : 0, //column_A is rate  
                                                     // console.log('value a in coustomer rate ', value_a),
                                                     table.cell({ row: row, column: coustomer__amt }).data(value_a) //add calculation 
 
                                                 ) : ""
-                                                let coustomer_amt = table.cell({ row: row, column: coustomer__amt }).data() ? parseInt(table.cell({ row: row, column: coustomer__amt }).data()) : 1;
+                                                let coustomer_amt = table.cell({ row: row, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: row, column: coustomer__amt }).data()) : 1;
                                                 table.cell({ row: r, column: gst_p_ }).data() == 5 ? table.cell({ row: row, column: gst_amount }).data((coustomer_amt * .05).toFixed(2)) : table.cell({ row: row, column: gst_amount }).data((0).toFixed(2))
 
                                             }
@@ -823,13 +832,13 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                             ) {
                                                 let r = cell.index().row
                                                 let partner_amount = table.cell({ row: r, column: partner__amt }).data() ? parseInt(table.cell({ row: r, column: partner__amt }).data()) : 0;
-                                                let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseInt(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
+                                                let customer_amount = table.cell({ row: r, column: coustomer__amt }).data() ? parseFloat(table.cell({ row: r, column: coustomer__amt }).data()) : 0;
                                                 let supplier_amount = table.cell({ row: r, column: supplier_amt }).data() ? parseInt(table.cell({ row: r, column: supplier_amt }).data()) : 0;
                                                 let net_frc = table.cell({ row: r, column: frc_gst }).data() ? parseFloat(table.cell({ row: r, column: frc_gst }).data()) : 0;
                                                 // console.log("customer amt",customer_amount,"partner amt",partner_amount,"supplier_amount",supplier_amount,"net_frc",net_frc)
                                                 let total = customer_amount - partner_amount - supplier_amount - net_frc
                                                     // console.log("total value is ",total)
-                                                table.cell({ row: r, column: total_vehicle_rent }).data(total) //total value
+                                                table.cell({ row: r, column: total_vehicle_rent }).data(total.toFixed(2)) //total value
                                             }
 
                                             //NET TOTAL = TOTAL - BATA RATE
@@ -1108,11 +1117,11 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
         function muliple_calutlation(row, column_a, column_b, calc) { // multiplication calucultation
 
-            value_a = table.cell({ row: row, column: column_a }).data() ? parseInt(table.cell({ row: row, column: column_a }).data()) : 0; //column_A is rate  
-            value_b = table.cell({ row: row, column: column_b }).data() ? parseInt(table.cell({ row: row, column: column_b }).data()) : 1; //coloumn_b is qty
+            value_a = table.cell({ row: row, column: column_a }).data() ? parseFloat(table.cell({ row: row, column: column_a }).data()) : 0; //column_A is rate  
+            value_b = table.cell({ row: row, column: column_b }).data() ? parseFloat(table.cell({ row: row, column: column_b }).data()) : 1; //coloumn_b is qty
             // console.log("value_a ", value_a)
             // console.log("value_B ", value_b)
-            table.cell({ row: row, column: calc }).data(value_a * value_b); //add calculation 
+            table.cell({ row: row, column: calc }).data((value_a * value_b).toFixed(2)); //add calculation 
         }
 
         function today_date() {
