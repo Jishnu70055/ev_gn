@@ -72,7 +72,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Cash Flow",
    "link_to": "Cash Flow",
    "link_type": "Report",
@@ -90,7 +90,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Purchase Report",
    "link_to": "Purchase Report",
    "link_type": "Report",
@@ -99,7 +99,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Driver Bata Report",
    "link_to": "Driver Bata Report",
    "link_type": "Report",
@@ -108,7 +108,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Payment Report",
    "link_to": "Payment Reports",
    "link_type": "Report",
@@ -117,7 +117,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Total Trip Report",
    "link_to": "Total Trip Report",
    "link_type": "Report",
@@ -126,7 +126,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "GST Sales Register",
    "link_to": "GST Sales Register",
    "link_type": "Report",
@@ -135,7 +135,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "GST Purchase Register",
    "link_to": "GST Purchase Register",
    "link_type": "Report",
@@ -144,7 +144,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Vehicle Expense Report",
    "link_to": "Vehicle Expense Report",
    "link_type": "Report",
@@ -153,7 +153,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Recievable Summary",
    "link_to": "Receivables Summary",
    "link_type": "Report",
@@ -162,7 +162,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Company Expense Report",
    "link_to": "Company Expense Report",
    "link_type": "Report",
@@ -171,7 +171,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "FRC Report",
    "link_to": "FRC Report",
    "link_type": "Report",
@@ -180,7 +180,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Statement Of Accounts",
    "link_to": "General Ledger",
    "link_type": "Report",
@@ -188,7 +188,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-04-01 14:41:25.954321",
+ "modified": "2022-04-01 14:52:39.866212",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Accounts",
