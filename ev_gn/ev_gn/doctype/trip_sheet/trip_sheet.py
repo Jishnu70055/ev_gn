@@ -173,6 +173,7 @@ def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, 
 		"amount":trip * amount,
 		"uom": uom
 		})
+	
 	purchase_invoice.submit()
 	return purchase_invoice.name
 
