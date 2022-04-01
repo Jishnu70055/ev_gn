@@ -152,7 +152,7 @@ def create_sales_invoice(self, data, gst_template):
 		sales_invoice.submit()
 		return sales_invoice.name
 
-def create_purchase_invoice(self ,supplier, site, rate, quantity, amount, trip, date, item, uom, vehicle, name):
+def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, item, uom, vehicle, name):
 	purchase_invoice = frappe.get_doc({
 		"doctype":"Purchase Invoice",
 		"supplier": supplier,
@@ -160,7 +160,7 @@ def create_purchase_invoice(self ,supplier, site, rate, quantity, amount, trip, 
 		"date": date,
 		"total": trip * amount,
 		"no_of_trips": trip,
-		"trip_entry_date" : self.date,
+		"trip_entry_date" : date,
 		"vehicle": vehicle,
 		"cost_center": "Vehicle - ET",
 		"paid_amount": trip * amount,
@@ -275,10 +275,10 @@ class TripSheet(Document):
 				gst_template = None
 				sales_invoice = create_sales_invoice(self, data, gst_template)
 			data.sales_invoice_id = sales_invoice									
-			purchase_invoice = create_purchase_invoice(self , data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)	
+			purchase_invoice = create_purchase_invoice(data.supplier, data.supplier_site, data.supplier_rate, data.supplier_quantity, data.supplier_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)	
 			data.purchase_invoice_id = purchase_invoice						
 			if data.supplier_partner:																
-				purchase_invoice_partner = create_purchase_invoice(self , data.supplier_partner, data.supplier_site, data.supplier_partner_rate, data.supplier_partner_quantity, data.supplier_partner_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)
+				purchase_invoice_partner = create_purchase_invoice(data.supplier_partner, data.supplier_site, data.supplier_partner_rate, data.supplier_partner_quantity, data.supplier_partner_amount, data.trip, self.date, data.item, data.uom, self.vehicle, self.name)
 				data.partner_purchase_invoice_id = purchase_invoice_partner
 			if data.paid_amount:															
 				amount_paid = data.paid_amount

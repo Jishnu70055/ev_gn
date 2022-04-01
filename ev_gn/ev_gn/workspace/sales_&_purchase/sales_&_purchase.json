@@ -13,7 +13,7 @@
  "is_standard": 1,
  "label": "Sales & Purchase",
  "links": [],
- "modified": "2022-03-23 13:23:58.861625",
+ "modified": "2022-03-31 23:55:35.087940",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Sales & Purchase",
@@ -21,12 +21,6 @@
  "pin_to_bottom": 0,
  "pin_to_top": 0,
  "shortcuts": [
-  {
-   "doc_view": "New",
-   "label": "Add Expense",
-   "link_to": "Expense",
-   "type": "DocType"
-  },
   {
    "doc_view": "List",
    "label": "Payments Made",

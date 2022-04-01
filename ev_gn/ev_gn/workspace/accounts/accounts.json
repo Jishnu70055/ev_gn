@@ -63,7 +63,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Balance Sheet",
    "link_to": "Balance Sheet",
    "link_type": "Report",
@@ -81,7 +81,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Sales Report",
    "link_to": "Sales Report",
    "link_type": "Report",
@@ -188,7 +188,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-03-23 13:38:17.278134",
+ "modified": "2022-04-01 14:41:25.954321",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Accounts",
