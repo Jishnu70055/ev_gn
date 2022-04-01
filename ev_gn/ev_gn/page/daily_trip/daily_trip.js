@@ -34,7 +34,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         var li_nodes = ''
         var selected_ul = 0;
 
-        
+
         let validtion_point = false // 
         let validation_int_array = [] //array
         let current_date //set date 
@@ -92,7 +92,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
 
         // Load Jquery UI using Jquery getScript function.
-        $.getScript(js_libs.jquery_ui)
+        $.getScript(js_libs.jquery_loading_overlay)
             // Done is a chained with multiple function called
             // one after the other.
             .done(function(script, textStatus) {
@@ -102,12 +102,19 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                     sessionStorage.setItem('register', 1);
                     window.location.reload();
                 }
-                $.getScript(js_libs.jquery_loading_overlay)
+                $.getScript(js_libs.jquery_ui)
                     .done(function(script, textStatus) {
                         // console.log("ui loaded")
                         $.getScript(js_libs.jquery_chosen)
                             .done(
                                 function(e) {
+                                    $('body').LoadingOverlay("show", {
+                                        image: "",
+                                        text: "Please Wait"
+                                    });
+
+
+
                                     frappe.db.get_list('Vehicle', { fields: ['license_plate'], limit: '*' })
                                         .then(
                                             r => {
@@ -260,7 +267,9 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                             $("td").removeClass("active")
                                             e.target.classList.add('active');
                                         })
-
+                                        if (session !== null) {
+                                            $('body').LoadingOverlay("hide")
+                                        }
                                         $("#body").find("tbody").on(' keypress paste input focus', '[contenteditable]', 'td', function(e) {
                                             totalrow = $('#myTable').DataTable().cell(this).index().row //find totalrow in table
                                                 //Get value of TD
