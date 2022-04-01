@@ -92,7 +92,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
 
         // Load Jquery UI using Jquery getScript function.
-        $.getScript(js_libs.jquery_loading_overlay)
+        $.getScript(js_libs.jquery_ui)
             // Done is a chained with multiple function called
             // one after the other.
             .done(function(script, textStatus) {
@@ -102,7 +102,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                     sessionStorage.setItem('register', 1);
                     window.location.reload();
                 }
-                $.getScript(js_libs.jquery_ui)
+                $.getScript(js_libs.jquery_loading_overlay)
                     .done(function(script, textStatus) {
                         // console.log("ui loaded")
                         $.getScript(js_libs.jquery_chosen)
