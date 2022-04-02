@@ -812,7 +812,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 // console.log("bata_percentage", table.cell({ row: r, column: bata__percentage }).data())
                                                 console.log(table.cell({ row: r, column: bata__percentage }).data())
                                                 table.cell({ row: r, column: bata__percentage }).data() ? table.cell({ row: r, column: bata__rate }).data("") : ""
-                                                let bata_percentage = table.cell({ row: r, column: bata__percentage }).data() ? (parseInt(table.cell({ row: r, column: bata__percentage }).data()) / 100) * parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
+                                                let bata_percentage = table.cell({ row: r, column: bata__percentage }).data() ? (parseFloat(table.cell({ row: r, column: bata__percentage }).data()) / 100) * parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
                                                 let Trip_no = table.cell({ row: r, column: no__of__tips }).data() ? parseInt(table.cell({ row: r, column: no__of__tips }).data()) : 1;
                                                 table.cell({ row: r, column: bata__percentage }).data() != "" && table.cell({ row: r, column: bata__percentage }).data() >= 0 ? table.cell({ row: r, column: bata__amount }).data(bata_percentage.toFixed(2)) : table.cell({ row: r, column: bata__amount }).data(0)
                                                 table.cell({ row: r, column: driver_bata__amount }).data((Trip_no * bata_percentage).toFixed(2));
