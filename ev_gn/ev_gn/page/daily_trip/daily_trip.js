@@ -691,7 +691,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                                     table.cell({ row: r, column: supplier_partner }).data() ?
                                                         (
-                                                            check_integer() ? cell_border_error_remove(row, cell.index().column) :
+                                                            check_integer(row,cell.index().column) ? cell_border_error_remove(row, cell.index().column) : //valdiation check is number
                                                                 ($('#alertdata').empty(),
                                                                     $('#alertdata').append("Please Enter a valid Number"),
                                                                     $("#alert_card").fadeIn(),
@@ -704,7 +704,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
 
                                                 } else {
-                                                    check_integer() ? cell_border_error_remove(row, cell.index().column) :
+                                                    check_integer(row,cell.index().column) ? cell_border_error_remove(row, cell.index().column) : //valdiation check is number
                                                         ($('#alertdata').empty(),
                                                             $('#alertdata').append("Please Enter a valid Number"),
                                                             $("#alert_card").fadeIn(),
@@ -740,7 +740,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                             if (cell.index().column == supplier_qty) {
                                                 value_a = table.cell({ row: row, column: supplier_qty }).data()
-                                                table.cell({ row: row, column: partner__qty }).data(parseInt(value_a)) //add calculation 
+                                                table.cell({ row: row, column: partner__qty }).data(value_a) //add calculation 
                                             }
                                             if (cell.index().column == supplier_rate || cell.index().column == supplier_qty) {
                                                 let r = cell.index().row
@@ -1204,7 +1204,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
             console.log("row value is ", i)
             for (j = 0; j < net_col; j++) {
                 // table.cell({ row: i, column: j }).data()?console.log(`value not found in cell row :${i} column:${J}`):console.log(`value not found in cell row :${i} column:${J}`);
-
+                console.log($(`#myTable tr:nth-child(${i + 1}) td:nth-child(${j + 1})`).html(),'value')
                 table.cell({ row: i, column: j }).data() ?
                     (console.log(`%c value  found : ${table.cell({ row: i, column: j }).data()}`, 'background:yellow;color:green'),
                         console.log("flag value is", flag)
@@ -1252,9 +1252,11 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         $(`#myTable tr:nth-child(${row + 1}) td:nth-child(${column + 1})`).removeClass('border border-danger bg-light')
     }
 
-    function check_integer() {
-        let tdvalue = parseInt($('#myTable').DataTable().cell("td.active").data())
-        // console.log("td value is ", tdvalue)
+    function check_integer(r,c) {
+        // let tdvalue = parseInt($('#myTable').DataTable().cell("td.active").data()) validation changed
+
+        let tdvalue = parseInt($(`#myTable tr:nth-child(${r + 1}) td:nth-child(${c + 1})`).html()) //current validation
+        console.log("td value is ", tdvalue)
         // Number.isInteger(tdvalue)&&tdvalue>0?true:false
         if (Number.isInteger(tdvalue) && tdvalue >= 0) {
             return true
