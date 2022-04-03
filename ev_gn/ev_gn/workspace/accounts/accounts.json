@@ -81,7 +81,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "label": "Sales Report",
    "link_to": "Sales Report",
    "link_type": "Report",
@@ -90,7 +90,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "label": "Purchase Report",
    "link_to": "Purchase Report",
    "link_type": "Report",
@@ -99,16 +99,17 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "label": "Driver Bata Report",
    "link_to": "Driver Bata Report",
    "link_type": "Report",
    "onboard": 0,
+   "only_for": "",
    "type": "Link"
   },
   {
    "hidden": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "label": "Payment Report",
    "link_to": "Payment Reports",
    "link_type": "Report",
@@ -117,7 +118,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "label": "Total Trip Report",
    "link_to": "Total Trip Report",
    "link_type": "Report",
@@ -144,7 +145,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "label": "Vehicle Expense Report",
    "link_to": "Vehicle Expense Report",
    "link_type": "Report",
@@ -153,7 +154,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "label": "Recievable Summary",
    "link_to": "Receivables Summary",
    "link_type": "Report",
@@ -162,7 +163,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "label": "Company Expense Report",
    "link_to": "Company Expense Report",
    "link_type": "Report",
@@ -171,7 +172,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 1,
+   "is_query_report": 0,
    "label": "FRC Report",
    "link_to": "FRC Report",
    "link_type": "Report",
@@ -188,7 +189,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-04-01 15:51:26.238998",
+ "modified": "2022-04-03 12:50:45.317725",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Accounts",

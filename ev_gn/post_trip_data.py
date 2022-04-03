@@ -23,7 +23,7 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         supplier = trip[1]
         supplier_site = trip[2]
         supplier_uom = trip[3]
-        supplier_rate = trip[4]
+        supplier_rate = float(trip[4])
         supplier_quantity = float(trip[5])
         supplier_amount = float(trip[7])
         print("-------------------------")
@@ -58,18 +58,18 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         else:
             no_of_trips = int(trip[25])
         if (trip[31] == ''):
-            bata_rate = int(0)
+            bata_rate = float(0)
         else:
             bata_rate = float(trip[31])
         if (trip[32] == ''):
-            bata_percentage = int(0)
+            bata_percentage = float(0)
         else:
             bata_percentage = float(trip[32])
         frc = float(trip[29])
         if (trip[26] == ''):
             distance = int(0)
         else:
-            distance = int(trip[26])
+            distance = float(trip[26])
         if (trip[21] == ''):
             gst_amount = int(0)
         else:
