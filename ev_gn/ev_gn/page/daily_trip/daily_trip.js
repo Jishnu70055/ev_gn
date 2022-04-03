@@ -791,6 +791,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                                 let gst_amt = table.cell({ row: r, column: gst_amount }).data() ? parseFloat(table.cell({ row: r, column: gst_amount }).data()) : 0;
                                                 table.cell({ row: r, column: frc_gst }).data((frc + gst_amt).toFixed(2));
                                             }
+                                         
                                             //BATA TOTAL = BATE RATE 
                                             if (cell.index().column == bata__rate) {
                                                 console.log("bata_rate")
