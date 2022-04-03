@@ -108,10 +108,7 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
         .done(function (script, textStatus) {
 
             let session = sessionStorage.getItem('register'); //get session storage from 'register' value
-            if (session == null) {  //check if condition session value is null 
-                sessionStorage.setItem('register', 1); // set session storage value 'register into 1
-                window.location.reload();
-            }
+            
             $.getScript(js_libs.jquery_loading_overlay) //add overlay jquery 
                 .done(function (script, textStatus) {
                     // console.log("ui loaded")
@@ -264,7 +261,10 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                         }
                                         // window.location.reload()
                                         $('#myTable').DataTable().row.add(rows).draw(true)
-
+                                        // if (session == null) {  //check if condition session value is null 
+                                        //     sessionStorage.setItem('register', 1); // set session storage value 'register into 1
+                                        //     window.location.reload();
+                                        // }
                                         $("#body").find("tbody").on('click', '#myTable', function (e) { //add value active class while select a cell
                                             console.log('td working and add active tag')
                                             $("td").removeClass("active")
@@ -273,6 +273,9 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
 
                                         if (session !== null) { //check session is null and hide Loading Overlay
                                             $('body').LoadingOverlay("hide")
+                                        }else{
+                                            sessionStorage.setItem('register', 1); // set session storage value 'register into 1
+                                            window.location.reload();
                                         }
 
                                         //KEY PRESS ,PASTE ,INPUT ,FOCUS EVENT ARE WORKING IN TD IN TABLE THE BELOW CODE WORKING --start--
@@ -862,9 +865,9 @@ frappe.pages['daily-trip'].on_page_load = function (wrapper) {
                                             ) {
                                                 let r = cell.index().row
                                                 let total = table.cell({ row: r, column: total_vehicle_rent }).data() ? parseFloat(table.cell({ row: r, column: total_vehicle_rent }).data()) : 0;
-                                                let driver_bata_amt = table.cell({ row: r, column: driver_bata__amount }).data() ? parseFloat(table.cell({ row: r, column: driver_bata__amount }).data()) : 0;
-                                                // console.log("total",total,"driver_bata_amt",driver_bata_amt)
-                                                let net_total = total - driver_bata_amt
+                                                let bata_amount = table.cell({ row: r, column: bata__amount }).data() ? parseFloat(table.cell({ row: r, column: bata__amount }).data()) : 0;
+                                                // console.log("total",total,"bata__amount",bata__amount)
+                                                let net_total = total - bata_amount
                                                 // console.log("net_total",net_total)
                                                 table.cell({ row: r, column: net_vehicle_balance }).data(net_total.toFixed(2)) //net_total
                                             }
