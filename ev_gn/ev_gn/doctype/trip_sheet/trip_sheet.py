@@ -434,8 +434,3 @@ class TripSheet(Document):
 				payment_entry = create_payment_entry(self, data, sales_invoice, amount_paid, payment_mode)
 			expense = create_expense(data, self)
 			balance = calculate_net_balance(self, data)
-
-			if data.customer_rate_type == 'Rent':
-				rent = float(data.customer_rate/data.customer_quantity)
-				data.customer_rate = rent
-
