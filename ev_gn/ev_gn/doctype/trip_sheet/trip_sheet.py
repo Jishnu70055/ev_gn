@@ -203,28 +203,29 @@ def create_expense(data, self):
 	bata_amount = data.bata_amount * data.trip
 	driver = frappe.get_doc('Driver',data.driver)
 	driver_employee = driver.employee
-	expense = frappe.get_doc({
-			'doctype': 'Journal Entry',
-			'posting_date': self.date,
-			"accounts":[
-			{
-				"account": "Driver Bata - ET",
-				"party_type" : "Employee",
-				"party" : driver_employee,
-				"credit_in_account_currency": bata_amount,
-				"vehicle": self.vehicle,
-				"cost_center": "Vehicle - ET"
-			},
-			{
-				"account": "Transit Charge - ET",
-				"debit_in_account_currency": bata_amount,
-				"vehicle": self.vehicle,
-				"cost_center": "Vehicle - ET"
-			}
-		]
-		})
-	expense.insert()
-	expense.submit()
+	if bata_amount != 0 :
+		expense = frappe.get_doc({
+				'doctype': 'Journal Entry',
+				'posting_date': self.date,
+				"accounts":[
+				{
+					"account": "Driver Bata - ET",
+					"party_type" : "Employee",
+					"party" : driver_employee,
+					"credit_in_account_currency": bata_amount,
+					"vehicle": self.vehicle,
+					"cost_center": "Vehicle - ET"
+				},
+				{
+					"account": "Transit Charge - ET",
+					"debit_in_account_currency": bata_amount,
+					"vehicle": self.vehicle,
+					"cost_center": "Vehicle - ET"
+				}
+			]
+			})
+		expense.insert()
+		expense.submit()
 
 def calculate_net_balance(self, data):
 	vehicle = frappe.get_doc('Vehicle', self.vehicle)
