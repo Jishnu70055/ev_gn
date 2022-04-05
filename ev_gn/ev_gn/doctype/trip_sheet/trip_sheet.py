@@ -68,7 +68,7 @@ def create_sales_invoice(self, data, gst_template):
 				
 			delivery_challan = frappe.get_doc({
 			"doctype":"Delivery Challan",
-			"challan_date":sales_invoice.posting_date,
+			"challan_date":sales_invoice.trip_entry_date,
 			"customer":data.customer,
 			"tax_invoice_number":data.invoice_no,
 			"vehicle_number":self.vehicle,
@@ -212,7 +212,7 @@ def create_sales_invoice(self, data, gst_template):
 				
 			delivery_challan = frappe.get_doc({
 			"doctype":"Delivery Challan",
-			"challan_date":sales_invoice.posting_date,
+			"challan_date":sales_invoice.trip_entry_date,
 			"customer":data.customer,
 			"tax_invoice_number":data.invoice_no,
 			"vehicle_number":self.vehicle,
