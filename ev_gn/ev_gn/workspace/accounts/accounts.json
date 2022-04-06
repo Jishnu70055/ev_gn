@@ -85,7 +85,7 @@
    "label": "Sales Report",
    "link_to": "Sales Report",
    "link_type": "Report",
-   "onboard": 0,
+   "onboard": 1,
    "type": "Link"
   },
   {
@@ -94,7 +94,7 @@
    "label": "Purchase Report",
    "link_to": "Purchase Report",
    "link_type": "Report",
-   "onboard": 0,
+   "onboard": 1,
    "type": "Link"
   },
   {
@@ -103,7 +103,7 @@
    "label": "Driver Bata Report",
    "link_to": "Driver Bata Report",
    "link_type": "Report",
-   "onboard": 0,
+   "onboard": 1,
    "only_for": "",
    "type": "Link"
   },
@@ -189,7 +189,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-04-03 12:50:45.317725",
+ "modified": "2022-04-06 13:21:26.621356",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Accounts",
