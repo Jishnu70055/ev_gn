@@ -1011,9 +1011,13 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                     )
                     .catch((e) => {
                         $('body').LoadingOverlay("hide");
-                        console.log("Error", e);
+                        console.log('rre',e)
+
+                        let t=e.responseJSON._server_messages?JSON.parse(e.responseJSON._server_messages):'something went wrong'
+                        console.log("Error", t);
                         $('#alertdata').empty();
-                        $('#alertdata').append("Something went wrong");
+                        e.responseJSON._server_messages?$('#alertdata').append(JSON.parse(t).message):$('#alertdata').append('something went wrong');
+                        // $('#alertdata').append(JSON.parse(t).message);
                         $("#alert_card").fadeIn();
                         validtion_point = true;
                         closeSnoAlertBox()
@@ -1279,10 +1283,11 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
         function check_integer(r, c) {
             // let tdvalue = parseInt($('#myTable').DataTable().cell("td.active").data()) validation changed
 
-            let tdvalue = parseInt($(`#myTable tr:nth-child(${r + 1}) td:nth-child(${c + 1})`).html()) //current validation
-            console.log("td value is ", tdvalue)
+            let tdvalue = $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${c + 1})`).html() //current validation
+            console.log("td value is__ ", tdvalue)
+            rePattern = /^[-+]?[0-9]*[.,]?[0-9]+$/i;
                 // Number.isInteger(tdvalue)&&tdvalue>0?true:false
-            if (Number.isInteger(tdvalue) && tdvalue >= 0) {
+            if (rePattern.test(tdvalue) ) {
                 return true
             }
         }
