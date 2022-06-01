@@ -8,10 +8,9 @@ from frappe.exceptions import FileAlreadyAttachedException
 @frappe.whitelist()
 def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
     from datetime import datetime
+    print (arg3)
     date_obj=arg2
     date_format=datetime.strptime(date_obj,'%Y-%m-%d').date()
-    print (date_format)
-    print(type(date_format))
     total_trips = json.loads(arg3) #converting string array into json
     trip_sheet = frappe.new_doc("Trip Sheet")
     trip_sheet.vehicle = arg1
@@ -26,7 +25,6 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         supplier_rate = trip[4]
         supplier_quantity = float(trip[5])
         supplier_amount = float(trip[7])
-        print("-------------------------")
         supplier_partner = trip[8]
         sales_partner = trip[6]
         if (trip[9] and trip[10] and trip[11] != ''):
