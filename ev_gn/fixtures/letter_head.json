@@ -1,0 +1,18 @@
+[
+ {
+  "content": "<link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\">\n\n<table align=\"center\" style=\"color: #23218a;\" width=\"100%\">\n    <tbody>\n        <tr style=\"border-bottom: 1px solid blue;\">\n            <td valign=\"bottom\" width=\"24%\">\n                <img height=\"50\" src=\"/files/Evergreen Logo-01.png\" valign=\"center\" width=\"250\"></td>\n            <td width=\"46%\"> &nbsp;</td>\n            <td>\n                <table>\n                   <tbody>\n                   <tr>\n                        <td rowspan=\"2\"><i class=\"fa fa-map-marker\" style=\"font-size: 23px; color: red;\"></i></td>\n                        <td style=\"line-height: 10px; font-size: 12px;\">Kalangodan Building, Thalekkara, Kondotty</td>\n                    </tr>\n                    <tr style=\"line-height: 10px;\">\n                        <td style=\"line-height: 10px; font-size: 12px;\"> Pin:673638</td>\n                    </tr>\n                    <tr style=\"line-height: 10px; font-size: 12px;\">\n                        <td><i class=\"fa fa-envelope\" style=\"font-size: 11px; color: red;\"></i></td>\n                        <td>evergreentransport@outlook.com</td>\n                    </tr>\n                    <tr style=\"line-height: 10px; font-size: 12px;\">\n                        <td><i class=\"fa fa-phone\" style=\"font-size: 12px; color: red; display: inline-block; border-radius: 60px; box-shadow: 0 0 2px red; padding: 0.1em 0.2em;\"></i></td>\n                        <td>+91 9995398203</td>\n                    </tr>\n                    </tbody>\n                </table>\n            </td>\n        </tr>\n    </tbody>\n</table>",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Letter Head",
+  "footer": null,
+  "image": null,
+  "is_default": 1,
+  "letter_head_name": "Evergreen Transporting",
+  "modified": "2022-03-23 14:40:34.464655",
+  "name": "Evergreen Transporting",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source": "HTML"
+ }
+]

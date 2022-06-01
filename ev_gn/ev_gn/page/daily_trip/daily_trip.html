@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.0/datatables.min.css" />
-    <link rel="stylesheet" type="text/css" href="daily_trip.css" />
+    <link rel="stylesheet" type="text/css" href="./daily_trip.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -28,11 +28,12 @@
         </div>
     </div>
     <div class="suggestions bg-light  border border-1 border-dark  w-25 " data-active-cell="">
-        <ul class="list-style-none w-100 overflow-auto  list-group mh-auto suggestions-scroll" style="max-height:150px">
+        <ul class="list-style-none w-100 overflow-auto  list-group mh-auto suggestions-scroll" id="suggestion_list" style="max-height:350px">
         </ul>
     </div>
-    <a href="http://localhost:8000/app" target="_blank"><button id="homePage"
-            class="btn btn-primary fa fa-home">Home Page</button></a>
+    <a id="home-page-tag" href="/app">
+        <button id="homePage" class="btn btn-primary fa fa-home">Home Page</button>
+    </a>
     <button id="getData" class="btn btn-primary float-right mx-4">Save & Submit</button>
     <button id="SaveAndHoldData" class="btn btn-primary float-right mx-4">Save & Hold</button>
     <br><br><br>
@@ -80,6 +81,7 @@
                     <th>Bata Rate</th>
                     <th>Bata Percentage</th>
                     <th>Bata amount</th>
+                    <th>Driver Bata amount</th>
                     <th>Net Vehicle Balance</th>
                 </tr>
             </thead>
@@ -125,6 +127,9 @@
         <button id="addRow" class="btn btn-outline-primary">Add Row</button>
         <button id="deleteRow" class="btn btn-danger">Delete</button>
     </div>
+
+
+
 </body>
 
 </html>

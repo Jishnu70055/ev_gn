@@ -1,8 +1,7 @@
 {
  "category": "Modules",
  "charts": [],
- "charts_label": "",
- "creation": "2021-11-27 15:53:59.157844",
+ "creation": "2022-03-20 16:16:50.976634",
  "developer_mode_only": 0,
  "disable_user_customization": 0,
  "docstatus": 0,
@@ -12,22 +11,16 @@
  "idx": 0,
  "is_default": 0,
  "is_standard": 1,
- "label": "Purchase",
+ "label": "Sales & Purchase",
  "links": [],
- "modified": "2021-11-27 15:57:13.163370",
+ "modified": "2022-03-31 23:55:35.087940",
  "modified_by": "Administrator",
  "module": "Ev Gn",
- "name": "Purchase",
+ "name": "Sales & Purchase",
  "owner": "Administrator",
  "pin_to_bottom": 0,
  "pin_to_top": 0,
  "shortcuts": [
-  {
-   "doc_view": "New",
-   "label": "Add Expense",
-   "link_to": "Expense",
-   "type": "DocType"
-  },
   {
    "doc_view": "List",
    "label": "Payments Made",
@@ -40,7 +33,31 @@
    "label": "Purchase Invoice",
    "link_to": "Purchase Invoice",
    "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Sales Invoice",
+   "link_to": "Sales Invoice",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "New",
+   "label": "Quotation",
+   "link_to": "Quotation",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Invoice On Hold",
+   "link_to": "Sales Invoice",
+   "stats_filter": "{\"status\": \"draft\"}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Delivery Challan",
+   "link_to": "Delivery Challan",
+   "type": "DocType"
   }
- ],
- "shortcuts_label": "Purchase & Expenses"
+ ]
 }
