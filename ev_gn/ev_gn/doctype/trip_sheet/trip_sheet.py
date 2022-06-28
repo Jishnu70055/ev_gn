@@ -100,27 +100,6 @@ def create_sales_invoice(self, data, gst_template):
 				}]		
 			})
 			delivery_challan.save()
-			
-			# delivery_challan.append("items_1",{
-			# 	"item_code":data.item,
-			# 	"qty": data.trip * data.customer_quantity,
-			# 	"uom": data.uom,
-			# 	"rate": data.customer_rate,
-			# 	"amount":data.trip * data.customer_amount,
-			# 	})
-			# delivery_challan.append("sales_taxes_and_charges": {
-			# 		"charge_type": charge_type,
-			# 		"account_head": account_head,
-			# 		"description": description,
-			# 		"rate": rate
-			# 		},
-			# 		{
-			# 		"charge_type": charge_type_2,
-			# 		"account_head": account_head_2,
-			# 		"description": description_2,
-			# 		"rate": rate_2
-			# 		})
-
 			delivery_challan.save()
 			delivery_challan.challan_no = delivery_challan.name
 			delivery_challan.sales_invoice_id = sales_invoice.name
@@ -244,28 +223,6 @@ def create_sales_invoice(self, data, gst_template):
 				}]		
 			})
 			delivery_challan.save()
-			
-			# delivery_challan.append("items_1",{
-			# 	"item_code":data.item,
-			# 	"qty": data.trip * data.customer_quantity,
-			# 	"uom": data.uom,
-			# 	"rate": data.customer_rate,
-			# 	"amount":data.trip * data.customer_amount,
-			# 	})
-			# delivery_challan.append("sales_taxes_and_charges": {
-			# 		"charge_type": charge_type,
-			# 		"account_head": account_head,
-			# 		"description": description,
-			# 		"rate": rate
-			# 		},
-			# 		{
-			# 		"charge_type": charge_type_2,
-			# 		"account_head": account_head_2,
-			# 		"description": description_2,
-			# 		"rate": rate_2
-			# 		})
-
-			delivery_challan.save()
 			delivery_challan.challan_no = delivery_challan.name
 			delivery_challan.sales_invoice_id = sales_invoice.name
 			delivery_challan.save()
@@ -372,7 +329,7 @@ def create_expense(data, self):
 			})
 		expense.insert()
 		expense.submit()
-
+	
 def calculate_net_balance(self, data):
 	vehicle = frappe.get_doc('Vehicle', self.vehicle)
 	for row in vehicle.vehicle_owner:
@@ -401,6 +358,30 @@ def calculate_net_balance(self, data):
 
 		journal_entry.insert()
 		journal_entry.submit()
+
+def cancel_trip_related_documents(self):
+	trip_sheet = frappe.get_doc("Trip Sheet",self.name)
+	for trip_datas in trip_sheet.trip_details:
+		payment_entry_cancelling(trip_datas.purchase_invoice_id)
+		purchase_invoice = frappe.get_doc("Purchase Invoice",trip_datas.purchase_invoice_id)
+		purchase_invoice.cancel()
+		payment_entry_cancelling(trip_datas.sales_invoice_id)
+		sales_invoice = frappe.get_doc("Sales Invoice",trip_datas.sales_invoice_id)
+		delivery_challan_cancelling(sales_invoice.challan_no)
+		sales_invoice.cancel()	
+
+def payment_entry_cancelling(invoice_id):
+	all_payment_entry = frappe.db.get_all("Payment Entry",fields = ["name"])
+	for payment_datas in all_payment_entry:
+		payment_entry = frappe.get_doc("Payment Entry",payment_datas.name)
+		for reference_data in payment_entry.references:
+			if reference_data.reference_name == invoice_id:
+				payment_entry.cancel()
+
+def delivery_challan_cancelling(challan_id):
+	delivery_challan = frappe.get_doc("Delivery Challan",challan_id)
+	delivery_challan.cancel()
+
 		
 class TripSheet(Document):
 
@@ -412,8 +393,6 @@ class TripSheet(Document):
 			if row.supplier_partner_amount:
 				row.total_supplier_amount = row.supplier_partner_amount + row.supplier_amount
 		
-		
-
 	def before_submit(self):
 		for data in self.trip_details:	
 			if data.gst_percentage == 5:
@@ -434,3 +413,7 @@ class TripSheet(Document):
 				payment_entry = create_payment_entry(self, data, sales_invoice, amount_paid, payment_mode)
 			expense = create_expense(data, self)
 			balance = calculate_net_balance(self, data)
+	
+	def on_cancel(self):
+		cancel_trip_related_documents(self)
+
