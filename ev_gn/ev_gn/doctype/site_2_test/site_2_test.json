@@ -1,6 +1,7 @@
 {
  "actions": [],
- "creation": "2021-07-09 18:41:15.046032",
+ "autoname": ".#",
+ "creation": "2022-03-04 16:35:42.476232",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -23,10 +24,10 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-03-04 16:35:36.810007",
+ "modified": "2022-03-04 16:35:42.476232",
  "modified_by": "Administrator",
  "module": "Ev Gn",
- "name": "Site",
+ "name": "site 2 Test",
  "owner": "Administrator",
  "permissions": [
   {
