@@ -410,7 +410,7 @@ class TripSheet(Document):
 			if data.paid_amount:															
 				amount_paid = data.paid_amount
 				payment_mode = data.payment_method
-				payment_entry = create_payment_entry(self, data, sales_invoice, amount_paid, payment_mode)
+				payment_entry = create_payment_entry(self, data, sales_invoice, amount_paid, payment_mode )
 			expense = create_expense(data, self)
 			balance = calculate_net_balance(self, data)
 	
