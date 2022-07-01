@@ -49,7 +49,7 @@ def journal_entry_supplier(self, credit_account, debit_account):
 
 def create_journal_entry_vehicle(self, debit_account):
 	vehicle = frappe.get_doc("Vehicle", self.vehicle)
-	credit_account = "Vehicle Owners - EJ"
+	credit_account = "Vehicle Owners - ET"
 	for row in vehicle.vehicle_owner:
 		expense_amount = self.amount * row.share_percentage / 100
 		journal_entry_vehicle = frappe.get_doc({
@@ -62,13 +62,13 @@ def create_journal_entry_vehicle(self, debit_account):
 				"party": row.share_holder,
 				"debit_in_account_currency": expense_amount,
 				"vehicle": self.vehicle,
-				"cost_center": "Vehicle - EJ"
+				"cost_center": "Vehicle - ET"
 			},
 			{
 				"account": debit_account,
 				"credit_in_account_currency": expense_amount,
 				"vehicle": self.vehicle,
-				"cost_center": "Vehicle - EJ"
+				"cost_center": "Vehicle - ET"
 			}
 		]
 		})
@@ -86,11 +86,11 @@ class Expense(Document):
 		bank_account = bank.accounts[0].default_account
 		
 		if self.paid == 0:
-			credit_account = "Creditors - EJ"
+			credit_account = "Creditors - ET"
 			journal_entry_supplier(self, credit_account, debit_account)
 		else:
 			if self.paid_by == "Cash":
-				credit_account = "Cash - EJ"
+				credit_account = "Cash - ET"
 			elif self.paid_by == "Bank":
 				credit_account = bank_account
 			create_journal_entry(self, credit_account, debit_account)

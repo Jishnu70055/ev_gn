@@ -11,6 +11,7 @@
   "vehicle",
   "paid_by",
   "supplier",
+  "description",
   "column_break_5",
   "company",
   "paid",
@@ -100,10 +101,11 @@
   },
   {
    "allow_on_submit": 1,
-   "default": "0",
+   "default": "1",
    "fieldname": "paid",
    "fieldtype": "Check",
-   "label": "Paid"
+   "label": "Paid",
+   "permlevel": 1
   },
   {
    "default": "Evergreen",
@@ -119,12 +121,17 @@
    "label": "Supplier",
    "mandatory_depends_on": "eval: doc.paid == 0 & doc.vehicle == null;",
    "options": "Supplier"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-12-01 12:06:32.718974",
+ "modified": "2022-03-21 00:01:30.204553",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Expense",

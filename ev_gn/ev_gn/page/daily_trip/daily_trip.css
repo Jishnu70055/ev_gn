@@ -19,3 +19,7 @@
     background-color: #aaa;
     /* or add it to the track */
 }
+
+.bg-selection {
+    background-color: #dadfdf;
+}

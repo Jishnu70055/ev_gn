@@ -8,10 +8,9 @@ from frappe.exceptions import FileAlreadyAttachedException
 @frappe.whitelist()
 def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
     from datetime import datetime
+    print (arg3)
     date_obj=arg2
     date_format=datetime.strptime(date_obj,'%Y-%m-%d').date()
-    print (date_format)
-    print(type(date_format))
     total_trips = json.loads(arg3) #converting string array into json
     trip_sheet = frappe.new_doc("Trip Sheet")
     trip_sheet.vehicle = arg1
@@ -23,10 +22,9 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         supplier = trip[1]
         supplier_site = trip[2]
         supplier_uom = trip[3]
-        supplier_rate = trip[4]
+        supplier_rate = float(trip[4])
         supplier_quantity = float(trip[5])
         supplier_amount = float(trip[7])
-        print("-------------------------")
         supplier_partner = trip[8]
         sales_partner = trip[6]
         if (trip[9] and trip[10] and trip[11] != ''):
@@ -58,25 +56,26 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
         else:
             no_of_trips = int(trip[25])
         if (trip[31] == ''):
-            bata_rate = int(0)
+            bata_rate = float(0)
         else:
             bata_rate = float(trip[31])
         if (trip[32] == ''):
-            bata_percentage = int(0)
+            bata_percentage = float(0)
         else:
             bata_percentage = float(trip[32])
         frc = float(trip[29])
         if (trip[26] == ''):
             distance = int(0)
         else:
-            distance = int(trip[26])
+            distance = float(trip[26])
         if (trip[21] == ''):
             gst_amount = int(0)
         else:
             gst_amount = float(trip[21])
         net_frc = float(trip[30])
-        net_total = float(trip[34])
-        bata_amount = trip[33]
+        driver_bata_amount = float(trip[34])
+        net_total = float(trip[35])
+        bata_amount = float(trip[33])
         if trip[16]:
             gst_percentage = float(trip[16])
         else:
@@ -123,7 +122,8 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
                     "bill_of_lading" : bill_of_lading ,              
                     "invoice_no" : invoice_number,
                     "dispatch_doc_no" : dispatch_doc_no,
-                    "supplier_uom" : supplier_uom
+                    "supplier_uom" : supplier_uom,
+                    "driver_bata_amount" : driver_bata_amount
                 })
         
     if arg4 == 'hold':
@@ -137,7 +137,7 @@ def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
 def vehicle_share_validation(doc,event):
     total_percentage = 0
     for individual_share in doc.vehicle_owner:
-        total_percentage = total_percentage + int(individual_share.share_percentage)
+        total_percentage = total_percentage + float(individual_share.share_percentage)
     if total_percentage == 100:
         pass
     else:
