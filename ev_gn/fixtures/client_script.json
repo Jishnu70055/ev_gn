@@ -63,5 +63,18 @@
   "parenttype": null,
   "script": "frappe.ui.form.on('Sales Invoice', {\n  before_save:function(frm) {\n      if(frm.doc.taxes_and_charges=='GST 5% - EJ'){frm.doc.naming_series='SRET-.YY.-'}\n      console.log(frm.doc.taxes_and_charges,\"Hellooo\");\n      \n  }\n});",
   "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Purchase Invoice",
+  "enabled": 0,
+  "modified": "2022-07-06 12:38:57.349365",
+  "name": "Purchase Invoice-Form",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Purchase Invoice', {\n  is_vehicle_purchase:function(frm) {\n      var v1 = frm.doc.is_vehicle_purchase;\n    console.log(v1)\n      if(v1 == 1){\n          \n          frm.set_value(\"cost_center\", \"Vehicle - ET\")\n      }\n    \n      \n  }\n})\n",
+  "view": "Form"
  }
 ]
