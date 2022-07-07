@@ -367,8 +367,6 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                             //API FETCH PART -- start
                                             if ($('#myTable').DataTable().cell(this).index().column == driver_) { //fetch data customer api 
-                                                // console.log("td values are", query);
-
 
 
                                                 q = "%" + query + "%" //get value while searching in td value in table  
