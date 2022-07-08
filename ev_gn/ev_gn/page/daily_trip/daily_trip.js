@@ -367,8 +367,6 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                             //API FETCH PART -- start
                                             if ($('#myTable').DataTable().cell(this).index().column == driver_) { //fetch data customer api 
-                                                // console.log("td values are", query);
-
 
 
                                                 q = "%" + query + "%" //get value while searching in td value in table  
@@ -470,7 +468,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                             if ($('#myTable').DataTable().cell(this).index().column == supplier__site) {
 
                                                 let cell = $('#myTable').DataTable().cell("td.active")
-                                                let r = cell.index().row
+                                                let r = $('#myTable').DataTable().cell(this).index().row
                                                 frappe.db.get_doc('Supplier', table.cell({ row: r, column: supplier_ }).data())
                                                     .then(doc => {
                                                         let items = doc.supplier_site_list
@@ -521,7 +519,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                             //FILTER COUSTOMER SITE AS PER COUSTOMER FILED
                                             if ($('#myTable').DataTable().cell(this).index().column == coustomer__site) {
                                                 let cell = $('#myTable').DataTable().cell("td.active")
-                                                let r = cell.index().row
+                                                let r = $('#myTable').DataTable().cell(this).index().row
                                                 frappe.db.get_doc('Customer', table.cell({ row: r, column: coustomer_ }).data())
                                                     .then(doc => {
                                                         let items = doc.site_list
@@ -567,7 +565,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                         })
 
                                         //DROP DOWN FUNCTION AND SCROLL FOR SUGGESTION BOX --start--
-                                        $("#body").find("tbody").on('keydown', '[contenteditable]', '#myTable', function(e) {
+                                        $("#body").find("tbody").on('keydown click', '[contenteditable]', '#myTable', function(e) {
                                                 // console.log('keypressed')
                                                 var pos = this.getBoundingClientRect();
                                                 if (e.which != 40 && e.which != 38 && e.which != 13) { //not equal to up,down,and enterkey condition will working
@@ -588,7 +586,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     a ?
                                                         a.innerHTML == "Close" ? //if close  pressed in suggestion box no changes will done
                                                         cell.data('').draw() :
-                                                        cell.index().column == driver_ || cell.index().column == supplier_ || cell.index().column == supplier__site || cell.index().column == supplier_partner || cell.index().column == supplier_uom || cell.index().column == sales__person || cell.index().column == coustomer_ || cell.index().column == coustomer__site || cell.index().column == item_ || cell.index().column == uom_ || cell.index().column == coustomer__rate__type || cell.index().column == gst_p_ ?
+                                                        cell.index().column == driver_ || cell.index().column == supplier_ || cell.index().column == supplier__site || cell.index().column == supplier_partner || cell.index().column == supplier_uom || cell.index().column == sales__person || cell.index().column == coustomer_ || cell.index().column == coustomer__site || cell.index().column == gst_selection_ || cell.index().column == item_ || cell.index().column == uom_ || cell.index().column == coustomer__rate__type || cell.index().column == gst_p_ ?
                                                         cell.data(a.innerHTML).draw() : //above condition true value return into td
                                                         '' :
                                                         ''
