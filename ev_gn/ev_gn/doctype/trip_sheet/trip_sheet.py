@@ -118,7 +118,8 @@ def create_sales_invoice_and_delivery_challan(self, data, gst_template , rent, c
 	"tax_invoice_number":data.invoice_no,
 	"vehicle_number":self.vehicle,
 	"site":data.customer_site,
-	"total_amount":sales_invoice.base_total,
+	"total_amount":sales_invoice.base_net_total,
+	# "total_amount":sales_invoice.base_total,
 	"total_tax":sales_invoice.base_total_taxes_and_charges,
 	"total_value":sales_invoice.base_rounded_total,
 	"sales_taxes_and_charges": [{
