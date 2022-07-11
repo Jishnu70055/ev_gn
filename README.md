@@ -1,6 +1,6 @@
 ## Ev Gn
 
-sda
+Evergreen Erp software build with Erpnext.
 
 #### License
 
