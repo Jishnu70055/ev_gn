@@ -16,6 +16,7 @@ app_license = "MIT"
 # app_include_css = "/assets/ev_gn/css/ev_gn.css"
 # app_include_js = "/assets/ev_gn/js/ev_gn.js"
 
+
 # include js, css files in header of web template
 # web_include_css = "/assets/ev_gn/css/ev_gn.css"
 # web_include_js = "/assets/ev_gn/js/ev_gn.js"
@@ -32,9 +33,10 @@ app_license = "MIT"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+# doctype_list_js = {"doctype" : "public/js/doctype.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
+
 
 # Home Pages
 # ----------
@@ -187,7 +189,7 @@ doc_events = {
 # ]
 
 # fixtures = ["Custom Field","Client Script","Property Setter", "Role", "Custom DocPerm"]
-fixtures = ["Report","Property Setter","Client Script","Print Format","Letter Head"]
+fixtures = ["Report"]
 # fixtures = [
 # 	{"dt": "Client Script",
 # 	"filters": [["dt", "in", "Vehicle"]]}
