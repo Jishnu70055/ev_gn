@@ -154,7 +154,6 @@ def create_sales_invoice_and_delivery_challan(self, data, gst_template , rent, c
 	delivery_challan.submit()
 	return sales_invoice.name
 
-
 def create_purchase_invoice(supplier, site, rate, quantity, amount, trip, date, item, uom, vehicle, name):
 	purchase_invoice = frappe.get_doc({
 		"doctype":"Purchase Invoice",
