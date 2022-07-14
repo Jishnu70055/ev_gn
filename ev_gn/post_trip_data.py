@@ -7,7 +7,6 @@ from frappe.exceptions import FileAlreadyAttachedException
 
 @frappe.whitelist()
 def post_data(arg1=None, arg2=None, arg3=None ,arg4 = None):
-    print("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
     from datetime import datetime
     print(arg3)
     date_obj=arg2
