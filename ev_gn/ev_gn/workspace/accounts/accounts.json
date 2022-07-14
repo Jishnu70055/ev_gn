@@ -187,9 +187,18 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payable Summary",
+   "link_to": "Payable Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-04-06 13:21:26.621356",
+ "modified": "2022-07-14 10:28:09.107789",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Accounts",
