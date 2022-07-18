@@ -196,9 +196,45 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Vehicle Rent Report",
+   "link_to": "Vehicle Rent Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Vehicle Balance Report",
+   "link_to": "Vehicle Balance Report3",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Vehicle Owner Report",
+   "link_to": "Vehicle Owner Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Company Share Report",
+   "link_to": "Company Share Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-07-14 10:28:09.107789",
+ "modified": "2022-07-18 09:43:46.285008",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Accounts",
