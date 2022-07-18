@@ -5508,52 +5508,6 @@
   "docstatus": 0,
   "doctype": "Report",
   "filters": [],
-  "is_standard": "Yes",
-  "javascript": null,
-  "json": null,
-  "letter_head": null,
-  "modified": "2022-01-20 11:19:37.427335",
-  "module": "Ev Gn",
-  "name": "Vehicle Balance Report2",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "prepared_report": 0,
-  "query": "SELECT \n    `tabTrip Details`.total AS \"Vehicle Rent\", `tabPurchase Invoice`.supplier, \n    `tabTrip Details`.net_total AS \"Net Total\",\n    `tabTrip Details`.bata_amount AS \"Bata Amount\",\n    MONTHNAME(`tabTrip Sheet`.date) AS \"Month in tripsheet\", \n    YEAR(`tabTrip Sheet`.date) AS \"Year In Trip Sheet\" \nFROM \n    `tabTrip Sheet`\nINNER JOIN \n    `tabTrip Details` ON `tabTrip Sheet`.name = `tabTrip Details`.parent\nINNER JOIN\n    `tabPurchase Invoice` ON `tabPurchase Invoice`.vehicle = `tabTrip Sheet`.vehicle  \nwhere\n    `tabPurchase Invoice`.is_vehicle_purchase =1\n    \n    \n  \n\n\n\n",
-  "ref_doctype": "Trip Sheet",
-  "reference_report": null,
-  "report_name": "Vehicle Balance Report2",
-  "report_script": null,
-  "report_type": "Query Report",
-  "roles": [
-   {
-    "parent": "Vehicle Balance Report2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "tripsheet"
-   },
-   {
-    "parent": "Vehicle Balance Report2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "testrole"
-   },
-   {
-    "parent": "Vehicle Balance Report2",
-    "parentfield": "roles",
-    "parenttype": "Report",
-    "role": "Evergreen User"
-   }
-  ]
- },
- {
-  "add_total_row": 0,
-  "columns": [],
-  "disable_prepared_report": 0,
-  "disabled": 0,
-  "docstatus": 0,
-  "doctype": "Report",
-  "filters": [],
   "is_standard": "No",
   "javascript": null,
   "json": "{\"columns\":[{\"fieldname\":\"account\",\"label\":\"Account\",\"fieldtype\":\"Link\",\"options\":\"Account\",\"width\":300,\"id\":\"account\",\"name\":\"Account\",\"editable\":false,\"compareValue\":null},{\"fieldname\":\"mar_2022\",\"label\":\"2021-2022\",\"fieldtype\":\"Currency\",\"options\":\"currency\",\"width\":150,\"id\":\"mar_2022\",\"name\":\"2021-2022\",\"editable\":false,\"compareValue\":null}]}",
@@ -6363,14 +6317,14 @@
   "javascript": null,
   "json": null,
   "letter_head": null,
-  "modified": "2022-01-20 14:07:43.250846",
+  "modified": "2022-07-15 13:00:40.888189",
   "module": "Ev Gn",
   "name": "Vehicle Balance Report3",
   "parent": null,
   "parentfield": null,
   "parenttype": null,
   "prepared_report": 0,
-  "query": "SELECT \n    `tabTrip Details`.total AS \"Vehicle Rent\", `tabPurchase Invoice`.supplier, \n    SUM(`tabTrip Details`.net_total) AS \"Net Total\",\n    `tabTrip Details`.bata_amount AS \"Bata Amount\",\n    MONTHNAME(`tabTrip Sheet`.date) AS \"Month in tripsheet\", \n    YEAR(`tabTrip Sheet`.date) AS \"Year In Trip Sheet\" ,\n    SUM(`tabPurchase Invoice`.outstanding_amount) , `tabPurchase Invoice`.vehicle\nFROM \n    `tabTrip Sheet`\nINNER JOIN \n    `tabTrip Details` ON `tabTrip Sheet`.name = `tabTrip Details`.parent\nINNER JOIN\n    `tabPurchase Invoice` ON `tabPurchase Invoice`.vehicle = `tabTrip Sheet`.vehicle  \n where\n    `tabPurchase Invoice`.is_vehicle_purchase =1\n    group by `tabPurchase Invoice`.supplier\n    \n\n  \n\n\n\n",
+  "query": "select \n    a.date As \"Date\" , a.vehicle as \"Vehicle:Link/Vehicle\" ,\n    a.name as \"Trip ID:Link/Trip Sheet\" ,\n    SUM(b.total) as \"Total Vehicle Rent\",\n    SUM(b.driver_bata_amount) as \"Total Driver Bata\" , \n    SUM(c.outstanding_amount) as \"Total Vehicle Expense\" , \n    SUM(a.total) as \"Balance Vehicle Rent\" ,\n    b.purchase_invoice_id as \"P ID\" , c.name \nfrom \n    `tabTrip Sheet`a\ninner join\n    `tabTrip Details`b\non  a.name = b.parent\ninner join\n    `tabPurchase Invoice`c\non c.name = b.purchase_invoice_id\ngroup by \n    a.vehicle\n\n\n\n",
   "ref_doctype": "Trip Sheet",
   "reference_report": null,
   "report_name": "Vehicle Balance Report3",
@@ -10855,6 +10809,86 @@
    },
    {
     "parent": "Vehicle Rent Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": null,
+  "letter_head": "Evergreen Transporting",
+  "modified": "2022-07-15 14:41:23.606338",
+  "module": "HR",
+  "name": "Vehicle Owner Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": "select \n    b.date as \"Period:Link/Trip Sheet\" , b.vehicle as \"Vehicle:Link/Vehicle\" , b.total as \"Balance Vehicle Rent\",\n    c.share_holder as \"Vehicle Owner:Link/Supplier\" ,\n    c.share_percentage as \"Share Percentage\" , \n    c.share_amount as \"Share Amount\"\nfrom \n    `tabVehicle`a \ninner join\n    `tabTrip Sheet`b\non\n    a.name = b.vehicle\ninner join \n    `tabVehicle Owner` c\non a.name = c.parent\ngroup by\n    b.date",
+  "ref_doctype": "Vehicle",
+  "reference_report": null,
+  "report_name": "Vehicle Owner Report",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "Vehicle Owner Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Fleet Manager"
+   },
+   {
+    "parent": "Vehicle Owner Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Evergreen User"
+   }
+  ]
+ },
+ {
+  "add_total_row": 0,
+  "columns": [],
+  "disable_prepared_report": 0,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": null,
+  "letter_head": "Evergreen Transporting",
+  "modified": "2022-07-15 15:00:43.220428",
+  "module": "Ev Gn",
+  "name": "Company Share Report",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "prepared_report": 0,
+  "query": "select\n    a.date as \"Period\" ,\n    a.vehicle as \"Vehicle:Link/Vehicle\" ,\n    d.net_frc as \"Net FRC Amount:Link/Trip Sheet\" ,\n    c.share_holder as \"Share Holder:Link/Supplier\" ,\n    c.share_percentage as \"Share Percentage\" ,\n    c.share_amount as \"Share Amount\"\n    \nfrom `tabTrip Sheet`a\ninner join\n    `tabVehicle`b\non\n    a.vehicle = b.name\ninner join \n    `tabVehicle Owner`c\non b.name = c.parent\ninner join\n    `tabTrip Details`d\non a.name = d.parent\ngroup by\n    a.date",
+  "ref_doctype": "Trip Sheet",
+  "reference_report": null,
+  "report_name": "Company Share Report",
+  "report_script": null,
+  "report_type": "Query Report",
+  "roles": [
+   {
+    "parent": "Company Share Report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "System Manager"
+   },
+   {
+    "parent": "Company Share Report",
     "parentfield": "roles",
     "parenttype": "Report",
     "role": "Evergreen User"
