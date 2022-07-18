@@ -14,7 +14,7 @@ app_license = "MIT"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/ev_gn/css/ev_gn.css"
-# app_include_js = "/assets/ev_gn/js/ev_gn.js"
+app_include_js = "/assets/ev_gn/js/print_head.js"
 
 
 # include js, css files in header of web template
@@ -33,7 +33,7 @@ app_license = "MIT"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype.js"}
+doctype_list_js = {"doctype" : "public/js/print_head.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
