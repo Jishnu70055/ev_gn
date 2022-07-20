@@ -289,48 +289,14 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
 
                                         //KEY PRESS ,PASTE ,INPUT ,FOCUS EVENT ARE WORKING IN TD IN TABLE THE BELOW CODE WORKING --start--
                                         $("#body").find("tbody").on(' keypress paste input focus', '[contenteditable]', 'td', function(e) {
-                                            // class ScrollToggle {
-                                            //     constructor(element) {
-                                            //         this.container = element;
-                                            //         this.toggles = this.container.querySelectorAll(e);
-                                            //         this.list = this.container.querySelector('tr');
-                                            //         this.listItems = this.list.querySelectorAll('.td.active')
-                                            //         this.scrollValue = 0;
-                                            //     }
-                                            //     init() {
-                                            //         this.toggles.forEach(toggle => {
-                                            //             toggle.addEventListener('mousedown', (e) => {
-                                            //                 this.move(e.target);
-                                            //             })
-                                            //             toggle.addEventListener('mouseup', (e) => {
-                                            //                 this.stop();
-                                            //             })
-                                            //         })
-                                            //     }
-                                            //     move(target) {
-                                            //         if (target.classList.contains('scroll-toggle__button--right')) {
-                                            //             this.interval = setInterval(() => {
-                                            //                 this.list.scrollLeft += 1;
-                                            //             }, 1);
-                                            //         } else {
-                                            //             this.interval = setInterval(() => {
-                                            //                 this.list.ScrollLeft = this.scrollValue;
-                                            //                 this.list.scrollLeft -= 1;
-                                            //             }, 1);
-                                            //         }
-                                            //     }
-                                            //     stop() {
-                                            //         if (this.list.scrollLeft > 0) {
-                                            //             this.scrollValue = this.list.scrollLeft;
-                                            //         }
-                                            //         clearInterval(this.interval);
-                                            //     }
-                                            // }
 
-                                            // document.querySelectorAll('#mytable').forEach(el => {
-                                            //     const scrollToggle = new ScrollToggle(el);
-                                            //     scrollToggle.init();
-                                            // })
+                                            // console.log('still one 178', $(this)[0].offsetLeft - $(window)[0].innerWidth)
+                                            let m = $(this)[0].offsetLeft - $(window)[0].innerWidth
+                                            if (m > 0) {
+
+                                                document.getElementById('myTable').scrollTo($(this)[0].offsetLeft - 250, 0)
+                                            }
+
 
                                             totalrow = $('#myTable').DataTable().cell(this).index().row //find totalrow in table
                                                 //Get value of TD
@@ -615,9 +581,23 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                                 rows.push("");
 
                                                             }
-                                                            table.row.add(rows).draw(true);
-                                                            $("#body").find("td.active").next().show().focus();
-                                                            $(`#myTable tr:nth-child(${r + 2}) td:nth-child(${supplier_ + 1})`).show().focus() //focus to supplier coloumn 
+                                                            // table.row.add(rows).draw(true);
+                                                            // $("#body").find("td.active").next().show().focus();
+
+                                                            if ($(`#myTable tr:nth-child(${r + 1}) td:nth-child(${net_vehicle_balance + 1})`)[0].classList.contains('bg-success')) {
+                                                                console.log('sucess if conditon check')
+                                                                    // $("#body").find("td.active").next().show().focus();
+                                                                $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${net_vehicle_balance + 1})`).removeClass('bg-success')
+                                                                table.row.add(rows).draw(true);
+                                                                $(`#myTable tr:nth-child(${r + 2}) td:nth-child(${item_ + 1})`).show().focus() //focus to supplier coloumn 
+
+                                                            } else {
+                                                                console.log('sucess if conditon check failed')
+
+                                                                $(`#myTable tr:nth-child(${r + 1}) td:nth-child(${net_vehicle_balance + 1})`).addClass('bg-success') //focus to supplier coloumn 
+                                                                $("#body").find("td.active").show().focus(); // set focus next TD related to 'active class'
+
+                                                            }
                                                             default_driver()
                                                         }
                                                     }
@@ -877,7 +857,11 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                                                     let customer_qty = table.cell({ row: row, column: coustomer__qty }).data() ? parseFloat(table.cell({ row: row, column: coustomer__qty }).data()) : 1
                                                     console.log('customer_rate', coustomer_rate)
                                                     console.log('cusomer_qty', customer_qty)
-                                                    let customer__total_ = coustomer_rate * customer_qty
+                                                    let customer__total_ = ''
+                                                    table.cell({ row: r, column: coustomer__rate__type }).data() == "Rate" ?
+                                                        customer__total_ = coustomer_rate * customer_qty :
+                                                        customer__total_ = coustomer_rate
+
                                                     let customer_total = customer__total_ - customer__total_ / 1.05
                                                     console.log('cusotmer__total  ==>', customer__total_)
                                                     console.log('cusotmer__total is -->', customer_total)
@@ -1250,8 +1234,7 @@ frappe.pages['daily-trip'].on_page_load = function(wrapper) {
                 // Save it!
                 row.remove();
 
-                table
-                    .draw();
+                table.draw();
             } else {
                 // Do nothing!
                 console.log('row deletion canceled');
