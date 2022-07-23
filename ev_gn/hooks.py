@@ -200,5 +200,11 @@ fixtures = ["Report"]
 doc_events = {
 	"Vehicle": {
 		"validate": "ev_gn.post_trip_data.vehicle_share_validation"
+	},
+	"Customer":{
+		"validate": "ev_gn.post_trip_data.customer_mobile_validation"
+	},
+	"Supplier":{
+		"validate": "ev_gn.post_trip_data.customer_mobile_validation"
 	}
 }

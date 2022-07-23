@@ -143,3 +143,9 @@ def vehicle_share_validation(doc,event):
         pass
     else:
         frappe.throw("Share Percentage Not Equals to 100")
+
+def customer_mobile_validation(doc, event):
+    if len(doc.phone_number) == 10:
+        pass
+    else:
+        frappe.throw("Length Of Mobile Number Should 10")
