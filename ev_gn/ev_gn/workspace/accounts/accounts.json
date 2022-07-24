@@ -24,6 +24,24 @@
    "type": "Link"
   },
   {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "GST Sales Register",
+   "link_to": "GST Sales Register",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "GST Purchase Register",
+   "link_to": "GST Purchase Register",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
    "dependencies": "Sales Invoice",
    "hidden": 0,
    "is_query_report": 1,
@@ -42,14 +60,6 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Trip Reports",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
   },
   {
    "dependencies": "",
@@ -81,6 +91,33 @@
   },
   {
    "hidden": 0,
+   "is_query_report": 1,
+   "label": "General Ledger",
+   "link_to": "General Ledger",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Statement Of Account",
+   "link_to": "Statement Of Accounts",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Trip Reports",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "Sales Invoice",
+   "hidden": 0,
    "is_query_report": 0,
    "label": "Sales Report",
    "link_to": "Sales Report",
@@ -89,6 +126,7 @@
    "type": "Link"
   },
   {
+   "dependencies": "Purchase Invoice",
    "hidden": 0,
    "is_query_report": 0,
    "label": "Purchase Report",
@@ -98,6 +136,7 @@
    "type": "Link"
   },
   {
+   "dependencies": "Trip Sheet",
    "hidden": 0,
    "is_query_report": 0,
    "label": "Driver Bata Report",
@@ -108,6 +147,7 @@
    "type": "Link"
   },
   {
+   "dependencies": "Payment Entry",
    "hidden": 0,
    "is_query_report": 0,
    "label": "Payment Report",
@@ -117,28 +157,11 @@
    "type": "Link"
   },
   {
+   "dependencies": "Trip Sheet",
    "hidden": 0,
    "is_query_report": 0,
    "label": "Total Trip Report",
    "link_to": "Total Trip Report",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "GST Sales Register",
-   "link_to": "GST Sales Register",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "GST Purchase Register",
-   "link_to": "GST Purchase Register",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
@@ -153,6 +176,7 @@
    "type": "Link"
   },
   {
+   "dependencies": "Sales Invoice",
    "hidden": 0,
    "is_query_report": 0,
    "label": "Recievable Summary",
@@ -162,6 +186,7 @@
    "type": "Link"
   },
   {
+   "dependencies": "Purchase Invoice",
    "hidden": 0,
    "is_query_report": 0,
    "label": "Company Expense Report",
@@ -171,6 +196,7 @@
    "type": "Link"
   },
   {
+   "dependencies": "Trip Sheet",
    "hidden": 0,
    "is_query_report": 0,
    "label": "FRC Report",
@@ -180,15 +206,7 @@
    "type": "Link"
   },
   {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "General Ledger",
-   "link_to": "General Ledger",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
+   "dependencies": "Purchase Invoice",
    "hidden": 0,
    "is_query_report": 0,
    "label": "Payable Summary",
@@ -198,8 +216,18 @@
    "type": "Link"
   },
   {
+   "dependencies": "Trip Sheet",
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Vehicle Rent Report",
+   "link_to": "Vehicle Rent Report",
+   "link_type": "Report",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
    "label": "Vehicle Balance Report",
    "link_to": "Vehicle Balance Report",
    "link_type": "Report",
@@ -208,16 +236,7 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
-   "label": "Vehicle Rent Report",
-   "link_to": "Vehicle Rent Report",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Vehicle Owner Report",
    "link_to": "Vehicle Owner Report",
    "link_type": "Report",
@@ -226,24 +245,15 @@
   },
   {
    "hidden": 0,
-   "is_query_report": 0,
+   "is_query_report": 1,
    "label": "Company Share Report",
    "link_to": "Company Share Report",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Statement Of Account",
-   "link_to": "Statement Of Accounts",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
   }
  ],
- "modified": "2022-07-23 19:46:55.006665",
+ "modified": "2022-07-24 14:01:48.755868",
  "modified_by": "Administrator",
  "module": "Ev Gn",
  "name": "Accounts",
